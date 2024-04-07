@@ -1,0 +1,78 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0308
+header_name {.h}
+code_name {.cxx}
+decl {\#include "Main.h"} {public global
+}
+
+Function {make_window()} {open
+} {
+  Fl_Window game_window {
+    label Game open
+    xywh {0 31 1920 1008} type Double visible
+  } {
+    Fl_Pack {} {open
+      xywh {0 0 1920 1130} type HORIZONTAL
+    } {
+      Fl_Group {} {
+        label Player open
+        xywh {0 50 288 1080}
+      } {
+        Fl_Group {} {
+          label Stats open
+          xywh {0 62 288 200}
+        } {
+          Fl_Output hp_input {
+            label HP
+            xywh {60 62 50 50} box ENGRAVED_FRAME
+          }
+          Fl_Output str_input {
+            label STR
+            xywh {60 112 50 50} box ENGRAVED_FRAME
+          }
+          Fl_Output dex_input {
+            label DEX
+            xywh {160 112 50 50} box ENGRAVED_FRAME
+          }
+          Fl_Output con_input {
+            label CON
+            xywh {60 162 50 50} box ENGRAVED_FRAME
+          }
+          Fl_Output int_input {
+            label INT
+            xywh {160 162 50 50} box ENGRAVED_FRAME
+          }
+          Fl_Output wis_input {
+            label WIS
+            xywh {60 212 50 50} box ENGRAVED_FRAME
+          }
+          Fl_Output cha_input {
+            label CHA
+            xywh {160 212 50 50} box ENGRAVED_FRAME
+          }
+          Fl_Output ac_input {
+            label AC
+            xywh {160 62 50 50} box ENGRAVED_FRAME
+          }
+        }
+        Fl_Browser ItemInventory {
+          label Inventory
+          xywh {10 315 200 600} box DOWN_BOX labelfont 1
+        }
+      }
+      Fl_Group map_group {
+        label Map
+        xywh {288 0 1344 1026}
+      } {}
+      Fl_Group enemies_group {
+        label Enemies open
+        xywh {1632 0 288 1030}
+      } {
+        Fl_Browser turn_order {
+          label {Turn Order}
+          xywh {1655 599 231 300} labelfont 1
+        }
+      }
+    }
+  }
+}

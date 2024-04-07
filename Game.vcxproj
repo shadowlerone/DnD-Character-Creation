@@ -11,7 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\gui.cxx" />
     <ClCompile Include="Game\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game\gui.h" />
+    <ClInclude Include="Game\Main.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -64,7 +69,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)cppunit-1.12.1\include;D:\Desktop\DnD-Character-Creation\GUI;D:\Desktop\DnD-Character-Creation\ProjectSourceCode;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Game;$(SolutionDir)cppunit-1.12.1\include;$(SolutionDir)GUI\;$(SolutionDir)ProjectSourceCode\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -452,6 +452,8 @@ namespace Character {
 		* Vector array corresponding to a character's ability scores. Can be indexed using int/'Abilities' enum
 		*/
 		std::vector<int> ability_scores = std::vector<int>(6);
+
+		// int _str, int 
 		int max_hit_points{ 0 };
 		int hit_points{ 0 };
 
