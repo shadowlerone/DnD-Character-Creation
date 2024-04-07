@@ -20,32 +20,6 @@ using namespace door;
 
 int main()
 {
-	/* // Get the top level suite from the registry
-	Test *suite = TestFactoryRegistry::getRegistry().makeTest();
-
-	// Adds the test to the list of test to run
-	TextUi::TestRunner runner;
-	runner.addTest(suite);
-
-	// Change the default outputter to a compiler error format outputter
-	runner.setOutputter(new CompilerOutputter(&runner.result(),
-											  std::cerr));
-	// Run the tests.
-	bool wasSucessful = runner.run();
-
-	// Return error code 1 if the one of test failed.
-	if (!wasSucessful)
-	{
-		return 1;
-	} */
-
-	MainMenu *m = new MainMenu();
-	m->show();
-
-	Fl::run();
-
-	return 0;
-	getchar();
 
 	// hardcode maps and campaing here
 	// creare player Character
