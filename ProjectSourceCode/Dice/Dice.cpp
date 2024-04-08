@@ -53,7 +53,7 @@ int Dice::roll() {
 	std::ostringstream logMessage;
 	logMessage << "[Dice/roll] -- Rolled " << result << " for " << die_sides << "-sided die " << leading_multiplier << " times.";
 	CreateObserverMessage(logMessage.str());
-
+	last_roll = result;
 	return result;
 }
 Dice::Dice() {
@@ -98,16 +98,20 @@ int Dice::roll(std::string query) {
 }
 
 int Dice::roll_with_advantage() {
-	int r1, r2;
+	int r1, r2, r;
 	r1 = roll();
 	r2 = roll();
-	return std::max(r1,r2);
+	r = std::max(r1,r2);
+	last_roll = r;
+	return r;
 }
 int Dice::roll_with_disadvantage() {
-	int r1, r2;
+	int r1, r2, r;
 	r1 = roll();
 	r2 = roll();
-	return std::min(r1,r2);
+	r= std::min(r1,r2);
+	last_roll = r;
+	return r;
 }
 
 

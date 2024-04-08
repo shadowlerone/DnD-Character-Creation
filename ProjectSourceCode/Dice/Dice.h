@@ -123,6 +123,8 @@ class Dice : public Observable {
 		* @return number to add after roll
 		*/
 		int get_addition();
+
+		int get_last_roll() {return last_roll;}
 	private:
 		static inline std::vector<Observer*> observers;
 
@@ -140,6 +142,8 @@ class Dice : public Observable {
 		* @brief value to add after rolling
 		*/
 		int addition=0;
+
+		int last_roll=0;
 };
 
 #endif

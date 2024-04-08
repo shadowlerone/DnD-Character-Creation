@@ -6,6 +6,7 @@
 
 #include "Game/game.h"
 #include "MainMenu.h"
+#include "Main.h"
 #include "Character/Character.h"
 #include "Interactable/Wall.h"
 #include "Game/gamelogger.h"
@@ -13,21 +14,64 @@
 #include <iostream>
 #include "gui.h"
 
+
+
+
+/* #include <FL/Fl.H>
+#include <FL/Fl_Double_Window.H>
+extern Fl_Double_Window *game_window;
+#include <FL/Fl_Pack.H>
+#include <FL/Fl_Group.H>
+#include <FL/Fl_Output.H>
+extern Fl_Output *hp_input;
+extern Fl_Output *str_input;
+extern Fl_Output *dex_input;
+extern Fl_Output *con_input;
+extern Fl_Output *int_input;
+extern Fl_Output *wis_input;
+extern Fl_Output *cha_input;
+extern Fl_Output *ac_input;
+#include <FL/Fl_Browser.H>
+extern Fl_Browser *ItemInventory;
+extern Fl_Group *map_group;
+extern Fl_Group *enemies_group;
+extern Fl_Browser *turn_order;
+Fl_Double_Window* make_window();
+extern Fl_Double_Window *dice_window;
+#include <FL/Fl_Return_Button.H>
+extern Fl_Return_Button *dice_button;
+#include <FL/Fl_Box.H>
+extern Fl_Box *dice_value_output;
+Fl_Double_Window* roll_dice(); */
+
+Dice* dice;
 // using namespace CampaignEditor;
 using namespace gamelogger;
 using namespace game;
+
+// Fl_Double_Window* MainWindow = make_window();
+// Fl_Double_Window* DiceWindow = roll_dice();
+
 int main()
 {
-	Fl::lock();
-	Fl_Double_Window *w = make_window();
-	w->show();
+	// setting up screens
+	make_window();
+	roll_dice();
+	// Fl::lock();
+	// Fl_Double_Window *w = make_window();
+	// w->show();
+	// dice = new Dice("1d20");
 
+	// DiceWindow->show();
+	// Game g = Game();
+	// currentGame->Attach(gameLogger);
 
-	Game g = Game();
-	std::thread thread_obj(&Game::run, &g);
+	// g.Attach(w);
+	// std::thread thread_obj(&Game::run, &g);
 
 	// g.run();
-
+	game_window->fullscreen();
+	game_window->show();
 	// thread_obj.join();
 	Fl::run();
 	return 0;

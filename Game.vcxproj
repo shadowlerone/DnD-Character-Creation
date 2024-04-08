@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\animations.cpp" />
     <ClCompile Include="Game\gui.cxx" />
     <ClCompile Include="Game\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Combat.h" />
     <ClInclude Include="Game\gui.h" />
     <ClInclude Include="Game\Main.h" />
   </ItemGroup>

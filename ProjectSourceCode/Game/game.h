@@ -99,7 +99,7 @@ namespace game
 			}
 		};
 
-		void Attach(Fl_Double_Window* window) { this->window = window; };
+		void Attach(Fl_Double_Window *window) { this->window = window; };
 
 		std::vector<Observer *> GetObservers() { return observers; };
 
@@ -130,9 +130,20 @@ namespace game
 		// Essentially use this to update the game data based on an action taken by the player or an NPC
 		void EndTurn(const std::string &, const int &, const int &);
 
+		/*!
+		 * \param attacking_character attacking character
+		 * \param defending_character defending character
+		 */
+		void Combat(Character::Character *attacking_character, Character::Character *defending_character);
+
 		void PrintActionMenu(Character::Character *);
 		void GetUserSelection(char &t_selection);
 		void ProcessUserAction(const char &t_selection, Character::Character *t_playerCharacter);
+
+		void RemoveCharacterFromMap(Character::Character *c)
+		{
+			charactersInMap.erase(std::remove(charactersInMap.begin(), charactersInMap.end(), c), charactersInMap.end());
+		}
 
 	private:
 		/*!
@@ -150,6 +161,7 @@ namespace game
 		Campaign *gameCampaign;
 
 		Character::Character *activeCharacter;
+		Character::Character *playerCharacter;
 		Map::Map *currentMap;
 		std::vector<Character::Character *> charactersInMap;
 
@@ -157,6 +169,6 @@ namespace game
 		std::vector<ItemContainer *> ItemContainerDatabase;
 		std::vector<Map::Map *> MapDatabase;
 		std::vector<Character::Character *> characterDatabase;
-		Fl_Double_Window * window;
+		Fl_Double_Window *window;
 	};
 }

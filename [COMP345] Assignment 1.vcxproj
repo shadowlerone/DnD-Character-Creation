@@ -64,7 +64,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game\gui.cxx" />
     <ClCompile Include="GUI\BaseEditor.cpp" />
     <ClCompile Include="GUI\CampaignEditor.cpp" />
     <ClCompile Include="GUI\ItemEditor.cpp" />
@@ -106,8 +105,6 @@
     <ClCompile Include="ProjectSourceCode\Test\testgamelogger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\gui.h" />
-    <ClInclude Include="Game\Main.h" />
     <ClInclude Include="GUI\BaseEditor.h" />
     <ClInclude Include="GUI\BaseViewer.h" />
     <ClInclude Include="GUI\CampaignEditor.h" />

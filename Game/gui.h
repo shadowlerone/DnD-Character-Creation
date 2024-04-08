@@ -23,4 +23,12 @@ extern Fl_Group *map_group;
 extern Fl_Group *enemies_group;
 extern Fl_Browser *turn_order;
 Fl_Double_Window* make_window();
+extern Fl_Double_Window *dice_window;
+#include <FL/Fl_Return_Button.H>
+extern Fl_Return_Button *dice_button;
+#include <FL/Fl_Box.H>
+extern Fl_Box *dice_value_output;
+Fl_Double_Window* roll_dice();
+void combat(Character::Character* c1, Character::Character* c2);
+extern Dice * dice;
 #endif
