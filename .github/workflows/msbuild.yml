@@ -34,12 +34,8 @@ jobs:
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
-    - name: Export GitHub Actions cache environment variables
-      uses: actions/github-script@v6
-      with:
-      script: |
-        core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
-        core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+
+    
     - name: Restore vcpkg packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: vcpkg integrate install
