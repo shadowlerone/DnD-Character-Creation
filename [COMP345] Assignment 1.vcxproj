@@ -35,6 +35,7 @@
     <OutDir>$(SolutionDir)$(Configuration)\Project</OutDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
+    <!-- <VcpkgEnableManifest>true</VcpkgEnableManifest> -->
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

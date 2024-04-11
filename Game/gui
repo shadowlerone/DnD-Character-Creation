@@ -8,8 +8,8 @@ decl {\#include "Main.h"} {public local
 Function {make_window()} {open
 } {
   Fl_Window game_window {
-    label Game open selected
-    xywh {0 31 1920 1008} type Double align 80 visible
+    label Game open
+    xywh {0 0 1920 1080} type Double align 80 visible
   } {
     Fl_Group {} {open
       xywh {25 25 15 15}
@@ -60,13 +60,12 @@ Function {make_window()} {open
           xywh {15 320 200 600} box DOWN_BOX labelfont 1 align 1
         }
       }
-      Fl_Group map_group {
-        label Map
-        xywh {293 5 1344 1026}
+      Fl_Group map_group {open selected
+        xywh {288 0 1350 1080} box EMBOSSED_BOX color 0
       } {}
       Fl_Group enemies_group {
         label Enemies
-        xywh {1637 5 288 1030} box GTK_THIN_UP_BOX color 22
+        xywh {1637 50 288 1030} box GTK_THIN_UP_BOX color 22
       } {
         Fl_Browser turn_order {
           label {Turn Order}

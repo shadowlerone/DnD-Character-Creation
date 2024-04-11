@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <FL/Fl.H>
 #include "Game/game.h"
 #include "MainMenu.h"
 #include "Interactable/Wall.h"
