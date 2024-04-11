@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include <FL/Fl.H>
 #include "Game/game.h"
 #include "MainMenu.h"
 #include "Main.h"
