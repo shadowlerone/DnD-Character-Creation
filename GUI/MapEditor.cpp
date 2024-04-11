@@ -5,7 +5,7 @@
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Return_Button.H>
 #include "MapEditor.h"
-#include "MapSerializer.h"
+//#include "MapSerializer.h"
 #include "../ProjectSourceCode/Interactable/Interactable.h"
 #include "../ProjectSourceCode/Interactable/Wall.h"
 #include "../ProjectSourceCode/Interactable/EmptyCell.h"

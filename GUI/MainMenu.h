@@ -8,7 +8,7 @@
 #include "ItemEditor.h"
 #include "MapEditor.h"
 #include "CampaignEditor.h"
-#include "MapSerializer.h"
+//#include "MapSerializer.h"
 #include "CharacterEditor.h"
 #include <filesystem>
 #include <fstream>
