@@ -11,14 +11,14 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{ea5958e6-0f72-4c74-88e1-aa190e7ea305}</ProjectGuid>
     <RootNamespace>COMP345Assignment1</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>[COMP345]Project</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -70,7 +70,6 @@
     <ClCompile Include="GUI\MainMenu.cpp" />
     <ClCompile Include="GUI\MapCellButton.cpp" />
     <ClCompile Include="GUI\MapEditor.cpp" />
-    <ClCompile Include="GUI\MapSerializer.cpp" />
     <ClCompile Include="GUI\MapViewWindow.cpp" />
     <ClCompile Include="ProjectSourceCode\Demo\demoitem.cpp" />
     <ClCompile Include="ProjectSourceCode\Demo\DiceDemo.cpp" />
@@ -113,7 +112,6 @@
     <ClInclude Include="GUI\ItemEditor.h" />
     <ClInclude Include="GUI\MainMenu.h" />
     <ClInclude Include="GUI\MapEditor.h" />
-    <ClInclude Include="GUI\MapSerializer.h" />
     <ClInclude Include="GUI\MapViewWindow.h" />
     <ClInclude Include="ProjectSourceCode\Demo\demoitem.h" />
     <ClInclude Include="ProjectSourceCode\Demo\DiceDemo.h" />
