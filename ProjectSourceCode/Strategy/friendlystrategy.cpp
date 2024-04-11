@@ -45,6 +45,7 @@ namespace friendlystrategy {
             Interactable::Interactable* valueAtCell = _currentMap[rowToCheck - 1][colToCheck - 1];
             CellActionInfo actionInfo;
             
+            //NPC friendly can only move towards player
             if (dynamic_cast<Wall*>(valueAtCell) || dynamic_cast<Character::Character*>(valueAtCell) || dynamic_cast<ItemContainer*>(valueAtCell)) {
                 actionInfo.row = rowToCheck;
                 actionInfo.col = colToCheck;

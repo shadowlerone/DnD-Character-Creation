@@ -45,6 +45,7 @@ namespace aggressorstrategy {
             Interactable::Interactable* valueAtCell = _currentMap[rowToCheck - 1][colToCheck - 1];
             CellActionInfo actionInfo;
             
+            //NPC enemy only needs to know if the cells around it are: wall (can't pass), a character (attack), empty (can move there)
             if (dynamic_cast<Wall*>(valueAtCell) || dynamic_cast<ItemContainer*>(valueAtCell)) {
                 actionInfo.row = rowToCheck;
                 actionInfo.col = colToCheck;

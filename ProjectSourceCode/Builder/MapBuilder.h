@@ -4,7 +4,6 @@
 
 // using namespace std; // can't be used with GUI
 
-
 namespace MapBuilder {
 
 	class MapBuilder {

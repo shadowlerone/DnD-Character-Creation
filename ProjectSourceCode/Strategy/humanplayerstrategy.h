@@ -17,13 +17,15 @@ using namespace characteractionstrategy;
 namespace humanplayerstrategy {
     /*!
     * \class HumanPlayerStrategy
-    * \brief Class that implements the CharacterActionStrategy interface
+    * \brief Class that implements the CharacterActionStrategy interface.
     */
     class HumanPlayerStrategy : public CharacterActionStrategy {
+
+    // HumanPlayerStrategy lets the user decide where to move, who to attack, and what free actions to take;
         public:
             /*!
             * \fn UseMovementStrategy
-            * \brief Overriden function that establishes the posible actions a player may take in the cardinal directions of their current position
+            * \brief Overriden function that establishes the possible actions a player may take in the cardinal directions of their current position
             * 
             * \param _currentMap A 2D grid that represents the map the character finds themselves in
             * \param _row Integer that represents the current row index of the character location
