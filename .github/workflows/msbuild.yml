@@ -15,7 +15,7 @@ env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: "[COMP345]Project.sln"
 
-  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+  # VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
 
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
