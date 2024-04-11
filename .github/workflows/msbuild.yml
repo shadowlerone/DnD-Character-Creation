@@ -15,6 +15,8 @@ env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: "[COMP345]Project.sln"
 
+  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
@@ -32,6 +34,12 @@ jobs:
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
+    - name: Export GitHub Actions cache environment variables
+      uses: actions/github-script@v6
+      with:
+      script: |
+        core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+        core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
     - name: Restore vcpkg packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: vcpkg integrate install
