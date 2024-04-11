@@ -2,18 +2,18 @@
 #include <list>
 #include <queue>
 #include <regex>
-#include <stack>
-#include <vector>
-#include <string>
 #include <sstream>
+#include <stack>
+#include <string>
+#include <vector>
 
-#include "Map.h"
 #include "..\Character\Character.h"
+#include "..\Door\door.h"
 #include "..\Interactable\EmptyCell.h"
 #include "..\Interactable\Interactable.h"
-#include "..\Item\item.h"
 #include "..\Interactable\Wall.h"
-#include "..\Door\door.h"
+#include "..\Item\item.h"
+#include "Map.h"
 
 using namespace door;
 
@@ -26,7 +26,7 @@ void Map::Map::Notify() {
 
 void Map::Map::CreateObserverMessage(std::string _message = "Empty") {
 	observerMessage = _message;
-	
+
 	Notify();
 }
 
@@ -65,19 +65,20 @@ void Map::Map::setCols(int cols)
 	this->cols = cols;
 }
 
-void Map::Map::setEndCell(int row, int col) {
+void Map::Map::setEndCell(int row, int col)
+{
+	this->setEmpty(row, col);
 	this->endCell[0] = row;
 	this->endCell[1] = col;
 	//if its the end cell, it has to be empty
-	this->setEmpty(row, col);
 }
 
 void Map::Map::setStartCell(int row, int col)
 {
+	this->setEmpty(row, col);
 	this->startCell[0] = row;
 	this->startCell[1] = col;
 	//if its the starting cell, it has to be empty
-	this->setEmpty(row, col);
 }
 
 void Map::Map::setGrid() {
@@ -114,13 +115,13 @@ void Map::Map::setEmpty(int row, int col) {
 void Map::Map::setWall(int row, int col) {
 
 	try {//if you are trying to put a wall on the start/end cell
-		if ((row == this->startCell[0] && col == this->startCell[1]) || (row == this->endCell[0] && col == this->endCell[1])){
+		if ((row == this->startCell[0] && col == this->startCell[1]) || (row == this->endCell[0] && col == this->endCell[1])) {
 			throw(1);
 		}
 		this->grid[row][col] = new Wall();
 	}
 	catch (...) {
-		std::cout << "Can't put a wall on the starting/ending point." <<std::endl;
+		std::cout << "Can't put a wall on the starting/ending point." << std::endl;
 	}
 }
 
@@ -198,7 +199,7 @@ bool Map::Map::IsTherePath() {
 //validate the next cell
 bool Map::Map::ValidCell(int nextRow, int nextCol, std::vector<std::vector<bool>> visited) {
 	return (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols &&
-		this->grid[nextRow][nextCol]->serialize()[0] != 'w' &&	!visited[nextRow][nextCol]);
+		this->grid[nextRow][nextCol]->serialize()[0] != 'w' && !visited[nextRow][nextCol]);
 }
 
 void Map::Map::MoveCharacter(const int& _targetX, const int& _targetY, Character::Character* _targetCharacter) {
@@ -242,7 +243,7 @@ void Map::Map::printMap()
 {
 	//print grid col cumbers
 	for (int i = 0; i < cols; i++) {
-		std::cout<<" " << i << " ";
+		std::cout << " " << i << " ";
 	}
 	std::cout << std::endl;
 	//Print top col 
@@ -271,17 +272,17 @@ void Map::Map::printMap()
 			else if (characterCell) {
 				std::cout << "N ";
 			}
-			else if(emptyCell){
+			else if (emptyCell) {
 				std::cout << "  ";
 			}
 			else if (wallCell) {
-				std::cout <<char(178) << " ";
+				std::cout << char(178) << " ";
 			}
 			else if (itemContainerCell) {
 				std::cout << "C ";
 			}
 			else if (itemCell) {
-				std::cout <<char(233) << " ";
+				std::cout << char(233) << " ";
 			}
 			else if (doorCell) {
 				std::cout << "D ";
@@ -303,7 +304,7 @@ void Map::Map::printMap()
 			std::cout << " ";
 		}
 	}
-	
+
 }
 
 void Map::Map::GetCharacterCoordinates(int& x, int& y, Character::Character* t_character)
@@ -323,7 +324,7 @@ void Map::Map::GetCharacterCoordinates(int& x, int& y, Character::Character* t_c
 
 std::vector<Character::Character*> Map::Map::GetCharactersInMap() {
 	std::vector<Character::Character*> result;
-	
+
 	for (int i = 0; i < (int)grid.size(); i++)
 	{
 		for (int j = 0; j < (int)grid[i].size(); j++)
@@ -352,7 +353,7 @@ void Map::Map::Print() {
 				std::cout << "_" << " ";
 			}
 			else {
-				std::cout << cell  << " ";
+				std::cout << cell << " ";
 			}
 			std::cout << "| ";
 		}

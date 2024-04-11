@@ -1,20 +1,19 @@
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Window.H>
-#include <FL/Fl_Int_Input.H>
-#include <FL/Fl_Scroll.H>
-#include <FL/Fl_Button.H>
-#include <FL/Fl_Return_Button.H>
-#include "MapEditor.h"
-//#include "MapSerializer.h"
 #include "../ProjectSourceCode/Interactable/Interactable.h"
 #include "../ProjectSourceCode/Interactable/Wall.h"
 #include "../ProjectSourceCode/Item/item.h"
 #include "MapEditor.h"
+#include <Builder/MapBuilder.h>
+#include <FL/Fl_Button.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Pack.H>
 #include <FL/Fl_Pack.H>
 #include <FL/Fl_Return_Button.H>
+#include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Scroll.H>
+#include <FL/Fl_Scroll.H>
+#include <FL/Fl_Window.H>
 #include <FL/Fl_Window.H>
 
 using namespace CampaignEditor;

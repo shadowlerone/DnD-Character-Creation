@@ -39,10 +39,10 @@ namespace {
 	}
 
 	CellActionInfo DecideAction(const std::vector<int>& _playerLocation,
-								const std::vector<CellActionInfo>& _npcActionInfo,
-								const int& _posX,
-								const int& _posY,
-								CharacterActionStrategy* _actionStrategy)
+		const std::vector<CellActionInfo>& _npcActionInfo,
+		const int& _posX,
+		const int& _posY,
+		CharacterActionStrategy* _actionStrategy)
 	{
 		// Decide what to do based on that info
 		if (_playerLocation.size() == 0) {
@@ -66,9 +66,9 @@ namespace {
 						return _npcActionInfo[i];
 					}
 				}
-				
+
 			}
-			else if(abs(rowDifference) < abs(colDifference)) {
+			else if (abs(rowDifference) < abs(colDifference)) {
 				int targetY;
 
 				if (colDifference < 0) {
@@ -109,13 +109,13 @@ namespace {
 	}
 }
 
-Character::Character::Character(){
+Character::Character::Character() {
 	//create random number generator
 	std::random_device rd;
 
 	int t_num_levels = rd() % 20 + 1;
 	//First level & class
-	Levelup(Character_Class::Fighter,true);
+	Levelup(Character_Class::Fighter, true);
 	t_num_levels--;
 
 	//Generate ability scores
@@ -131,7 +131,7 @@ Character::Character::Character(){
 	for (int i{ 0 }; i < t_num_levels; i++) {
 
 		while (!t_level_taken) {
-			t_level_taken = Levelup(Character_Class::Fighter,true);
+			t_level_taken = Levelup(Character_Class::Fighter, true);
 		}
 	}
 	hit_points = max_hit_points;
@@ -140,10 +140,14 @@ Character::Character::Character(){
 	actionStrategy = new HumanPlayerStrategy();
 }
 
+Character::Character::Character(int id) {
+	tempID = id;
+}
+
 Character::Character::Character(const Character& t_character) : id(t_character.id)
 {
 	name = t_character.name;
-	for (int i = 0;i<level.size(); i++) {
+	for (int i = 0; i < level.size(); i++) {
 		level.at(i) = t_character.level.at(i);
 		if (level.at(i) > 0) {
 			character_class.set(i);
@@ -191,7 +195,7 @@ Character::Character::Character(Character_Class t_class, bool _isPlayerControlle
 		}
 	}
 	//Set level & class
-	Levelup(t_class,true);
+	Levelup(t_class, true);
 
 
 	hit_points = max_hit_points;
@@ -227,7 +231,7 @@ Character::Character::Character(const serializecharacter::CharacterRecord& t_rec
 	}
 	for (int i{ 0 }; i < t_record.level.size(); i++) {
 		for (int j{ 0 }; j < t_record.level.at(i); j++) {
-			Levelup((Character_Class)i,true);
+			Levelup((Character_Class)i, true);
 		}
 	}
 	this->hit_points = t_record.hit_points;
@@ -247,12 +251,12 @@ Character::Character::Character(const serializecharacter::CharacterRecord& t_rec
 	}
 
 	isPlayerControlled = t_record.isPlayerControlled;
-	
+
 	actionStrategy = isPlayerControlled ?
-						static_cast<CharacterActionStrategy*>(new HumanPlayerStrategy()) :
-						t_record.actionStrategy == FRIENDLY_STRATEGY_NAME ?
-							static_cast<CharacterActionStrategy*>(new FriendlyStrategy()) :
-							static_cast<CharacterActionStrategy*>(new AggressorStrategy());
+		static_cast<CharacterActionStrategy*>(new HumanPlayerStrategy()) :
+		t_record.actionStrategy == FRIENDLY_STRATEGY_NAME ?
+		static_cast<CharacterActionStrategy*>(new FriendlyStrategy()) :
+		static_cast<CharacterActionStrategy*>(new AggressorStrategy());
 }
 
 std::string Character::Character::serialize() {
@@ -260,7 +264,7 @@ std::string Character::Character::serialize() {
 	str += std::to_string(this->id);
 	return str;
 	//c,id
- }
+}
 void Character::Character::Notify() {
 	for (int i = 0; i < (int)observers.size(); i++)
 	{
@@ -270,7 +274,7 @@ void Character::Character::Notify() {
 
 void Character::Character::CreateObserverMessage(std::string _message = "Empty") {
 	observerMessage = _message;
-	
+
 	Notify();
 }
 
@@ -284,16 +288,16 @@ std::string Character::Character::Name(const std::string& t_name)
 
 void Character::Character::Print_Character_Sheet()
 {
-	std::cout << std::right << std::setw(25) << "Name: " << name<<" (ID: "<<ID()<<")"<<std::endl;
+	std::cout << std::right << std::setw(25) << "Name: " << name << " (ID: " << ID() << ")" << std::endl;
 	std::cout << std::right << std::setw(25) << "Class: ";
 	for (int i = 0; i < 12; i++) {
 		if (character_class.test(i)) {
-			std::cout << Get_Class_String(i) <<"("<<level[i]<< "), ";
+			std::cout << Get_Class_String(i) << "(" << level[i] << "), ";
 		}
 	}
 	std::cout << std::endl;
 	std::cout << std::right << std::setw(25) << "Level: " << Sum_Levels() << std::endl;
-	std::cout << std::right << std::setw(25) << "HP: " << Hit_Points()<<"/"<<Max_Hit_Points() << std::endl;
+	std::cout << std::right << std::setw(25) << "HP: " << Hit_Points() << "/" << Max_Hit_Points() << std::endl;
 	std::cout << std::right << std::setw(25) << "Proficiency Bonus: " << Proficiency_Bonus() << std::endl;
 	std::cout << std::right << std::setw(25) << "Armour Class: " << wornItems->ModifierDecorator(ArmorClass) << std::endl;
 	std::cout << std::right << std::setw(25) << "Attack Bonus: ";
@@ -308,46 +312,46 @@ void Character::Character::Print_Character_Sheet()
 	std::cout << std::string(100, '-') << std::endl;
 	std::cout << std::right << std::setw(65) << "ABILITY SCORES" << std::endl;
 	std::cout << std::right << std::setw(35) << "Ability" << " | " << std::left << std::setw(35) << "Score"
-	<< " | " << std::left << std::setw(35) << "Modifier" << std::endl;
+		<< " | " << std::left << std::setw(35) << "Modifier" << std::endl;
 	std::cout << std::string(100, '-') << std::endl;
-	std::cout << std::right << std::setw(35) << "Strength" <<" | "<< std::left << std::setw(35) << wornItems->Ability_Score_Natural(Strength, 0)<<" | "<<std::right<<std::setw(2) << wornItems->ModifierDecorator(Strength) << std::endl;
-	std::cout << std::right << std::setw(35) << "Dexterity" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Dexterity, 0) <<" | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Dexterity) << std::endl;
-	std::cout << std::right << std::setw(35) << "Constitution" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Constitution, 0) <<" | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Constitution) << std::endl;
+	std::cout << std::right << std::setw(35) << "Strength" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Strength, 0) << " | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Strength) << std::endl;
+	std::cout << std::right << std::setw(35) << "Dexterity" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Dexterity, 0) << " | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Dexterity) << std::endl;
+	std::cout << std::right << std::setw(35) << "Constitution" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Constitution, 0) << " | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Constitution) << std::endl;
 	std::cout << std::right << std::setw(35) << "Intelligence" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Intelligence, 0) << " | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Intelligence) << std::endl;
-	std::cout << std::right << std::setw(35) << "Wisdom" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Wisdom, 0) << std::left <<" | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Wisdom) << std::endl;
+	std::cout << std::right << std::setw(35) << "Wisdom" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Wisdom, 0) << std::left << " | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Wisdom) << std::endl;
 	std::cout << std::right << std::setw(35) << "Charisma" << " | " << std::left << std::setw(35) << wornItems->Ability_Score_Natural(Charisma, 0) << " | " << std::right << std::setw(2) << wornItems->ModifierDecorator(Charisma) << std::endl;
 	std::cout << std::string(100, '-') << std::endl;
 	std::cout << std::right << std::setw(65) << "EQUIPPED ITEMS" << std::endl;
-	std::cout << std::right << std::setw(35) << "Equipment slot"<<" | " << std::left<<std::setw(35) << " Name (ID)" 
-	<< " | "  << std::left << std::setw(35) << "Enchantment" << std::endl;
+	std::cout << std::right << std::setw(35) << "Equipment slot" << " | " << std::left << std::setw(35) << " Name (ID)"
+		<< " | " << std::left << std::setw(35) << "Enchantment" << std::endl;
 	std::cout << std::string(100, '-') << std::endl;
 	for (int j{ 0 }; j < wornItems->GetDecoratorList().size(); j++) {
 		item::Item* i = dynamic_cast<item::Item*>(wornItems->GetDecoratorList().at(j));
 		if (i != nullptr) {
 			std::cout << std::right << std::setw(35) << item::itemTypeStrings[i->GetItemType()] << " | ";
-			std::cout << std::left << std::setw(35) << i->GetItemName() <<" ("<<i->GetItemId()<<")";
-			std::cout<< std::right << std::setw(3) << " | ";
+			std::cout << std::left << std::setw(35) << i->GetItemName() << " (" << i->GetItemId() << ")";
+			std::cout << std::right << std::setw(3) << " | ";
 			if (i->GetEnchantmentBonus() > 0) {
 				std::cout << "+";
 			}
-			std::cout << i->GetEnchantmentBonus()<<" ";
+			std::cout << i->GetEnchantmentBonus() << " ";
 			std::cout << Get_Abilities_String(item_stat_TO_character_stat.at(i->GetEnchantmentType())) << std::endl;
 		}
 	}
 	std::cout << std::string(100, '-') << std::endl;
 	std::cout << std::right << std::setw(63) << "INVENTORY" << std::endl;
 	std::cout << std::right << std::setw(35) << "Name" << " | " << std::left << std::setw(35) << "Type"
-	<< " | " << std::left << std::setw(35) << "Enchantment" << std::endl;
+		<< " | " << std::left << std::setw(35) << "Enchantment" << std::endl;
 	std::cout << std::string(100, '-') << std::endl;
 	for (int i = 0; i < inventory.GetAllItems().size(); i++) {
 		if (&inventory.GetAllItems().at(i) != nullptr) {
 			std::cout << std::right << std::setw(35) << inventory.GetAllItems().at(i).GetItemName() << " | "
-			<< std::left << std::setw(35) << Get_Item_Type_String(inventory.GetAllItems().at(i).GetItemType()) << " | ";
+				<< std::left << std::setw(35) << Get_Item_Type_String(inventory.GetAllItems().at(i).GetItemType()) << " | ";
 			if (inventory.GetAllItems().at(i).GetEnchantmentBonus() > 0) {
 				std::cout << "+";
 			}
-			std::cout<< inventory.GetAllItems().at(i).GetEnchantmentBonus() << " " 
-			<< Get_Abilities_String(item_stat_TO_character_stat.at(inventory.GetAllItems().at(i).GetEnchantmentType())) << std::endl;
+			std::cout << inventory.GetAllItems().at(i).GetEnchantmentBonus() << " "
+				<< Get_Abilities_String(item_stat_TO_character_stat.at(inventory.GetAllItems().at(i).GetEnchantmentType())) << std::endl;
 		}
 	}
 	std::cout << std::string(100, '-') << std::endl;
@@ -356,7 +360,7 @@ void Character::Character::Print_Character_Sheet()
 const int Character::Character::Sum_Levels()
 {
 	int sum{ 0 };
-	for (int i{ 0 };i<level.size();i++) {
+	for (int i{ 0 }; i < level.size(); i++) {
 		sum += level[i];
 	}
 	return sum;
@@ -400,7 +404,7 @@ bool Character::Character::Levelup(Character_Class t_class, bool t_average_hp)
 }
 
 bool Character::Character::Equip_Item(item::Item* t_item) {
-	
+
 	item::Item* pointer_to_item = nullptr;
 	if (inventory.GetItem(t_item->GetItemName()) == nullptr) {
 		std::cout << "Could not equipe '" << t_item->GetItemName() << "'. Item could not be found in inventory" << std::endl;
@@ -466,12 +470,12 @@ void Character::Character::Equip_Item_Decorator(item::Item* _itemToEquip) {
 		if (_itemToEquip->GetItemType() == equippedItem->GetItemType()) {
 			std::ostringstream excMessage;
 			excMessage << "[Character/Equip_Item_Decorator] -- Can't equip another " << itemTypeStrings[_itemToEquip->GetItemType() - 1];
- 			throw std::invalid_argument(excMessage.str().c_str());
+			throw std::invalid_argument(excMessage.str().c_str());
 		}
 	}
-	
 
-	_itemToEquip->SetWrappee(wornItems);	
+
+	_itemToEquip->SetWrappee(wornItems);
 	wornItems = _itemToEquip;
 
 	CreateObserverMessage();
@@ -485,7 +489,7 @@ void Character::Character::Unequip_Item(Equipment_Slots t_slot)
 
 void Character::Character::Unequip_Item_Decorator(item::Item* _itemToRemove) {
 	std::vector<AbstractComponent*> decoratorList = wornItems->GetDecoratorList();
-	
+
 	wornItems = this;
 
 	for (int i = 0; i < (int)decoratorList.size(); ++i)
@@ -497,7 +501,7 @@ void Character::Character::Unequip_Item_Decorator(item::Item* _itemToRemove) {
 			continue;
 		}
 
-		decoratorItem->SetWrappee(wornItems);	
+		decoratorItem->SetWrappee(wornItems);
 		wornItems = decoratorItem;
 	}
 
@@ -588,29 +592,29 @@ int Character::Character::Ability_Score_Natural(int t_ability, int t_attack_numb
 	try {
 		if (t_ability > 5) {
 			switch (t_ability) {
-				case 6:
-					score = 10;
+			case 6:
+				score = 10;
 
-					break;
-				case 7:
-					if (t_attack_number == 1) {
-						score = Sum_Levels();
-					}
-					else {
-						score = Sum_Levels() - ((t_attack_number - 1) * 5);
-					}
+				break;
+			case 7:
+				if (t_attack_number == 1) {
+					score = Sum_Levels();
+				}
+				else {
+					score = Sum_Levels() - ((t_attack_number - 1) * 5);
+				}
 
-					break;
-				case 8:
-					/*
-					COMP345-A3-64:
-						Returning 0 as a baseline for dmg here because it is actually just the
-						strength stat w/modifiers for both strength and dmg bonus. Therefore, a call with the paraemter for dmg
-						is simply decorated if worn items match the type, and add that to a call for strength.
-					*/
-					score = 0;
+				break;
+			case 8:
+				/*
+				COMP345-A3-64:
+					Returning 0 as a baseline for dmg here because it is actually just the
+					strength stat w/modifiers for both strength and dmg bonus. Therefore, a call with the paraemter for dmg
+					is simply decorated if worn items match the type, and add that to a call for strength.
+				*/
+				score = 0;
 
-					break;
+				break;
 			}
 		}
 		else {
@@ -651,7 +655,7 @@ const int Character::Character::Ability_Score_Bonused(Abilities_Stats t_ability)
 const int Character::Character::Armour_Class()
 {
 	int armour_class = 10 + Modifier(Abilities_Stats::Dexterity);
-	for (auto &i : equipment_slots) {
+	for (auto& i : equipment_slots) {
 		// add any AC enchantments from other equipped items
 		if (i.second != nullptr && i.second->GetEnchantmentType() == CharacterStats::ArmorClass) {
 			armour_class += i.second->GetEnchantmentBonus();
@@ -684,7 +688,7 @@ const int Character::Character::Attack_Bonus(int t_attack_number)
 
 const int Character::Character::Proficiency_Bonus()
 {
-	return std::ceil((double)(Sum_Levels() / 4.0)) + 1;	
+	return std::ceil((double)(Sum_Levels() / 4.0)) + 1;
 }
 
 const int Character::Character::Damage_Bonus()
@@ -700,12 +704,12 @@ const int Character::Character::Damage_Bonus()
 }
 
 void Character::Character::TakeItems(itemcontainer::ItemContainer* _targetContainer,
-									const std::vector<Item*>& _selectedItems,
-									const int& _destinationContainerID)
+	const std::vector<Item*>& _selectedItems,
+	const int& _destinationContainerID)
 {
 	ItemContainer* destinationContainer = inventory.GetItemId() == _destinationContainerID ?
-											&inventory :
-											static_cast<ItemContainer*>(inventory.GetItem(_destinationContainerID));
+		&inventory :
+		static_cast<ItemContainer*>(inventory.GetItem(_destinationContainerID));
 	if (destinationContainer == nullptr) {
 		std::ostringstream excMsg;
 		excMsg << "[Character/TakeItems] -- Failed to find the destination container at ID " << _destinationContainerID;
@@ -737,8 +741,8 @@ void Character::Character::TakeItems(itemcontainer::ItemContainer* _targetContai
 
 void Character::Character::DropItems(const std::vector<Item*>& _selectedItems, const int& _targetContainerID) {
 	ItemContainer* targetContainer = inventory.GetItemId() == _targetContainerID ?
-										&inventory :
-										static_cast<ItemContainer*>(inventory.GetItem(_targetContainerID));
+		&inventory :
+		static_cast<ItemContainer*>(inventory.GetItem(_targetContainerID));
 	if (targetContainer == nullptr) {
 		std::ostringstream excMsg;
 		excMsg << "[Character/DropItems] -- Failed to find the target container at ID " << _targetContainerID;
@@ -843,8 +847,8 @@ bool Character::Character::AttemptAttack(Character* _target) {
 	int opponentArmorClass = opponentWornItems->Ability_Score_Natural(6, 0);
 
 	bool characterHit = Dice::roll("1d20") +
-						wornItems->Ability_Score_Natural(0, 0) +
-						wornItems->Ability_Score_Natural(8, 0) >= opponentArmorClass;
+		wornItems->Ability_Score_Natural(0, 0) +
+		wornItems->Ability_Score_Natural(8, 0) >= opponentArmorClass;
 
 	bool targetDied = false;
 
@@ -869,13 +873,13 @@ bool Character::Character::AttemptAttack(Character* _target) {
 			CreateObserverMessage(logMessage.str());
 		}
 	}
-	
+
 	return targetDied;
 }
 
 CellActionInfo Character::Character::DecideNPCAction(const std::vector<std::vector<Interactable*>>& _mapGrid, const int& _posX, const int& _posY) {
 	// Note _posX and _posY are 1-indexed
-	
+
 	// Use the action strategy to get options
 	std::vector<CellActionInfo> npcActionInfo = actionStrategy->UseMovementStrategy(_mapGrid, _posX, _posY);
 
@@ -917,7 +921,7 @@ std::string Character::Character::Get_Class_String(Character_Class t_class)
 	default:
 		return "Unknown Class";
 	}
-	
+
 }
 
 std::string Character::Character::Get_Class_String(int t_class)
@@ -1027,8 +1031,8 @@ bool Character::Character::Levelup_Barbarian(bool t_average_hp)
 			else
 			{
 				//Don't meet minimum requierments to multiclass
-				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!"<<std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Strength >= 13" << std::endl;
+				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Strength >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1059,7 +1063,7 @@ bool Character::Character::Levelup_Bard(bool t_average_hp)
 	if (level.at((int)t_class) == 0) {
 		//If first level of multi-class
 		if (Is_Multi_Classed(t_class)) {
-			if (ability_scores[(int)Abilities_Stats::Charisma] >= 13 ) {
+			if (ability_scores[(int)Abilities_Stats::Charisma] >= 13) {
 				//minimum requierments to multiclass pass!
 				max_hit_points += (8 + Modifier(Abilities_Stats::Constitution));
 				level.at((int)t_class) = 1;
@@ -1072,7 +1076,7 @@ bool Character::Character::Levelup_Bard(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Charisma >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Charisma >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1116,7 +1120,7 @@ bool Character::Character::Levelup_Cleric(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: " << "Wisdom >= 13"<< std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Wisdom >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1160,7 +1164,7 @@ bool Character::Character::Levelup_Druid(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<< "Wisdom >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Wisdom >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1208,7 +1212,7 @@ bool Character::Character::Levelup_Fighter(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<< "Strength >= 13 OR Dexterity >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Strength >= 13 OR Dexterity >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1260,7 +1264,7 @@ bool Character::Character::Levelup_Monk(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Wisdom >= 13 AND Dexterity >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Wisdom >= 13 AND Dexterity >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1304,7 +1308,7 @@ bool Character::Character::Levelup_Paladin(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<< "Charisma >= 13 AND Strength >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Charisma >= 13 AND Strength >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1348,7 +1352,7 @@ bool Character::Character::Levelup_Ranger(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Dexterity >= 13 AND Wisdom >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Dexterity >= 13 AND Wisdom >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1392,7 +1396,7 @@ bool Character::Character::Levelup_Rogue(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Dexterity >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Dexterity >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1436,7 +1440,7 @@ bool Character::Character::Levelup_Sorcerer(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Charisma >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Charisma >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1480,7 +1484,7 @@ bool Character::Character::Levelup_Warlock(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Charisma >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Charisma >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1524,7 +1528,7 @@ bool Character::Character::Levelup_Wizard(bool t_average_hp)
 			{
 				//Don't meet minimum requierments to multiclass
 				std::cout << "Could not take a level in " << Get_Class_String(t_class) << "!" << std::endl;
-				std::cout << "Minimum multi-class requirement: "<<"Intelligence >= 13" << std::endl;
+				std::cout << "Minimum multi-class requirement: " << "Intelligence >= 13" << std::endl;
 				return false;
 			}
 		}
@@ -1551,7 +1555,7 @@ bool Character::Character::Levelup_Wizard(bool t_average_hp)
 Character::Character characterBuilder::Build_Fighter(characterBuilder::Fighter_Sub_Class t_subclass)
 {
 	std::vector<int> generated_attributes = std::vector<int>(6);
-	for (int i{ 0 }; i < 6;i++) {
+	for (int i{ 0 }; i < 6; i++) {
 		generated_attributes.at(i) = Dice::roll("3d6");
 	}
 	std::sort(generated_attributes.begin(), generated_attributes.end());
