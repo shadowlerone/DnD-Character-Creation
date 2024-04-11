@@ -6,7 +6,6 @@
 #include "Main.h"
 #include <FL/Fl_Double_Window.H>
 extern Fl_Double_Window *game_window;
-#include <FL/Fl_Pack.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Output.H>
 extern Fl_Output *hp_input;

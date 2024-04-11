@@ -31,57 +31,58 @@ Fl_Browser *turn_order=(Fl_Browser *)0;
 Fl_Double_Window* make_window() {
   { game_window = new Fl_Double_Window(1920, 1008, "Game");
     game_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Pack* o = new Fl_Pack(0, 0, 1920, 1130);
-      o->type(1);
-      { Fl_Group* o = new Fl_Group(0, 50, 288, 881, "Player");
+    { Fl_Group* o = new Fl_Group(25, 25, 15, 15);
+      { Fl_Group* o = new Fl_Group(5, 55, 288, 881, "Player");
         o->box(FL_THIN_DOWN_BOX);
         o->color((Fl_Color)19);
-        { Fl_Group* o = new Fl_Group(0, 70, 288, 206, "Stats");
-          { hp_input = new Fl_Output(60, 76, 50, 50, "HP");
+        { Fl_Group* o = new Fl_Group(5, 75, 288, 206, "Stats");
+          { hp_input = new Fl_Output(65, 81, 50, 50, "HP");
             hp_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* hp_input
-          { str_input = new Fl_Output(60, 126, 50, 50, "STR");
+          { str_input = new Fl_Output(65, 131, 50, 50, "STR");
             str_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* str_input
-          { dex_input = new Fl_Output(160, 126, 50, 50, "DEX");
+          { dex_input = new Fl_Output(165, 131, 50, 50, "DEX");
             dex_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* dex_input
-          { con_input = new Fl_Output(60, 176, 50, 50, "CON");
+          { con_input = new Fl_Output(65, 181, 50, 50, "CON");
             con_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* con_input
-          { int_input = new Fl_Output(160, 176, 50, 50, "INT");
+          { int_input = new Fl_Output(165, 181, 50, 50, "INT");
             int_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* int_input
-          { wis_input = new Fl_Output(60, 226, 50, 50, "WIS");
+          { wis_input = new Fl_Output(65, 231, 50, 50, "WIS");
             wis_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* wis_input
-          { cha_input = new Fl_Output(160, 226, 50, 50, "CHA");
+          { cha_input = new Fl_Output(165, 231, 50, 50, "CHA");
             cha_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* cha_input
-          { ac_input = new Fl_Output(160, 76, 50, 50, "AC");
+          { ac_input = new Fl_Output(165, 81, 50, 50, "AC");
             ac_input->box(FL_ENGRAVED_FRAME);
           } // Fl_Output* ac_input
           o->end();
         } // Fl_Group* o
-        { ItemInventory = new Fl_Browser(10, 315, 200, 600, "Inventory");
+        { ItemInventory = new Fl_Browser(15, 320, 200, 600, "Inventory");
           ItemInventory->box(FL_DOWN_BOX);
           ItemInventory->labelfont(1);
           ItemInventory->align(Fl_Align(FL_ALIGN_TOP));
         } // Fl_Browser* ItemInventory
         o->end();
       } // Fl_Group* o
-      { map_group = new Fl_Group(288, 0, 1344, 1026, "Map");
+      { map_group = new Fl_Group(293, 5, 1344, 1026, "Map");
         map_group->end();
       } // Fl_Group* map_group
-      { enemies_group = new Fl_Group(1632, 0, 288, 1030, "Enemies");
-        { turn_order = new Fl_Browser(1655, 599, 231, 300, "Turn Order");
+      { enemies_group = new Fl_Group(1637, 5, 288, 1030, "Enemies");
+        enemies_group->box(FL_GTK_THIN_UP_BOX);
+        enemies_group->color((Fl_Color)22);
+        { turn_order = new Fl_Browser(1660, 604, 231, 300, "Turn Order");
           turn_order->labelfont(1);
           turn_order->align(Fl_Align(FL_ALIGN_TOP));
         } // Fl_Browser* turn_order
         enemies_group->end();
       } // Fl_Group* enemies_group
       o->end();
-    } // Fl_Pack* o
+    } // Fl_Group* o
     game_window->end();
   } // Fl_Double_Window* game_window
   return game_window;
