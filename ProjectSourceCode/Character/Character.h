@@ -419,6 +419,8 @@ namespace Character
 
 		bool passable() const { return true; }; // can the MC pass through this cell
 
+		std::string imgpath();
+
 		std::string serialize();
 
 		bool GetIsPlayerControlled() { return isPlayerControlled; };
@@ -438,7 +440,9 @@ namespace Character
 		std::string Get_Abilities_String(Abilities_Stats t_abilities);
 		std::string Get_Item_Type_String(item::ItemType t_type);
 		std::string Get_Equipment_Slot_String(Equipment_Slots t_slot);
+
 	private:
+
 		/*!
 		 * \var observers
 		 * \brief Vector of pointers to Observer instances representing the attached objects that are to be notified of state changes

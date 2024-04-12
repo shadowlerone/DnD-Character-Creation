@@ -1,22 +1,18 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-#include <thread>
 #include <iostream>
 #include <stdlib.h>
+#include <thread>
 
-#include <FL/Fl.H>
-#include "Game/game.h"
-#include "MainMenu.h"
-#include "Main.h"
 #include "Character/Character.h"
-#include "Interactable/Wall.h"
-#include "Game/gamelogger.h"
 #include "Game/game.h"
-#include <iostream>
+#include "Game/game.h"
+#include "Game/gamelogger.h"
 #include "gui.h"
-
-
-
+#include "Interactable/Wall.h"
+#include "Main.h"
+#include "MainMenu.h"
+#include <FL/Fl.H>
+#include <iostream>
 
 /* #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
