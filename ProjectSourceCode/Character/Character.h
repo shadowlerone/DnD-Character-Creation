@@ -14,17 +14,17 @@
 #include <unordered_map>
 #include <vector>
 
+#include "..\Decorator\abstractcomponent.h"
 #include "..\Dice\Dice.h"
+#include "..\Interactable\Interactable.h"
 #include "..\Item\item.h"
 #include "..\Item\itemcontainer.h"
 #include "..\Observer\Observable.h"
 #include "..\Serialize\serializeItem.h"
-#include "..\Decorator\abstractcomponent.h"
-#include "..\Strategy\characteractionstrategy.h"
-#include "..\Strategy\humanplayerstrategy.h"
 #include "..\Strategy\aggressorstrategy.h"
+#include "..\Strategy\characteractionstrategy.h"
 #include "..\Strategy\friendlystrategy.h"
-#include "..\Interactable\Interactable.h"
+#include "..\Strategy\humanplayerstrategy.h"
 
 using namespace abstractcomponent;
 using namespace characteractionstrategy;
@@ -41,8 +41,8 @@ namespace serializecharacter
 		std::string name;
 		std::vector<int> ability_scores = std::vector<int>(6, 0);
 		std::vector<int> level = std::vector<int>(12, 0);
-		int max_hit_points{0};
-		int hit_points{0};
+		int max_hit_points{ 0 };
+		int hit_points{ 0 };
 		std::vector<int> inventory_item_ids;
 		std::vector<int> equipped_item_ids;
 		std::string inventory_container_path;
@@ -77,18 +77,18 @@ namespace Character
 		Wizard = 11
 	};
 
-	constexpr std::bitset<12> isBarbarian{0b0000'0000'0001};
-	constexpr std::bitset<12> isBard{0b0000'0000'0010};
-	constexpr std::bitset<12> isCleric{0b0000'0000'0100};
-	constexpr std::bitset<12> isDruid{0b0000'0000'1000};
-	constexpr std::bitset<12> isFighter{0b0000'0001'0000};
-	constexpr std::bitset<12> isMonk{0b0000'0010'0000};
-	constexpr std::bitset<12> isPaladin{0b0000'0100'0000};
-	constexpr std::bitset<12> isRanger{0b0000'1000'0000};
-	constexpr std::bitset<12> isRogue{0b0001'0000'0000};
-	constexpr std::bitset<12> isSorcerer{0b0010'0000'0000};
-	constexpr std::bitset<12> isWarlock{0b0100'0000'0000};
-	constexpr std::bitset<12> isWizard{0b1000'0000'0000};
+	constexpr std::bitset<12> isBarbarian{ 0b0000'0000'0001 };
+	constexpr std::bitset<12> isBard{ 0b0000'0000'0010 };
+	constexpr std::bitset<12> isCleric{ 0b0000'0000'0100 };
+	constexpr std::bitset<12> isDruid{ 0b0000'0000'1000 };
+	constexpr std::bitset<12> isFighter{ 0b0000'0001'0000 };
+	constexpr std::bitset<12> isMonk{ 0b0000'0010'0000 };
+	constexpr std::bitset<12> isPaladin{ 0b0000'0100'0000 };
+	constexpr std::bitset<12> isRanger{ 0b0000'1000'0000 };
+	constexpr std::bitset<12> isRogue{ 0b0001'0000'0000 };
+	constexpr std::bitset<12> isSorcerer{ 0b0010'0000'0000 };
+	constexpr std::bitset<12> isWarlock{ 0b0100'0000'0000 };
+	constexpr std::bitset<12> isWizard{ 0b1000'0000'0000 };
 
 	/*! \Enum Abilities_Stats
 	 *  \brief Enum used to index various fields from the Character class
@@ -163,36 +163,40 @@ namespace Character
 		 * hit points (By default will only give levels in the 'Fighter' class)
 		 */
 		Character();
+		/**!\fn Character()
+		* \brief a constructor used by loadmap to create a temporary empty charcater with the ID of an actual saved Character
+		*/
+		Character(int id);
 		/*! \fn Character()
 		 *  \brief copy character constructor
 		 */
-		Character(const Character &t_character);
+		Character(const Character& t_character);
 		/*! \fn Character()
 		 *  \brief Character Constructor. Initializes the character with one level in a given character class
 		 *  \param t_name: Name for the character
 		 *  \param t_class: Character class the character will be given a level for
 		 */
-		Character(std::string t_name, Character_Class t_class, bool _isPlayerControlled = true, CharacterActionStrategy *_actionStrategy = new HumanPlayerStrategy());
+		Character(std::string t_name, Character_Class t_class, bool _isPlayerControlled = true, CharacterActionStrategy* _actionStrategy = new HumanPlayerStrategy());
 		/*! \fn Character()
 		 *  \brief Character Constructor. Initializes the character with one level in a given character class. Sets ability scores randomly
 		 *  \param t_name: Name for the character
 		 *  \param t_class: Character class the character will be given a level for
 		 */
-		Character(Character_Class t_class, bool _isPlayerControlled = true, CharacterActionStrategy *_actionStrategy = new HumanPlayerStrategy());
+		Character(Character_Class t_class, bool _isPlayerControlled = true, CharacterActionStrategy* _actionStrategy = new HumanPlayerStrategy());
 		/*! \fn Character()
 		 *  \brief Character Constructor. Initializes the character with one level in a given character class
 		 *  \param t_name Name for the character
 		 *  \param t_class Character class the character will be given a level for
 		 *  \param t_ability_scores Set of desired ability scores {Strength,Dexterity,Constitution,Intelligence,Wisdom,Charisma}
 		 */
-		Character(std::string t_name, Character_Class t_class, const std::vector<int> &t_ability_scores, bool t_average_hp, bool _isPlayerControlled = true, CharacterActionStrategy *_actionStrategy = new HumanPlayerStrategy());
-		Character(const serializecharacter::CharacterRecord &t_record);
+		Character(std::string t_name, Character_Class t_class, const std::vector<int>& t_ability_scores, bool t_average_hp, bool _isPlayerControlled = true, CharacterActionStrategy* _actionStrategy = new HumanPlayerStrategy());
+		Character(const serializecharacter::CharacterRecord& t_record);
 
-		virtual ~Character(){};
+		virtual ~Character() {};
 
-		void Attach(Observer *_observer) override { observers.push_back(_observer); };
+		void Attach(Observer* _observer) override { observers.push_back(_observer); };
 
-		void Detach(Observer *_observer) override { observers.erase(std::remove(observers.begin(), observers.end(), _observer), observers.end()); };
+		void Detach(Observer* _observer) override { observers.erase(std::remove(observers.begin(), observers.end(), _observer), observers.end()); };
 
 		/*!
 		 * \fn Notify
@@ -208,13 +212,13 @@ namespace Character
 		 */
 		void CreateObserverMessage(std::string);
 
-		std::vector<Observer *> GetObservers() { return observers; };
+		std::vector<Observer*> GetObservers() { return observers; };
 
-		void SetObservers(const std::vector<Observer *> &_observers) { observers = _observers; };
+		void SetObservers(const std::vector<Observer*>& _observers) { observers = _observers; };
 
 		std::string GetObserverMessage() { return observerMessage; };
 
-		void SetObserverMessage(const std::string &_observerMessage) { observerMessage = _observerMessage; };
+		void SetObserverMessage(const std::string& _observerMessage) { observerMessage = _observerMessage; };
 
 		/* \fn ID()
 		 *  \brief Unique Character ID
@@ -224,7 +228,7 @@ namespace Character
 		 *  \brief Character name
 		 */
 		std::string Name() const { return this->name; };
-		std::string Name(const std::string &t_name);
+		std::string Name(const std::string& t_name);
 		/* \fn Print_Character_Sheet
 		 *  \brief Prints character data to consol
 		 */
@@ -258,7 +262,7 @@ namespace Character
 		 *  \param t_item: Item pointer to the object that the character will equip
 		 *  \return Returns true if equipping was performed succesfully, false otherwise
 		 */
-		bool Equip_Item(item::Item *t_item);
+		bool Equip_Item(item::Item* t_item);
 
 		/*!
 		 * \fn Equip_Item_Decorator
@@ -270,7 +274,7 @@ namespace Character
 		 *  \throw std::invalid_argument
 		 * \throw std::out_of_range
 		 */
-		void Equip_Item_Decorator(item::Item *);
+		void Equip_Item_Decorator(item::Item*);
 
 		/*! \fn Unequip_Item()
 		 *  \brief Equips an item into the character's corresponding equipment slot. Item must be contained within the 'inventory'
@@ -289,7 +293,7 @@ namespace Character
 		 *  \throw std::invalid_argument
 		 * \throw std::exception
 		 */
-		void Unequip_Item_Decorator(item::Item *);
+		void Unequip_Item_Decorator(item::Item*);
 
 		/*! \fn Max_Hit_Points()
 		 *  \return Returns const int to the maxium number of hitpoints for this character
@@ -360,7 +364,7 @@ namespace Character
 		/*! \fn Inventory()
 		 *  \return Returns refrence to ItemContainer type object corresponding to the character's inventory
 		 */
-		itemcontainer::ItemContainer &Inventory() { return inventory; };
+		itemcontainer::ItemContainer& Inventory() { return inventory; };
 
 		/*!
 		 * \fn TakeItems
@@ -371,7 +375,7 @@ namespace Character
 		 * \throw invalid_argument
 		 * \throw overflow_error
 		 */
-		void TakeItems(itemcontainer::ItemContainer *, const std::vector<Item *> &, const int &);
+		void TakeItems(itemcontainer::ItemContainer*, const std::vector<Item*>&, const int&);
 
 		/*!
 		 * \fn DropItems
@@ -381,16 +385,16 @@ namespace Character
 		 * \throw invalid_argument
 		 * \throw overflow_error
 		 */
-		void DropItems(const std::vector<Item *> &, const int &);
+		void DropItems(const std::vector<Item*>&, const int&);
 
 		/*! \fn Get_Equiped_Item()
 		 *  \return Returns pointer to item type object corresponding to the paramaters equipment slot. Retruns nullptr if no item is found
 		 */
-		const item::Item *Equipped_Items(Equipment_Slots t_item) { return equipment_slots.at(t_item); };
+		const item::Item* Equipped_Items(Equipment_Slots t_item) { return equipment_slots.at(t_item); };
 
-		AbstractComponent *GetWornItems() { return wornItems; };
+		AbstractComponent* GetWornItems() { return wornItems; };
 
-		void SetWornItems(AbstractComponent *_wornItems) { wornItems = _wornItems; };
+		void SetWornItems(AbstractComponent* _wornItems) { wornItems = _wornItems; };
 
 		/*! \fn Is_Multi_Classed()
 		 *  \brief Checks if the character is multi-classed with a particular character class
@@ -407,9 +411,9 @@ namespace Character
 		 *
 		 * \return Empty vector of pointers to AbstractComponent instances that represent the list for decorators to update
 		 */
-		std::vector<AbstractComponent *> GetDecoratorList() override
+		std::vector<AbstractComponent*> GetDecoratorList() override
 		{
-			std::vector<AbstractComponent *> initDecorators;
+			std::vector<AbstractComponent*> initDecorators;
 			return initDecorators;
 		};
 
@@ -421,13 +425,13 @@ namespace Character
 
 		void SetIsPlayerControlled(bool _isPlayerControlled) { isPlayerControlled = _isPlayerControlled; };
 
-		CharacterActionStrategy *GetActionStrategy() { return actionStrategy; };
+		CharacterActionStrategy* GetActionStrategy() { return actionStrategy; };
 
-		void SetActionStrategy(CharacterActionStrategy *_actionStrategy) { actionStrategy = _actionStrategy; };
+		void SetActionStrategy(CharacterActionStrategy* _actionStrategy) { actionStrategy = _actionStrategy; };
 
-		bool AttemptAttack(Character *);
+		bool AttemptAttack(Character*);
 
-		CellActionInfo DecideNPCAction(const std::vector<std::vector<Interactable *>> &, const int &, const int &);
+		CellActionInfo DecideNPCAction(const std::vector<std::vector<Interactable*>>&, const int&, const int&);
 
 		std::string Get_Class_String(Character_Class t_class);
 		std::string Get_Class_String(int t_class);
@@ -439,7 +443,7 @@ namespace Character
 		 * \var observers
 		 * \brief Vector of pointers to Observer instances representing the attached objects that are to be notified of state changes
 		 */
-		std::vector<Observer *> observers;
+		std::vector<Observer*> observers;
 
 		/*!
 		 * \var observerMessage
@@ -447,10 +451,12 @@ namespace Character
 		 */
 		std::string observerMessage;
 
-		static inline unsigned int id_gen{0};
+		static inline unsigned int id_gen{ 0 };
 		const int id = id_gen++;
 
-		std::string name{"Cirian"};
+		int tempID;
+
+		std::string name{ "Cirian" };
 		std::bitset<12> character_class;
 		/*!
 		 * Vector array corresponding to how many levels the character has taken in each class. Can be indexed using int/'Abilities' enum
@@ -462,10 +468,10 @@ namespace Character
 		std::vector<int> ability_scores = std::vector<int>(6);
 
 		// int _str, int
-		int max_hit_points{0};
-		int hit_points{0};
+		int max_hit_points{ 0 };
+		int hit_points{ 0 };
 
-		std::unordered_map<Equipment_Slots, item::Item *> equipment_slots;
+		std::unordered_map<Equipment_Slots, item::Item*> equipment_slots;
 
 		itemcontainer::ItemContainer inventory = itemcontainer::ItemContainer("Inventory", Backpack, 30);
 
@@ -503,7 +509,7 @@ namespace Character
 		 * \var wornItems
 		 * \brief A pointer to an AbstractComponent instance that represents the character's equipped items
 		 */
-		AbstractComponent *wornItems;
+		AbstractComponent* wornItems;
 
 		/*!
 		 * \var isPlayerControlled
@@ -515,7 +521,7 @@ namespace Character
 		 * \var actionStrategy
 		 * \brief Pointer to a CharacterActionStrategy instance that represents the character's actions on a map
 		 */
-		CharacterActionStrategy *actionStrategy;
+		CharacterActionStrategy* actionStrategy;
 	};
 }
 /*! \namespace characterBuilder

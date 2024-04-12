@@ -8,15 +8,15 @@
 
 #pragma once 
 
-#include <vector>
 #include <string>
 #include <typeinfo>
+#include <vector>
 
-#include "..\Interactable\Interactable.h"
 #include "..\Character/Character.h"
+#include "..\Interactable\EmptyCell.h"
+#include "..\Interactable\Interactable.h"
 #include "..\Item\item.h"
 #include "..\Observer\Observable.h"
-#include "..\Interactable\EmptyCell.h"
 
 using namespace observable;
 
@@ -51,9 +51,9 @@ namespace Map {
 		*/
 		Map(int rows, int cols);
 
-		void Attach (Observer* _observer) override { observers.push_back(_observer); };
+		void Attach(Observer* _observer) override { observers.push_back(_observer); };
 
-		void Detach (Observer* _observer) override { observers.erase(std::remove(observers.begin(), observers.end(), _observer), observers.end()); };
+		void Detach(Observer* _observer) override { observers.erase(std::remove(observers.begin(), observers.end(), _observer), observers.end()); };
 
 		/*!
 		* \fn Notify
@@ -64,7 +64,7 @@ namespace Map {
 		/*!
 		* \fn CreateObserverMessage
 		* \brief Function that will take in a message from a calling object and use it to notify the observers with that message
-		* 
+		*
 		* \param _message String representing the message to pass to the observers of this game instance. Default of "Empty"
 		*/
 		void CreateObserverMessage(std::string);
@@ -84,10 +84,12 @@ namespace Map {
 		const int getRows() { return rows; };
 		const int getCols() { return cols; };
 		const int* getEnd_Cell() { return endCell; };
+		const int* getStartCell() { return startCell; };
+		const int* getEndCell() { return endCell; };
 		const std::vector<std::vector<Interactable::Interactable*>> getGrid() { return grid; };
 
 		/*!
-		* \brief Setters 
+		* \brief Setters
 		*/
 		void setRows(int rows);
 		void setCols(int cols);

@@ -1,17 +1,20 @@
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Window.H>
-#include <FL/Fl_Int_Input.H>
-#include <FL/Fl_Scroll.H>
-#include <FL/Fl_Button.H>
-#include <FL/Fl_Return_Button.H>
-#include "MapEditor.h"
-//#include "MapSerializer.h"
 #include "../ProjectSourceCode/Interactable/Interactable.h"
 #include "../ProjectSourceCode/Interactable/Wall.h"
-#include "../ProjectSourceCode/Interactable/EmptyCell.h"
-#include "../ProjectSourceCode/Character/Character.h"
 #include "../ProjectSourceCode/Item/item.h"
-#include "../ProjectSourceCode/Builder/MapBuilder.h"
+#include "MapEditor.h"
+#include <Builder/MapBuilder.h>
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Pack.H>
+#include <FL/Fl_Pack.H>
+#include <FL/Fl_Return_Button.H>
+#include <FL/Fl_Return_Button.H>
+#include <FL/Fl_Scroll.H>
+#include <FL/Fl_Scroll.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Window.H>
 
 using namespace CampaignEditor;
 
@@ -52,10 +55,10 @@ std::string cttos(Interactable::Interactable* ct)
 	if (typeid(*ct) == typeid(Wall)) {
 		return "w";
 	}
-	else if(typeid(*ct) == typeid(item::Item)) {
+	else if (typeid(*ct) == typeid(item::Item)) {
 		return "i";
-	}	
-	else if(typeid(*ct) == typeid(Character::Character)) {
+	}
+	else if (typeid(*ct) == typeid(Character::Character)) {
 		return "c";
 	}
 	else {
@@ -96,10 +99,10 @@ void MapEditor::redraw_map()
 	{
 		// Fl_Pack * r = new Fl_Pack(0,0,50*_grid_x, 50);
 		// r->type(Fl_Pack::HORIZONTAL);
-		mcbs.push_back(std::vector<MapCellButton *>());
+		mcbs.push_back(std::vector<MapCellButton*>());
 		for (int i = 0; i < _grid_x; i++)
 		{
-			MapCellButton *m = new MapCellButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
+			MapCellButton* m = new MapCellButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
 			//m->copy_label(cttos(current_map->getGrid()[j][i]).c_str());//TODO. error here.
 			mcbs[j].push_back(m);
 		}
@@ -119,7 +122,7 @@ void MapEditor::load_data()
 	if (i <= maps->size() && i > 0)
 	{
 		std::cout << "selected: " << i << std::endl;
-		current_map = (Map::Map *)browser->data(i);
+		current_map = (Map::Map*)browser->data(i);
 
 		update_data();
 	}
@@ -135,9 +138,9 @@ void MapEditor::update_data()
 void MapEditor::create()
 {
 	// TODO: create empty map
-	char const *t_x = " ";
-	char const *t_y = " ";
-	NewMapModal *w = new NewMapModal();
+	char const* t_x = " ";
+	char const* t_y = " ";
+	NewMapModal* w = new NewMapModal();
 	// in_x->static_value(t_x);
 	// in_y->static_value(t_y);
 
@@ -154,14 +157,14 @@ void MapEditor::create()
 		std::cout << _new_x << "," << _new_y << std::endl;
 		try
 		{
-			Map::Map *m = new Map::Map(_new_x, _new_y);
+			Map::Map* m = new Map::Map(_new_x, _new_y);
 			maps->push_back(m);
 			populate_browser();
 			browser->bottomline(browser->size());
 			browser->select(browser->size());
 			load_data();
 		}
-		catch (std::exception &e)
+		catch (std::exception& e)
 		{
 		}
 	}
@@ -171,15 +174,15 @@ void MapEditor::create()
 	}
 }
 
-void MapEditor::hide(Fl_Widget *widget, void *f)
+void MapEditor::hide(Fl_Widget* widget, void* f)
 {
-	Fl_Window *window = (Fl_Window *)widget;
+	Fl_Window* window = (Fl_Window*)widget;
 	window->hide();
 }
 
-void MapEditor::confirm(Fl_Widget *widget, void *f)
+void MapEditor::confirm(Fl_Widget* widget, void* f)
 {
-	Fl_Window *window = (Fl_Window *)widget;
+	Fl_Window* window = (Fl_Window*)widget;
 	std::cout << window->children() << std::endl;
 
 	// TODO: all the errors
@@ -199,7 +202,7 @@ void MapEditor::save_as()
 			//MapSerializer::save_map(filepath, current_map);
 			MapBuilder::MapBuilder::SaveMap(current_map, filepath);
 		}
-		catch (const std::exception &e)
+		catch (const std::exception& e)
 		{
 			std::cerr << e.what() << '\n';
 		}
@@ -210,7 +213,7 @@ void MapEditor::populate_browser()
 {
 	browser->clear();
 	std::string label;
-	for (Map::Map *i : *maps)
+	for (Map::Map* i : *maps)
 	{
 		label = std::to_string(i->GetMapID());
 		browser->add(label.c_str(), i);
