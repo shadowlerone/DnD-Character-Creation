@@ -126,6 +126,9 @@
     <ClCompile Include="ProjectSourceCode\Door\door.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\ItemContainerEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProjectSourceCode\Item\item.h">
@@ -255,6 +258,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProjectSourceCode\Door\door.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\ItemContainerEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
