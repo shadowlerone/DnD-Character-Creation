@@ -2,32 +2,32 @@
 
 #ifndef gui_h
 #define gui_h
-#include <FL/Fl.H>
 #include "Main.h"
+#include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
-extern Fl_Double_Window *game_window;
+extern Fl_Double_Window* game_window;
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Output.H>
-extern Fl_Output *hp_input;
-extern Fl_Output *str_input;
-extern Fl_Output *dex_input;
-extern Fl_Output *con_input;
-extern Fl_Output *int_input;
-extern Fl_Output *wis_input;
-extern Fl_Output *cha_input;
-extern Fl_Output *ac_input;
+extern Fl_Output* hp_input;
+extern Fl_Output* str_input;
+extern Fl_Output* dex_input;
+extern Fl_Output* con_input;
+extern Fl_Output* int_input;
+extern Fl_Output* wis_input;
+extern Fl_Output* cha_input;
+extern Fl_Output* ac_input;
 #include <FL/Fl_Browser.H>
-extern Fl_Browser *ItemInventory;
-extern Fl_Group *map_group;
-extern Fl_Group *enemies_group;
-extern Fl_Browser *turn_order;
+extern Fl_Browser* ItemInventory;
+extern Fl_Group* map_group;
+extern Fl_Group* enemies_group;
+extern Fl_Browser* turn_order;
 Fl_Double_Window* make_window();
-extern Fl_Double_Window *dice_window;
+extern Fl_Double_Window* dice_window;
 #include <FL/Fl_Return_Button.H>
-extern Fl_Return_Button *dice_button;
+extern Fl_Return_Button* dice_button;
 #include <FL/Fl_Box.H>
-extern Fl_Box *dice_value_output;
+extern Fl_Box* dice_value_output;
 Fl_Double_Window* roll_dice();
 void combat(Character::Character* c1, Character::Character* c2);
-extern Dice * dice;
+extern Dice* dice;
 #endif

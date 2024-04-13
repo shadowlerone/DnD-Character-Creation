@@ -1,7 +1,6 @@
+#include "FL/Fl_Pack.H"
 #include "ItemContainerEditor.h"
 #include "Serialize/serializeItem.h"
-
-#include "FL/Fl_Pack.H"
 
 using namespace serializeItem;
 namespace CampaignEditor
@@ -10,15 +9,15 @@ namespace CampaignEditor
 	{
 		browser->clear();
 		std::string label;
-		for (ItemContainerRecord *i : *itemcontainers)
+		for (ItemContainerRecord* i : *itemcontainers)
 		{
 			i->containerId = browser->size();
-;			label = std::to_string(i->containerId);
+			;			label = std::to_string(i->containerId);
 			browser->add(label.c_str(), i);
 		}
 	}
 
-	void ItemContainerEditor::load_data(){
+	void ItemContainerEditor::load_data() {
 		std::cout << "updating items" << std::endl;
 		int i = browser->value();
 		if (i <= itemcontainers->size() && i > 0)
@@ -45,9 +44,9 @@ namespace CampaignEditor
 
 		Fl_Pack* _c = new Fl_Pack(0, 0, w * .2, 30);
 		_c->type(Fl_Pack::HORIZONTAL);
-		Fl_Button * remove_button = new Fl_Button(0, 0, w * .1, 30, "Remove");
+		Fl_Button* remove_button = new Fl_Button(0, 0, w * .1, 30, "Remove");
 		remove_button->callback(static_remove, (void*)this);
-		Fl_Button *add_button = new Fl_Button(0, 0, w * .1, 30, "Add");
+		Fl_Button* add_button = new Fl_Button(0, 0, w * .1, 30, "Add");
 		add_button->callback(static_add, (void*)this);
 		_c->end();
 		g->end();
@@ -56,7 +55,7 @@ namespace CampaignEditor
 	}
 	void ItemContainerEditor::create()
 	{
-		ItemContainerRecord *e = new ItemContainerRecord();
+		ItemContainerRecord* e = new ItemContainerRecord();
 		e->containerId = browser->size();
 		itemcontainers->push_back(e);
 		//itemcontainers->back()->containerId =;

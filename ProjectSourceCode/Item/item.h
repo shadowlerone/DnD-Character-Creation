@@ -26,7 +26,6 @@
 
 #include <iostream>
 #include <string>
-
 #include "Decorator/componentdecorator.h"
 #include "Interactable/Interactable.h"
 #include "Identifiable/Identifiable.h"
@@ -109,7 +108,7 @@ namespace item
 	 * Class that abstracts the Items available to a character that are put into a container or worn.
 	 */
 	class Item : public ComponentDecorator, public Interactable::Interactable, public Identifiable
-{
+	{
 	public:
 		/*!
 		 * \fn Item

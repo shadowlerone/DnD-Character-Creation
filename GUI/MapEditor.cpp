@@ -4,18 +4,11 @@
 #include "MapEditor.h"
 #include <Builder/MapBuilder.h>
 #include <FL/Fl_Button.H>
-#include <FL/Fl_Button.H>
-#include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Pack.H>
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Scroll.H>
-#include <FL/Fl_Scroll.H>
 #include <FL/Fl_Window.H>
-#include <FL/Fl_Window.H>
-
 
 extern std::vector<Map::Map*>* maps;
 extern std::vector<item::Item*>* items;
@@ -67,7 +60,7 @@ int MapCellButton::handle(int e)
 		current_l = (current_l + 1) % 4;
 		switch (current_l) {
 		case 0:
-			m->setEmpty(y,x);
+			m->setEmpty(y, x);
 			break;
 		case 2:
 			m->setCharacter(y, x, new Character::Character("Evil Slime", Character::Character_Class::Fighter, false, new AggressorStrategy()));

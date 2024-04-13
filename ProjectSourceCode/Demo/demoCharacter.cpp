@@ -15,7 +15,7 @@ void demo_character()
 		std::cout << "3: Leave Character feature demo" << std::endl;
 		int user_input = 0;
 		std::cin >> user_input;
-		if(std::cin.fail()) {
+		if (std::cin.fail()) {
 			std::cin.clear();
 			std::cout << "Bad entry.  Enter a NUMBER: ";
 			return;
@@ -30,7 +30,7 @@ void demo_character()
 			delete demo_character;
 			break;
 		case 2:
-			std::cout << "Creating a level 1 fighter character..." << std::endl<<"Input desired ability scores..."<<std::endl;
+			std::cout << "Creating a level 1 fighter character..." << std::endl << "Input desired ability scores..." << std::endl;
 			try {
 				std::cout << "Strength: ";
 				std::cin >> demo_attributes[0];
@@ -51,7 +51,7 @@ void demo_character()
 			}
 			std::cout << "Input character name: ";
 			std::cin >> demo_name;
-			demo_character = new Character::Character(demo_name,Character::Character_Class::Fighter, demo_attributes,true);
+			demo_character = new Character::Character(demo_name, Character::Character_Class::Fighter, demo_attributes, true);
 			std::cout << "Printing character sheet..." << std::endl;
 			demo_character->Print_Character_Sheet();
 			delete demo_character;

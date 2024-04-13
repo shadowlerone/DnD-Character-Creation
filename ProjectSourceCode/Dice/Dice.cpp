@@ -1,12 +1,11 @@
-#include <string>
-#include <sstream>
-
 #include "Dice.h"
+#include <sstream>
+#include <string>
 
 Dice::Dice(std::string query) {
 	// seed the random number generator
 	srand(time(nullptr));
-	std::smatch values_mathed; 
+	std::smatch values_mathed;
 	// check if query is valid
 	if (!regex_match(query, values_mathed, DICE)) {
 		std::string e = "Query '" + query + "' is invalid\n";
@@ -36,7 +35,7 @@ void Dice::Notify() {
 
 void Dice::CreateObserverMessage(std::string _message = "Empty") {
 	observerMessage = _message;
-	
+
 	Notify();
 }
 
@@ -84,11 +83,11 @@ int Dice::roll(std::string query) {
 	}
 
 	int result = rolls + addition;
-	
+
 	std::ostringstream logMessage;
 	logMessage << "[Dice/roll] -- Rolled " << result << " for " << die_sides << "-sided die " << leading_multiplier << " times.";
 	observerMessage = logMessage.str();
-	
+
 	for (int i = 0; i < (int)observers.size(); i++)
 	{
 		observers[i]->update(observerMessage);
@@ -101,7 +100,7 @@ int Dice::roll_with_advantage() {
 	int r1, r2, r;
 	r1 = roll();
 	r2 = roll();
-	r = std::max(r1,r2);
+	r = std::max(r1, r2);
 	last_roll = r;
 	return r;
 }
@@ -109,7 +108,7 @@ int Dice::roll_with_disadvantage() {
 	int r1, r2, r;
 	r1 = roll();
 	r2 = roll();
-	r= std::min(r1,r2);
+	r = std::min(r1, r2);
 	last_roll = r;
 	return r;
 }
@@ -119,13 +118,13 @@ int Dice::roll_with_advantage(std::string query) {
 	int r1, r2;
 	r1 = Dice::roll(query);
 	r2 = Dice::roll(query);
-	return std::max(r1,r2);
+	return std::max(r1, r2);
 }
 int Dice::roll_with_disadvantage(std::string query) {
 	int r1, r2;
 	r1 = Dice::roll(query);
 	r2 = Dice::roll(query);
-	return std::min(r1,r2);
+	return std::min(r1, r2);
 }
 
 void Dice::add_die() {
@@ -144,6 +143,6 @@ std::string Dice::get_string()
 	return t_str;
 }
 
-int Dice::get_addition(){return addition;}
-int Dice::get_die_sides(){return die_sides;}
-int Dice::get_leading_multiplier(){return leading_multiplier;}
+int Dice::get_addition() { return addition; }
+int Dice::get_die_sides() { return die_sides; }
+int Dice::get_leading_multiplier() { return leading_multiplier; }

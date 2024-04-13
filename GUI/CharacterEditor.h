@@ -1,10 +1,11 @@
 #pragma once
 #include "BaseEditor.h"
+
 namespace CampaignEditor
 {
 	class CharacterEditor : public BaseEditor
 	{
-		public:
+	public:
 		CharacterEditor(int x, int y, int w, int h);
 		void load_data();
 		void create();
@@ -17,7 +18,7 @@ namespace CampaignEditor
 		void delete_entry();
 		void update_data();
 		void populate_browser();
-		private:
-			vector<Character::Character *> * characters;
+	private:
+		vector<Character::Character*>* characters;
 	};
 }

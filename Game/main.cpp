@@ -1,10 +1,5 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-#include <iostream>
-#include <stdlib.h>
-#include <thread>
-
 #include "Character/Character.h"
-#include "Game/game.h"
 #include "Game/game.h"
 #include "Game/gamelogger.h"
 #include "gui.h"
@@ -13,6 +8,8 @@
 #include "MainMenu.h"
 #include <FL/Fl.H>
 #include <iostream>
+#include <stdlib.h>
+#include <thread>
 
 /* #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
@@ -53,7 +50,7 @@ int main()
 {
 	// setting up screens
 	Character::Character* playerCharacter = new Character::Character();
-	game::Game game ("Campaign");
+	game::Game game("Campaign");
 	make_window();
 	roll_dice();
 	game.Attach(game_window);

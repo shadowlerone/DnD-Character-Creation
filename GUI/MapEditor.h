@@ -1,33 +1,34 @@
 #pragma once
+#include "../ProjectSourceCode/Interactable/Interactable.h"
+#include "../ProjectSourceCode/Map/Map.h"
+#include "BaseEditor.h"
 #include "Globals.h"
+#include "Interactable/Interactable.h"
+#include "Map/Map.h"
 #include <FL/Fl.H>
-#include <FL/Fl_Pack.H>
+#include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Group.H>
-#include <FL/Fl_Box.H>
+#include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Pack.H>
+#include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Window.H>
-#include <FL/Fl_Int_Input.H>
-
-#include <FL/Fl_Return_Button.H>
 #include <vector>
-#include "BaseEditor.h"
-#include "Map/Map.h"
-#include "Interactable/Interactable.h"
 
 namespace CampaignEditor
 {
-	const std::string Cell_Labels[4] = {" ", "w", "i", "c"};
+	const std::string Cell_Labels[4] = { " ", "w", "i", "c" };
 	class MapCellButton : public Fl_Button
 	{
 	public:
-		MapCellButton(int x, int y, int w, int h, int _x, int _y, Interactable::Interactable *c=nullptr);
+		MapCellButton(int x, int y, int w, int h, int _x, int _y, Interactable::Interactable* c = nullptr);
 		void bind(Map::Map* _m) { m = _m; }
 		//void cell_type(Map::Cell_Type ct) { this->ct = ct; };
 		void cell_type(Interactable::Interactable* ct) { this->ct = ct; };
 
 		//Map::Cell_Type cell_type() { return ct; }
-		Interactable::Interactable * cell_type() { return ct; }
+		Interactable::Interactable* cell_type() { return ct; }
 
 		int X() { return x; }
 		int Y() { return y; }
@@ -35,7 +36,7 @@ namespace CampaignEditor
 
 	private:
 		//Map::Cell_Type ct;
-		Interactable::Interactable * ct;
+		Interactable::Interactable* ct;
 
 		int x, y;
 		int current_l = 0;
@@ -47,7 +48,7 @@ namespace CampaignEditor
 
 	public:
 		MapEditor(int x, int y, int w, int h);
-		MapCellButton *get_cell(int x, int y) { return mcbs[y][x]; }
+		MapCellButton* get_cell(int x, int y) { return mcbs[y][x]; }
 
 		void redraw_map();
 		void populate_browser();
@@ -64,15 +65,15 @@ namespace CampaignEditor
 		void update_cell(int x, int y, Interactable::Interactable* ct);
 		void update_cell(int x, int y, std::string ct);
 		void update_cell(int x, int y, char ct);
-		void set_maps(std::vector<Map::Map *> *m) { maps = m; }
-		static void confirm(Fl_Widget *widget, void *f);
-		static void hide(Fl_Widget *widget, void *f);
+		void set_maps(std::vector<Map::Map*>* m) { maps = m; }
+		static void confirm(Fl_Widget* widget, void* f);
+		static void hide(Fl_Widget* widget, void* f);
 
 	private:
-		Fl_Scroll *map_grid;
-		Map::Map *current_map;
+		Fl_Scroll* map_grid;
+		Map::Map* current_map;
 		int _grid_x, _grid_y;
-		std::vector<std::vector<MapCellButton *>> mcbs;
+		std::vector<std::vector<MapCellButton*>> mcbs;
 		int _new_x, _new_y; // internal only, used during dialog to create map;
 	};
 
@@ -86,21 +87,21 @@ namespace CampaignEditor
 			in_x->value("5");
 			in_y->value("5");
 			// Fl_Button *cb = new Fl_Return_Button(10, 50, 100, 30, "Cancel");
-			Fl_Return_Button *rb = new Fl_Return_Button(10, 50, 100, 30, "Create...");
+			Fl_Return_Button* rb = new Fl_Return_Button(10, 50, 100, 30, "Create...");
 			set_modal();
 			// cb->callback(h, (void *)this);
-			rb->callback(confirm, (void *)this);
+			rb->callback(confirm, (void*)this);
 		}
 		int y() { return std::stoi(in_y->value()); }
 		int x() { return std::stoi(in_x->value()); }
 		int confirmed() { return _confirmed; }
-		void static h(Fl_Widget *w, void *f)
+		void static h(Fl_Widget* w, void* f)
 		{
-			((NewMapModal *)f)->hide();
+			((NewMapModal*)f)->hide();
 		}
-		void static confirm(Fl_Widget *w, void *f)
+		void static confirm(Fl_Widget* w, void* f)
 		{
-			((NewMapModal *)f)->submit();
+			((NewMapModal*)f)->submit();
 		}
 		void submit()
 		{
@@ -121,7 +122,7 @@ namespace CampaignEditor
 		int _x;
 		int _y;
 		bool _confirmed = false;
-		Fl_Int_Input *in_x;
-		Fl_Int_Input *in_y;
+		Fl_Int_Input* in_x;
+		Fl_Int_Input* in_y;
 	};
 }

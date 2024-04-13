@@ -1,17 +1,12 @@
-#include <iostream>
-#include <string>
-
-#include "demoitem.h"
 #include "..\Item\item.h"
 #include "..\Item\itemcontainer.h"
+#include "demoitem.h"
+#include <iostream>
+#include <string>
 
 // using namespace std;
 using namespace item;
 using namespace itemcontainer;
-
-namespace {
-
-}
 
 namespace demoitem {
 	void ShowCaseItemCreation() {

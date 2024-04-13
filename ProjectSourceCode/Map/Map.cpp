@@ -1,3 +1,11 @@
+#include "..\Campaign\campaign.h"
+#include "..\Character\Character.h"
+#include "..\Door\door.h"
+#include "..\Interactable\EmptyCell.h"
+#include "..\Interactable\Interactable.h"
+#include "..\Interactable\Wall.h"
+#include "..\Item\item.h"
+#include "Map.h"
 #include <iostream>
 #include <list>
 #include <queue>
@@ -6,14 +14,6 @@
 #include <stack>
 #include <string>
 #include <vector>
-
-#include "..\Character\Character.h"
-#include "..\Door\door.h"
-#include "..\Interactable\EmptyCell.h"
-#include "..\Interactable\Interactable.h"
-#include "..\Interactable\Wall.h"
-#include "..\Item\item.h"
-#include "Map.h"
 
 using namespace door;
 
@@ -203,12 +203,14 @@ bool Map::Map::ValidCell(int nextRow, int nextCol, std::vector<std::vector<bool>
 void Map::Map::MoveCharacter(const int& _targetX, const int& _targetY, Character::Character* _targetCharacter) {
 	// Some logic here to swap character positions based on coordiantes, x and y coor should be 1-indexed
 
-	if (_targetX < 1 || _targetX > grid.size() || _targetY < 1 || _targetY > grid[0].size()) {
-		throw std::invalid_argument("[Map/MoveCharacter] -- Invalid coordiantes");
-	}
+	//if (_targetX < 1 || _targetX > grid.size() || _targetY < 1 || _targetY > grid[0].size()) {
+	//	//dont throw this yet
+	//	//throw std::invalid_argument("[Map/MoveCharacter] -- Invalid coordiantes");
+	//}
 
 	Interactable::Interactable* valueAtCell = grid[_targetX - 1][_targetY - 1];
 
+	//if next cell is not empty, you cant move there
 	if (!dynamic_cast<EmptyCell*>(valueAtCell)) {
 		throw std::invalid_argument("[Map/MoveCharacter] -- Can't move to this cell");
 	}
@@ -216,6 +218,7 @@ void Map::Map::MoveCharacter(const int& _targetX, const int& _targetY, Character
 	int sourceLocationX = 0;
 	int sourceLocationY = 0;
 
+	//whats this??? finding where player standing???
 	for (int i = 0; i < (int)grid.size(); i++)
 	{
 		for (int j = 0; j < (int)grid[i].size(); j++)
@@ -234,7 +237,7 @@ void Map::Map::MoveCharacter(const int& _targetX, const int& _targetY, Character
 	//setCell(, , new EmptyCell());
 
 	std::ostringstream logMessage;
-	logMessage << "[Map/MoveCharacter] -- " << _targetCharacter->Name() << " is moving to location (" << _targetX - 1 << "," << _targetY - 1 << ") on map " << getID();
+	logMessage << "[Map/MoveCharacter] -- " << _targetCharacter->Name() << " is moving to location ( x:" << _targetX - 1 << ", y:" << _targetY - 1 << ") on map " << getID();
 	CreateObserverMessage(logMessage.str());
 }
 

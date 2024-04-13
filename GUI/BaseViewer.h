@@ -5,6 +5,6 @@ using namespace observer;
 
 namespace CampaignEditor {
 	class BaseViewer : public Fl_Window, public Observer {
-		
+
 	};
 }

@@ -19,33 +19,33 @@ using namespace observer;
 */
 namespace observable {
 	/*!
-    * \class Observable
-    * \brief Class to abstract the observable functionality
-    */
+	* \class Observable
+	* \brief Class to abstract the observable functionality
+	*/
 	class Observable {
-		public: 
-			/*!
-            * \fn ~Observable
-            * \brief Destructor for Observable
-            */
-			virtual ~Observable() {};
+	public:
+		/*!
+		* \fn ~Observable
+		* \brief Destructor for Observable
+		*/
+		virtual ~Observable() {};
 
-			/*!
-            * \fn Attach
-            * \brief Abstract function to provide concrete implementations a way to override
-            */
-			virtual void Attach (Observer*) = 0;
+		/*!
+		* \fn Attach
+		* \brief Abstract function to provide concrete implementations a way to override
+		*/
+		virtual void Attach(Observer*) = 0;
 
-			/*!
-            * \fn Detach
-            * \brief Abstract function to provide concrete implementations a way to override
-            */
-			virtual void Detach (Observer*) = 0;
+		/*!
+		* \fn Detach
+		* \brief Abstract function to provide concrete implementations a way to override
+		*/
+		virtual void Detach(Observer*) = 0;
 
-			/*!
-            * \fn Notify
-            * \brief Abstract function to provide concrete implementations a way to override
-            */
-			virtual void Notify() = 0;
+		/*!
+		* \fn Notify
+		* \brief Abstract function to provide concrete implementations a way to override
+		*/
+		virtual void Notify() = 0;
 	};
 }

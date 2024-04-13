@@ -44,7 +44,7 @@ namespace CampaignEditor
 	{
 		browser->clear();
 		std::string label;
-		for (Map::Map *i : *maps)
+		for (Map::Map* i : *maps)
 		{
 			label = std::to_string(i->getID());
 			browser->add(label.c_str(), i);
@@ -61,11 +61,11 @@ namespace CampaignEditor
 		{
 			// Fl_Pack * r = new Fl_Pack(0,0,50*_grid_x, 50);
 			// r->type(Fl_Pack::HORIZONTAL);
-			mbs.push_back(std::vector<MapButton *>());
+			mbs.push_back(std::vector<MapButton*>());
 			for (int i = 0; i < currentCampaign->numRows; i++)
 			{
-				MapButton *m = new MapButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
-				m->callback(button_cb, (void * )this);
+				MapButton* m = new MapButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
+				m->callback(button_cb, (void*)this);
 				try {
 					int id = currentCampaign->mapIDs[i][j];
 					if (id > 0) {
@@ -75,7 +75,8 @@ namespace CampaignEditor
 						m->copy_label(" ");
 					}
 
-				} catch (std::exception &e) {
+				}
+				catch (std::exception& e) {
 					std::cerr << e.what() << std::endl;
 					m->copy_label("");
 				}
@@ -86,7 +87,7 @@ namespace CampaignEditor
 		}
 		map_grid->end();
 		map_grid->show();
-		map_grid->scroll_to(0,0);
+		map_grid->scroll_to(0, 0);
 	}
 	void CampaignEditor::create() {}
 	void CampaignEditor::delete_entry() {}
@@ -102,12 +103,13 @@ namespace CampaignEditor
 		map_list->clear();
 		std::string label;
 		map_list->add("");
-		if (get_cell(_c_x,_c_y)->ID() != 0){
-			map_list->value(std::to_string(get_cell(_c_x,_c_y)->ID()).c_str());
-		} else {
+		if (get_cell(_c_x, _c_y)->ID() != 0) {
+			map_list->value(std::to_string(get_cell(_c_x, _c_y)->ID()).c_str());
+		}
+		else {
 			map_list->value("");
 		}
-		for (Map::Map *i : *maps)
+		for (Map::Map* i : *maps)
 		{
 			label = std::to_string(i->getID());
 			map_list->add(label.c_str());
@@ -121,13 +123,13 @@ namespace CampaignEditor
 		std::cout << "attempting to update the browser" << std::endl;
 	}
 	void CampaignEditor::handle_dropdown() {
-		MapButton * b = get_cell(_c_x, _c_y);
+		MapButton* b = get_cell(_c_x, _c_y);
 		b->ID(std::stoi(map_list->value()));
 		b->label(map_list->value());
 		bool found = false;
-		Map::Map *m = NULL;
-		for (Map::Map *_m : *maps){
-			if (_m->getID() == std::stoi(map_list->value())){
+		Map::Map* m = NULL;
+		for (Map::Map* _m : *maps) {
+			if (_m->getID() == std::stoi(map_list->value())) {
 				found = true;
 				m = _m;
 				break;
@@ -138,20 +140,21 @@ namespace CampaignEditor
 			return;
 		}
 		currentCampaign->mapIDs[_c_y][_c_x] = m->getID();
-		std::cout<<"campaign modified" <<std::endl;
+		std::cout << "campaign modified" << std::endl;
 
 		// redraw_map();
 	}
-	bool CampaignEditor::save(){
+	bool CampaignEditor::save() {
 		if (filepath.empty())
 		{
 			save_as();
-		} else {
+		}
+		else {
 			try
 			{
 				SaveCampaignRecord(this->filepath, *currentCampaign);
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				fl_alert("There was an error saving the file. Try using 'save as'");
 				return false;
@@ -163,7 +166,7 @@ namespace CampaignEditor
 				populate_browser();
 				/* code */
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
 				return false;
@@ -179,7 +182,7 @@ namespace CampaignEditor
 			{
 				save();
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
 			}
@@ -210,8 +213,8 @@ namespace CampaignEditor
 		}
 		return false;
 	}
-	void CampaignEditor::save_all(){
-		for (Map::Map *_m: *maps){
+	void CampaignEditor::save_all() {
+		for (Map::Map* _m : *maps) {
 
 		}
 	}

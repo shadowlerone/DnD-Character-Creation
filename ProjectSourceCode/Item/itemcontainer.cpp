@@ -5,23 +5,22 @@
 * This file puts in the implementation functions for the ItemContainer class
 */
 
-#include <iostream>
-#include <string>
-#include <algorithm>
-
 #include "item.h"
 #include "itemcontainer.h"
+#include <algorithm>
+#include <iostream>
+#include <string>
 
 // using namespace std;
 using namespace item;
 
 namespace {
-	
+
 }
 
 namespace itemcontainer {
 	ItemContainer::ItemContainer(const std::string& _containerName, const int& _containerType, const float& _capacity) :
-					Item(_containerName, 0, _containerType, 10, _containerType == 8 ? 5 : _containerType == 10 ? 25 : 0) {
+		Item(_containerName, 0, _containerType, 10, _containerType == 8 ? 5 : _containerType == 10 ? 25 : 0) {
 		std::vector<Item> _items;
 		items = _items;
 		capacity = _capacity;
@@ -104,8 +103,8 @@ namespace itemcontainer {
 	std::vector<Item> ItemContainer::GetItemsByEnchantmentBonus(const int& enchantmentBonus) {
 		std::vector<Item> resultVect;
 		copy_if(items.begin(),
-				items.end(),
-				back_inserter(resultVect), 
+			items.end(),
+			back_inserter(resultVect),
 			[enchantmentBonus](Item item) { return item.GetEnchantmentBonus() == enchantmentBonus; });
 
 		return resultVect;
@@ -134,22 +133,22 @@ namespace itemcontainer {
 	void ItemContainer::PrintItemVector() {
 		std::cout << "\t\t" << this->GetItemName() << " Items Information" << std::endl;
 		std::cout << "------------------------------------------" << std::endl << std::endl;
-		
+
 		for (int i = 0; i < items.size(); i++)
 		{
 			std::cout << i + 1
-					<< ". "
-					<< items[i].GetItemName()
-					<< "\t"
-					<< itemTypeStrings[items[i].GetItemType() - 1]
-					<< "\t"
-					<< std::to_string(items[i].GetEnchantmentBonus())
-					<< "\t"
-					<< statStrings[items[i].GetEnchantmentType()]
-					<< "\t"
-					<< std::to_string(items[i].GetItemWeight())
-					<< "lbs"
-					<< std::endl;
+				<< ". "
+				<< items[i].GetItemName()
+				<< "\t"
+				<< itemTypeStrings[items[i].GetItemType() - 1]
+				<< "\t"
+				<< std::to_string(items[i].GetEnchantmentBonus())
+				<< "\t"
+				<< statStrings[items[i].GetEnchantmentType()]
+				<< "\t"
+				<< std::to_string(items[i].GetItemWeight())
+				<< "lbs"
+				<< std::endl;
 		}
 		std::cout << "------------------------------------------" << std::endl;
 	}
