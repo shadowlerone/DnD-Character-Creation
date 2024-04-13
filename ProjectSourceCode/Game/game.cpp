@@ -155,10 +155,43 @@ namespace game
 
 		CampaignMap currentMapInCampaign = gameCampaign->GetCurrentMap();
 		Map::Map* currentLoadedMap = gameCampaign->GetMap(currentMapInCampaign.coorX, currentMapInCampaign.coorY);
+		//coordinates of the map in the campaign
+		int currmapx = currentMapInCampaign.coorX;
+		int currmapy = currentMapInCampaign.coorY;
 
 		if (_actionTaken == Character::EMPTY_CELL_ACTION)
 		{
-			currentLoadedMap->MoveCharacter(_targetX, _targetY, activeCharacter);
+			//if trying to move out of the current map
+			if (_targetX < 1 || _targetX > currentLoadedMap->getGrid().size() || _targetY < 1 || _targetY > currentLoadedMap->getGrid()[0].size()) {
+				int newtargetX = _targetX;
+				int newtargetY = _targetX;
+				//moving left
+				if (_targetX < 1) {
+					currmapx -= 1;
+					newtargetX = currentLoadedMap->getGrid().size(); //you walk in from the right edge of the map
+				}
+				//moving right
+				else if (_targetX > currentLoadedMap->getGrid().size()) {
+					currmapx += 1;
+					newtargetX = 1; //you walk in from the left edge of the map
+				}
+				//moving down
+				else if (_targetY < 1) {
+					currmapy -= 1;
+					newtargetY = 1;// you walk in from the upper edge of the map
+				}
+				//moving up
+				else if (_targetY > currentLoadedMap->getGrid()[0].size()) {
+					currmapy += 1;
+					newtargetY = currentLoadedMap->getGrid()[0].size();// you walk in from the bottom edge of the map
+				}
+				//change target map to next one over
+				currentLoadedMap = gameCampaign->GetMap(currmapx, currmapy);
+				currentLoadedMap->MoveCharacter(newtargetX, newtargetY, activeCharacter);
+			}
+			else {
+				currentLoadedMap->MoveCharacter(_targetX, _targetY, activeCharacter);
+			}
 		}
 		else if (_actionTaken == Character::ATTACK_CELL_ACTION)
 		{

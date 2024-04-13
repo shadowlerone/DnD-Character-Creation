@@ -124,6 +124,7 @@ namespace campaign {
 		* \throw invalid_argument
 		*/
 		Map::Map* GetMap(const int&, const int&);
+
 	private:
 		static inline int nextCampaignID = 0;
 
