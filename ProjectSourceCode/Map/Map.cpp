@@ -231,10 +231,10 @@ void Map::Map::MoveCharacter(const int& _targetX, const int& _targetY, Character
 		}
 	}
 
-	//the swapping
-	Interactable::Interactable* temp = grid[_targetX - 1][_targetY - 1];
-	setCell(_targetX - 1, _targetY - 1, _targetCharacter); // add the player to the target cell
-	setCell(sourceLocationX, sourceLocationY, temp);// reset the cell the player left
+	//Interactable::Interactable* temp = grid[_targetX - 1][_targetY - 1];
+	setCell(_targetX - 1, _targetY - 1, _targetCharacter);
+	setEmpty(sourceLocationX, sourceLocationY);
+	//setCell(, , new EmptyCell());
 
 	std::ostringstream logMessage;
 	logMessage << "[Map/MoveCharacter] -- " << _targetCharacter->Name() << " is moving to location ( x:" << _targetX - 1 << ", y:" << _targetY - 1 << ") on map " << getID();

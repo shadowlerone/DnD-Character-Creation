@@ -11,7 +11,7 @@ MapCellButton::MapCellButton(int x, int y, int w, int h, int _x, int _y) :Fl_But
 	this->y = _y;
 }
 
-void MapGamer::drawGame() {
+void MapGamer::drawGame(Map::Map *map) {
 
 	std::cout << "Drawing the map in game." << std::endl;
 

@@ -6,11 +6,16 @@
  */
 
 #pragma once
+#include "Utils/Utils.h"
+#include <vector>
+#include <string>
+#include <filesystem>
+#include <Fl/Fl_Double_Window.H>
 
-#include "..\Builder\MapBuilder.h"
-#include "..\Campaign\campaign.h"
-#include "..\Item\item.h"
-#include "..\Observer\Observable.h"
+#include "Observer/Observable.h"
+#include "Campaign/campaign.h"
+#include "Item/item.h"
+#include "Builder/MapBuilder.h"
 #include "gui.h"
 #include <filesystem>
 #include <Fl/Fl_Double_Window.H>
@@ -95,10 +100,24 @@ namespace game
 		{
 			while (true)
 			{
+
+				// todo: player character action
+				auto pc = playerCharacter->GetActionStrategy()->UseMovementStrategy(currentMap->getGrid(), playerCharacter->x, playerCharacter->y);
+				for (Character::Character* c : GetCharactersInMap()) {
+					characteractionstrategy::CellActionInfo t = c->GetActionStrategy()->UseMovementStrategy(currentMap->getGrid(), c->x, c->y)[0];
+					if (t.actionName == Character::EMPTY_CELL_ACTION) {
+						currentMap->MoveCharacter(t.col, t.row, c);
+					} else if (t.actionName == Character::ATTACK_CELL_ACTION) {
+						Combat(c, playerCharacter);
+					}
+				}
+
+				//Notify();
+				
 			}
 		};
-
-		void Attach(Fl_Double_Window* window) { this->window = window; };
+		void update_window();
+		void Attach(Fl_Double_Window *window) { this->window = window; };
 
 		std::vector<Observer*> GetObservers() { return observers; };
 
@@ -124,7 +143,9 @@ namespace game
 		void GameSetup(const std::string&);
 
 		// Good candidate to incorporate doors (pass a reference to the object just an ID to know what map to load from campaign member)
-		Map::Map* LoadMap(/* Door or ID */);
+		//Map::Map *LoadMap(/* Door or ID */);
+
+		void Warp();
 
 		// Essentially use this to update the game data based on an action taken by the player or an NPC
 		void EndTurn(const std::string&, const int&, const int&);
