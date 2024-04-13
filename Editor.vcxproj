@@ -73,8 +73,7 @@
       <AdditionalLibraryDirectories>$(IntDir)..\Project;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy "$(Solutiondir)Campaign" "$(outdir)Campaign"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
