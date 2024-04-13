@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 
-#include "..\Interactable\Interactable.h"
+#include "Interactable\Interactable.h"
 
 /*!
 * \namespace characteractionstrategy

@@ -139,15 +139,9 @@ namespace game
 		CreateObserverMessage("[Game/GameSetup] -- Game setup complete! Ready to Play!");
 	}
 
-	Map::Map *Game::LoadMap(/* Door or ID */)
-	{
-		CreateObserverMessage("[Game/LoadMap] -- Door used, finding which map to bring up...");
-
-		// Use door or ID to find map to load through the campaign member variable...
-
-		CreateObserverMessage("[Game/LoadMap] -- Found the map the player is in!");
-
-		return new Map::Map();
+	void Game::Warp() {
+		//if ()
+		
 	}
 
 	void Game::EndTurn(const std::string &_actionTaken, const int &_targetX, const int &_targetY)
@@ -199,7 +193,9 @@ namespace game
 
 		activeCharacter = (*currentActiveCharacter);
 	}
-
+	void update_window() {
+		
+	}
 	void Game::PrintActionMenu(Character::Character *_player)
 	{
 		Map::Map *currentMap;

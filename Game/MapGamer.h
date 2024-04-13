@@ -1,7 +1,8 @@
 #pragma once
 
 #include <FL/Fl_Group.H>
-#include <MapEditor.h>
+//#include <MapEditor.h>
+#include "Main.h"
 #include <vector>
 
 namespace GameView
@@ -35,10 +36,10 @@ namespace GameView
 	public:
 		MapCellButton* get_cell(int x, int y) { return mcbs[y][x]; }
 
-		void drawGame();
+		void drawGame(Map::Map* map);
 
 	private:
-		Fl_Group* map_group;
+		// Fl_Group* map_group;
 		int _grid_x, _grid_y;
 		std::vector<std::vector<MapCellButton*>> mcbs;
 

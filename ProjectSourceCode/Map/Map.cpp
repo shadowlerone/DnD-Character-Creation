@@ -228,9 +228,10 @@ void Map::Map::MoveCharacter(const int& _targetX, const int& _targetY, Character
 		}
 	}
 
-	Interactable::Interactable* temp = grid[_targetX - 1][_targetY - 1];
+	//Interactable::Interactable* temp = grid[_targetX - 1][_targetY - 1];
 	setCell(_targetX - 1, _targetY - 1, _targetCharacter);
-	setCell(sourceLocationX, sourceLocationY, temp);
+	setEmpty(sourceLocationX, sourceLocationY);
+	//setCell(, , new EmptyCell());
 
 	std::ostringstream logMessage;
 	logMessage << "[Map/MoveCharacter] -- " << _targetCharacter->Name() << " is moving to location (" << _targetX - 1 << "," << _targetY - 1 << ") on map " << getID();

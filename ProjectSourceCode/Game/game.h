@@ -98,6 +98,7 @@ namespace game
 			{
 
 				// todo: player character action
+				auto pc = playerCharacter->GetActionStrategy()->UseMovementStrategy(currentMap->getGrid(), playerCharacter->x, playerCharacter->y);
 				for (Character::Character* c : GetCharactersInMap()) {
 					characteractionstrategy::CellActionInfo t = c->GetActionStrategy()->UseMovementStrategy(currentMap->getGrid(), c->x, c->y)[0];
 					if (t.actionName == Character::EMPTY_CELL_ACTION) {
@@ -106,9 +107,12 @@ namespace game
 						Combat(c, playerCharacter);
 					}
 				}
+
+				//Notify();
+				
 			}
 		};
-
+		void update_window();
 		void Attach(Fl_Double_Window *window) { this->window = window; };
 
 		std::vector<Observer *> GetObservers() { return observers; };
