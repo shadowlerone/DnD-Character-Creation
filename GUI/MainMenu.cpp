@@ -10,11 +10,13 @@ using namespace CampaignEditor;
 
 
 MainMenu::MainMenu() : Fl_Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Campaign Editor") {
+	
+	menu = new Fl_Menu_Bar(0,0, WINDOW_WIDTH, 30, "Campaign Editor");
+	menu->add("@fileopen open", FL_CTRL+'o', MainMenu::static_open, (void*)this);
+	menu->add("@filesave save", FL_CTRL+'s', MainMenu::static_save, (void*)this);
+	menu->add("@filesave save as", FL_CTRL+FL_SHIFT+'s', MainMenu::static_save_as, (void*)this);
+	menu->add("@reload reload", FL_CTRL + 'r', MainMenu::static_reload, (void*)this);
 
-	menu = new Fl_Menu_Bar(0, 0, WINDOW_WIDTH, 30, "Campaign Editor");
-	menu->add("@fileopen open", FL_CTRL + 'o', MainMenu::static_open, (void*)this);
-	menu->add("@filesave save", FL_CTRL + 's', MainMenu::static_save, (void*)this);
-	menu->add("@filesave save as", FL_CTRL + FL_SHIFT + 's', MainMenu::static_save_as, (void*)this);
 	// menu->end();
 	tabs = new Fl_Tabs(10, 30, WINDOW_WIDTH, WINDOW_HEIGHT - 30);
 	// cg = new Fl_Group(GROUP_SETTINGS, "Campaign");
@@ -34,13 +36,16 @@ MainMenu::MainMenu() : Fl_Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Campaign Editor")
 		ie = new ItemEditor(EDITOR_SETTINGS);
 	}
 	ig->end();
-
+	icg = new Fl_Group(GROUP_SETTINGS, "Containers"); 
+	{
+		ice = new ItemContainerEditor(EDITOR_SETTINGS);
+	}
+	icg->end();
 	// chare = new CharacterEditor(EDITOR_SETTINGS);
 
 	tabs->end();
 	this->end();
 	this->resizable(tabs);
-	maps = new std::vector<Map::Map*>;
 }
 
 void MainMenu::start() {

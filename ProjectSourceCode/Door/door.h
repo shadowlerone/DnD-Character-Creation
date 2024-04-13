@@ -2,7 +2,8 @@
 
 #include <vector>
 
-#include "..\Interactable\Interactable.h"
+#include "Interactable/Interactable.h"
+#include "Identifiable/Identifiable.h"
 
 namespace door {
 	struct DoorDestinationInfo
@@ -19,48 +20,48 @@ namespace door {
 	};
 
 
-	class Door : public Interactable::Interactable {
-	public:
-		Door() { nextDoorID++; doorID = nextDoorID; };
+    class Door : public Interactable::Interactable, Identifiable {
+        public:
+            Door() { setID(++nextDoorID); };
 
-		Door(int _doorID,
-			int _firstMapID,
-			int _secondMapID,
-			std::vector<int> _firstMapLocation,
-			std::vector<int> _secondMapLocation,
-			std::vector<int> _firstMapSpawnPoint,
-			std::vector<int> _secondMapSpawnPoint)
-		{
-			doorID = _doorID;
-			firstMapID = _firstMapID;
-			secondMapID = _secondMapID;
-			firstMapLocation = _firstMapLocation;
-			secondMapLocation = _secondMapLocation;
-			firstMapSpawnPoint = _firstMapSpawnPoint;
-			secondMapSpawnPoint = _secondMapSpawnPoint;
-		};
+            Door(int _doorID,
+                    int _firstMapID,
+                    int _secondMapID,
+                    std::vector<int> _firstMapLocation,
+                    std::vector<int> _secondMapLocation,
+                    std::vector<int> _firstMapSpawnPoint,
+                    std::vector<int> _secondMapSpawnPoint)
+            {
+                setID(_doorID);
+                firstMapID = _firstMapID;
+                secondMapID = _secondMapID;
+                firstMapLocation = _firstMapLocation;
+                secondMapLocation = _secondMapLocation;
+                firstMapSpawnPoint = _firstMapSpawnPoint;
+                secondMapSpawnPoint = _secondMapSpawnPoint;
+            };
 
-		Door(Door& _door) {
-			doorID = _door.doorID;
-			firstMapID = _door.firstMapID;
-			secondMapID = _door.secondMapID;
-			firstMapLocation = _door.firstMapLocation;
-			secondMapLocation = _door.secondMapLocation;
-			firstMapSpawnPoint = _door.firstMapSpawnPoint;
-			secondMapSpawnPoint = _door.secondMapSpawnPoint;
-		}
+            Door(Door& _door) {
+                setID(_door.getID());
+                firstMapID = _door.firstMapID;
+                secondMapID = _door.secondMapID;
+                firstMapLocation = _door.firstMapLocation;
+                secondMapLocation = _door.secondMapLocation;
+                firstMapSpawnPoint = _door.firstMapSpawnPoint;
+                secondMapSpawnPoint = _door.secondMapSpawnPoint;
+            }
 
 		~Door() { firstMapSpawnPoint.clear(); secondMapSpawnPoint.clear(); };
 
 		int GetNextDoorID() { return nextDoorID; };
 
-		void SetNextDoorID(int _nextDoorID) { nextDoorID = _nextDoorID; };
+            void SetNextDoorID(int _nextDoorID) { nextDoorID = _nextDoorID; };
+            
+            // int GetDoorID() { return doorID; };
 
-		int GetDoorID() { return doorID; };
-
-		void SetDoorID(int _doorID) { doorID = _doorID; };
-
-		int GetFirstMapID() { return firstMapID; };
+            // void SetDoorID(int _doorID) { doorID = _doorID; };
+            
+            int GetFirstMapID() { return firstMapID; };
 
 		void SetFirstMapID(int _firstMapID) { firstMapID = _firstMapID; };
 
@@ -88,7 +89,7 @@ namespace door {
 	private:
 		static inline int nextDoorID = 0;
 
-		int doorID;
+            // int doorID;
 
 		int firstMapID;
 

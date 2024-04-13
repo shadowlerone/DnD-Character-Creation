@@ -27,6 +27,10 @@ namespace itemcontainer {
 		capacity = _capacity;
 	}
 
+	ItemContainer::ItemContainer(int id) {
+		id = id;
+	}
+
 	int ItemContainer::AddNewItem(Item* newItem) {
 		if (GetItemType() == WornItems) {
 			Item* foundItem = GetItem(newItem->GetItemType());
@@ -47,7 +51,7 @@ namespace itemcontainer {
 		for (int i = 0; i < (int)_itemToRemove.size(); i++)
 		{
 			Item itemToRemove = *_itemToRemove[i];
-			if (GetItem(itemToRemove.GetItemId()) != nullptr) {
+			if (GetItem(itemToRemove.getID()) != nullptr) {
 				items.erase(std::remove(items.begin(), items.end(), itemToRemove), items.end());
 			}
 		}
@@ -67,7 +71,7 @@ namespace itemcontainer {
 	Item* ItemContainer::GetItem(const int& _itemID) {
 		for (size_t i = 0; i < items.size(); i++)
 		{
-			if (items[i].GetItemId() == _itemID) {
+			if (items[i].getID() == _itemID) {
 				return &items[i];
 			}
 		}

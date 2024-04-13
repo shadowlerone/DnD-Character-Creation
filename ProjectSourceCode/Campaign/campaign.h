@@ -8,8 +8,8 @@
 #pragma once
 
 #include <vector>
-
-#include "..\Map\Map.h"
+#include "Identifiable/Identifiable.h"
+#include "Map/Map.h"
 
 /*!
 * \namespace campaign
@@ -42,17 +42,17 @@ namespace campaign {
 		std::vector<int> mapsInCampaign;
 	};
 
-	/*!
-	* \class Campaign
-	* \brief Class to abstract the campaign functionality
-	*/
-	class Campaign {
-	public:
-		/*!
-		* \fn Campaign
-		* \brief No-args constructor for Campaign
-		*/
-		Campaign();
+    /*!
+    * \class Campaign
+    * \brief Class to abstract the campaign functionality
+    */
+    class Campaign : public Identifiable{
+        public:
+            /*!
+            * \fn Campaign
+            * \brief No-args constructor for Campaign
+            */
+            Campaign();
 
 		/*!
 		* \fn Campaign
@@ -74,13 +74,13 @@ namespace campaign {
 		*/
 		Campaign(int, const int&, const int&, std::vector<std::vector<int>>, CampaignMap, std::vector<Map::Map*>);
 
-		int GetCurrentCampaignID() { return nextCampaignID; };
+            // int GetCurrentCampaignID() { return nextCampaignID; };
 
-		void SetCurrentCampaignID(int _nextCampaignID) { nextCampaignID = _nextCampaignID; };
+            // void SetCurrentCampaignID(int _nextCampaignID) { nextCampaignID = _nextCampaignID; };
 
-		int GetCampaignID() { return campaignID; };
+            // int GetCampaignID() { return campaignID; };
 
-		void SetCampaignID(int _campaignID) { campaignID = _campaignID; };
+            // void SetCampaignID(int _campaignID) { campaignID = _campaignID; };
 
 		int GetGridRows() { return gridRows; };
 
@@ -127,11 +127,11 @@ namespace campaign {
 	private:
 		static inline int nextCampaignID = 0;
 
-		/*!
-		* \var campaignID
-		* \brief Integer representing the unique ID for a Campaign
-		*/
-		int campaignID;
+            // /*!
+            // * \var campaignID
+            // * \brief Integer representing the unique ID for a Campaign
+            // */
+            // int campaignID;
 
 		/*!
 		* \var gridRows
@@ -173,16 +173,18 @@ namespace campaign {
 	*/
 	void SaveCampaigns(const std::string&, Campaign);
 
-	/*!
-	* \fn LoadCampaigns
-	* \brief Function to load instances of created campaigns from a CSV file.
-	*
-	* \param _campaignID String that represents the absolute path of the directory to save the contents to (Do not append with slash)
-	* \param _folderDir String that represents the absolute path of the directory to save the contents to (Do not append with slash)
-	*
-	* \return Pointer to a CampaignRecord struct that represents the selecetd campaing to use
-	*
-	* \throw invalid_argument
-	*/
-	CampaignRecord* LoadCampaign(const int&, const std::string&);
+    void SaveCampaignRecord(std::string fp, CampaignRecord c);
+
+    /*!
+    * \fn LoadCampaigns 
+    * \brief Function to load instances of created campaigns from a CSV file.
+    * 
+    * \param _campaignID String that represents the absolute path of the directory to save the contents to (Do not append with slash)
+    * \param _folderDir String that represents the absolute path of the directory to save the contents to (Do not append with slash)
+    * 
+    * \return Pointer to a CampaignRecord struct that represents the selecetd campaing to use
+    * 
+    * \throw invalid_argument
+    */
+    CampaignRecord* LoadCampaign(const int&, const std::string&);
 }

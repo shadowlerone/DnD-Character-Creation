@@ -1,12 +1,12 @@
 #pragma once
-
-#include "../ProjectSourceCode/Campaign/campaign.h"
+#include "Globals.h"
+#include <FL/Fl_Pack.H>
+#include <FL/Fl_Scroll.H>
 #include "BaseEditor.h"
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Input_Choice.H>
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Scroll.H>
+#include "Campaign/campaign.h"
 
 using namespace campaign;
 using std::vector;
@@ -43,12 +43,18 @@ namespace CampaignEditor
 			map_grid = new Fl_Scroll(0, 0, w * .6, h * .8);
 			map_grid->type(Fl_Scroll::BOTH_ALWAYS);
 			_grid_y = _grid_x = 5;
-			campaign = new Campaign(_grid_x, _grid_y);
+			//currentCampaign = new Campaign(_grid_x, _grid_y);
+			currentCampaign->numCols = _grid_x;
+			currentCampaign->numRows = _grid_y;
+			currentCampaign->mapIDs = std::vector<vector<int>>(_grid_y);
+			for (int i = 0; i < _grid_y; i++) 
+			{
+				currentCampaign->mapIDs[i] = std::vector<int>(_grid_x);
+			}
 			redraw_map();
 			map_grid->end();
 			g->resizable(map_grid);
 			g->end();
-			maps = new std::vector<Map::Map*>();
 			_c_x = _c_y = 1;
 			sidebar->begin();
 
@@ -66,8 +72,9 @@ namespace CampaignEditor
 		void populate_browser();
 		MapButton* get_cell(int x, int y) { return mbs[y][x]; }
 		void create();
+		bool open(std::string);
 		bool open();
-		void save();
+		bool save();
 		void save_as();
 		void load_data();
 		void update_data();
@@ -104,14 +111,13 @@ namespace CampaignEditor
 		}
 		// void set_browser() {}
 	private:
-		Fl_Scroll* map_grid;
-		Fl_Box* sidebar_title;
-		std::vector<Map::Map*>* maps;
-		Map::Map* current_map;
+		Fl_Scroll *map_grid;
+		Fl_Box * sidebar_title;
+		//std::vector<Map::Map *> *maps;
+		Map::Map *current_map;
 		int _grid_x, _grid_y;
 		std::vector<std::vector<MapButton*>> mbs;
 		int _c_x, _c_y; // Current x and y values. set by buttons
-		Campaign* campaign;
-		Fl_Input_Choice* map_list;
+		Fl_Input_Choice * map_list;
 	};
 }

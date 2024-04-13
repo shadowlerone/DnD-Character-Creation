@@ -11,7 +11,7 @@ namespace Interactable {
 		virtual bool passable() { return true; };
 		virtual std::string serialize() { return "e"; };
 		virtual std::string imgpath() { return ""; };
-
+		int x, y;
 		//the derived classes should be: empty, wall, item, character
 
 	};

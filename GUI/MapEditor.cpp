@@ -1,6 +1,6 @@
-#include "../ProjectSourceCode/Interactable/Interactable.h"
-#include "../ProjectSourceCode/Interactable/Wall.h"
-#include "../ProjectSourceCode/Item/item.h"
+#include "Interactable/Interactable.h"
+#include "Interactable/Wall.h"
+#include "Item/item.h"
 #include "MapEditor.h"
 #include <Builder/MapBuilder.h>
 #include <FL/Fl_Button.H>
@@ -9,6 +9,11 @@
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Window.H>
+
+
+extern std::vector<Map::Map*>* maps;
+extern std::vector<item::Item*>* items;
+extern std::vector<serializeItem::ItemContainerRecord*>* itemcontainers;
 
 using namespace CampaignEditor;
 
@@ -45,19 +50,7 @@ std::string cttos(Interactable::Interactable* ct)
 
 	//	break;
 	//}
-
-	if (typeid(*ct) == typeid(Wall)) {
-		return "w";
-	}
-	else if (typeid(*ct) == typeid(item::Item)) {
-		return "i";
-	}
-	else if (typeid(*ct) == typeid(Character::Character)) {
-		return "c";
-	}
-	else {
-		return " ";
-	}
+	return ct->serialize();
 
 }
 
@@ -65,8 +58,31 @@ int MapCellButton::handle(int e)
 {
 	if (e == FL_RELEASE)
 	{
-		current_l = (current_l + 1) % 3;
-		copy_label(Cell_Labels[current_l].c_str());
+		current_l = (current_l + 1) % 4;
+		switch (current_l) {
+		case 0:
+			m->setEmpty(y,x);
+			break;
+		case 2:
+			m->setCharacter(y, x, new Character::Character("Evil Slime", Character::Character_Class::Fighter, false, new AggressorStrategy()));
+			break;
+		case 1:
+			m->setWall(y, x);
+			break;
+		case 3:
+			m->setItem(y, x, (*items)[0]);
+			break;
+		}
+
+		ct = m->getGrid()[y][x];
+		std::cout << ct->serialize() << std::endl;
+		//copy_label(Cell_Labels[current_l].c_str());
+		if (current_l == 0) {
+			copy_label(" ");
+		}
+		else {
+			copy_label(std::to_string(current_l).c_str());
+		}
 		this->value(current_l != 0);
 		return 1;
 	}
@@ -96,7 +112,8 @@ void MapEditor::redraw_map()
 		mcbs.push_back(std::vector<MapCellButton*>());
 		for (int i = 0; i < _grid_x; i++)
 		{
-			MapCellButton* m = new MapCellButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
+			MapCellButton* m = new MapCellButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j, current_map->getGrid()[j][i]);
+			m->bind(current_map);
 			//m->copy_label(cttos(current_map->getGrid()[j][i]).c_str());//TODO. error here.
 			mcbs[j].push_back(m);
 		}
@@ -209,7 +226,7 @@ void MapEditor::populate_browser()
 	std::string label;
 	for (Map::Map* i : *maps)
 	{
-		label = std::to_string(i->GetMapID());
+		label = std::to_string(i->getID());
 		browser->add(label.c_str(), i);
 	}
 }

@@ -27,8 +27,9 @@
 #include <iostream>
 #include <string>
 
-#include "..\Decorator\componentdecorator.h"
-#include "..\Interactable\Interactable.h"
+#include "Decorator/componentdecorator.h"
+#include "Interactable/Interactable.h"
+#include "Identifiable/Identifiable.h"
 
 using namespace componentdecorator;
 
@@ -107,8 +108,8 @@ namespace item
 	 *
 	 * Class that abstracts the Items available to a character that are put into a container or worn.
 	 */
-	class Item : public ComponentDecorator, public Interactable::Interactable
-	{
+	class Item : public ComponentDecorator, public Interactable::Interactable, public Identifiable
+{
 	public:
 		/*!
 		 * \fn Item
@@ -182,9 +183,9 @@ namespace item
 
 		void SetItemIDCounter(int _nextID) { nextItemId = _nextID; };
 
-		int GetItemId() { return itemId; };
+		// int GetItemId() { return itemId; };
 
-		void SetItemID(int _itemID) { itemId = _itemID; };
+		// void SetItemID(int _itemID) { itemId = _itemID; };
 
 		std::string GetItemName() { return itemName; };
 
@@ -213,11 +214,11 @@ namespace item
 	private:
 		static inline int nextItemId = 0;
 
-		/*!
-		 * \var itemId
-		 * \brief Integer that represents the item's unique ID
-		 */
-		int itemId;
+		// /*!
+		//  * \var itemId
+		//  * \brief Integer that represents the item's unique ID
+		//  */
+		// int itemId;
 
 		/*!
 		 * \var itemName

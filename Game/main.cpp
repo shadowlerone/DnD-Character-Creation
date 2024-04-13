@@ -51,8 +51,11 @@ using namespace game;
 int main()
 {
 	// setting up screens
+	Character::Character* playerCharacter = new Character::Character();
+	game::Game game ("Campaign");
 	make_window();
 	roll_dice();
+	game.Attach(game_window);
 	// Fl::lock();
 	// Fl_Double_Window *w = make_window();
 	// w->show();

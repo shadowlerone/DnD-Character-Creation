@@ -12,6 +12,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor\main.cpp" />
+    <ClCompile Include="GUI\BaseEditor.cpp" />
+    <ClCompile Include="GUI\CampaignEditor.cpp" />
+    <ClCompile Include="GUI\Globals.cpp" />
+    <ClCompile Include="GUI\ItemContainerEditor.cpp" />
+    <ClCompile Include="GUI\ItemEditor.cpp" />
+    <ClCompile Include="GUI\MainMenu.cpp" />
+    <ClCompile Include="GUI\MapCellButton.cpp" />
+    <ClCompile Include="GUI\MapEditor.cpp" />
+    <ClCompile Include="GUI\MapViewWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GUI\BaseEditor.h" />
+    <ClInclude Include="GUI\BaseViewer.h" />
+    <ClInclude Include="GUI\CampaignEditor.h" />
+    <ClInclude Include="GUI\CharacterEditor.h" />
+    <ClInclude Include="GUI\CharacterViewWindow.h" />
+    <ClInclude Include="GUI\Globals.h" />
+    <ClInclude Include="GUI\ItemContainerEditor.h" />
+    <ClInclude Include="GUI\ItemEditor.h" />
+    <ClInclude Include="GUI\MainMenu.h" />
+    <ClInclude Include="GUI\MapEditor.h" />
+    <ClInclude Include="GUI\MapViewWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -73,8 +95,7 @@
       <AdditionalLibraryDirectories>$(IntDir)..\Project;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy "$(Solutiondir)Campaign" "$(outdir)Campaign"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

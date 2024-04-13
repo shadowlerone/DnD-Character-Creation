@@ -32,15 +32,13 @@ void Map::Map::CreateObserverMessage(std::string _message = "Empty") {
 
 //default constructor
 Map::Map::Map() {
-	nextMapID += 1;
-	this->mapID = nextMapID;
+	setID(++nextMapID);
 	//creates an empty map
 	//will need to initilize all variables explicitly: setRows, setCols, setGrid, setEndCell, setStartCell
 }
 
 Map::Map::Map(int r, int c) {
-	nextMapID += 1;
-	this->mapID = nextMapID;
+	setID(++nextMapID);
 	this->rows = r;
 	this->cols = c;
 	//set end cell by default to bottom-right
@@ -89,9 +87,9 @@ void Map::Map::setGrid() {
 void Map::Map::setCell(int row, int col, Interactable::Interactable* cell) {
 
 	try {//if you are trying to put an empty cell on the start/end cell
-		if ((row == this->startCell[0] && col == this->startCell[1]) || (row == this->endCell[0] && col == this->endCell[1])) {
+		/* if ((row == this->startCell[0] && col == this->startCell[1]) || (row == this->endCell[0] && col == this->endCell[1])) {
 			throw(1);
-		}
+		} */
 		this->grid[row][col] = cell;
 	}
 	catch (...) {
@@ -102,9 +100,9 @@ void Map::Map::setCell(int row, int col, Interactable::Interactable* cell) {
 void Map::Map::setEmpty(int row, int col) {
 
 	try {//if you are trying to put an empty cell on the start/end cell
-		if ((row == this->startCell[0] && col == this->startCell[1]) || (row == this->endCell[0] && col == this->endCell[1])) {
-			throw(1);
-		}
+		// if ((row == this->startCell[0] && col == this->startCell[1]) || (row == this->endCell[0] && col == this->endCell[1])) {
+		// 	throw(1);
+		// }
 		this->grid[row][col] = new EmptyCell();
 	}
 	catch (...) {
@@ -235,7 +233,7 @@ void Map::Map::MoveCharacter(const int& _targetX, const int& _targetY, Character
 	setCell(sourceLocationX, sourceLocationY, temp);
 
 	std::ostringstream logMessage;
-	logMessage << "[Map/MoveCharacter] -- " << _targetCharacter->Name() << " is moving to location (" << _targetX - 1 << "," << _targetY - 1 << ") on map " << mapID;
+	logMessage << "[Map/MoveCharacter] -- " << _targetCharacter->Name() << " is moving to location (" << _targetX - 1 << "," << _targetY - 1 << ") on map " << getID();
 	CreateObserverMessage(logMessage.str());
 }
 
@@ -309,11 +307,11 @@ void Map::Map::printMap()
 
 void Map::Map::GetCharacterCoordinates(int& x, int& y, Character::Character* t_character)
 {
-	int id = t_character->ID();
+	int id = t_character->getID();
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
 			Character::Character* characterCell = dynamic_cast<Character::Character*>(grid[i][j]);
-			if (characterCell != nullptr && characterCell->ID() == id) {
+			if (characterCell != nullptr && characterCell->getID() == id) {
 				x = i;
 				y = j;
 				return;

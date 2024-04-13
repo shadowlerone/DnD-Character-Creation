@@ -8,11 +8,16 @@
 #include <FL/Fl.H>
 #include <iostream>
 using namespace CampaignEditor;
+std::vector<Map::Map*>* maps = new std::vector<Map::Map*>();
+std::vector<item::Item*>* items = new std::vector<item::Item*>();
+std::vector<serializeItem::ItemContainerRecord*>* itemcontainers = new std::vector<serializeItem::ItemContainerRecord*>();
+campaign::CampaignRecord * currentCampaign = new CampaignRecord();
 int main()
 {
 	MainMenu* m = new MainMenu();
 	m->show();
-
+	std::cout << "Attempting to load default campaign" << std::endl;
+	m->open((fs::current_path() / "Campaign").string());
 	Fl::run();
 }
 

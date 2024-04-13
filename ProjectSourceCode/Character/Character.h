@@ -14,17 +14,19 @@
 #include <unordered_map>
 #include <vector>
 
-#include "..\Decorator\abstractcomponent.h"
-#include "..\Dice\Dice.h"
-#include "..\Interactable\Interactable.h"
-#include "..\Item\item.h"
-#include "..\Item\itemcontainer.h"
-#include "..\Observer\Observable.h"
-#include "..\Serialize\serializeItem.h"
-#include "..\Strategy\aggressorstrategy.h"
-#include "..\Strategy\characteractionstrategy.h"
-#include "..\Strategy\friendlystrategy.h"
-#include "..\Strategy\humanplayerstrategy.h"
+#include "Decorator/abstractcomponent.h"
+#include "Dice/Dice.h"
+#include "Interactable/Interactable.h"
+#include "Item/item.h"
+#include "Item/itemcontainer.h"
+#include "Observer/Observable.h"
+#include "Serialize/serializeItem.h"
+#include "Strategy/aggressorstrategy.h"
+#include "Strategy/characteractionstrategy.h"
+#include "Strategy/friendlystrategy.h"
+#include "Strategy/humanplayerstrategy.h"
+
+#include "Identifiable/Identifiable.h"
 
 using namespace abstractcomponent;
 using namespace characteractionstrategy;
@@ -155,7 +157,7 @@ namespace Character
 	/*! \class Character
 	 * \brief Represents Character type entities
 	 */
-	class Character : public Observable, public AbstractComponent, public Interactable::Interactable
+	class Character : public Observable, public AbstractComponent, public Interactable::Interactable, public Identifiable
 	{
 	public:
 		/*! \fn Character()
@@ -223,7 +225,7 @@ namespace Character
 		/* \fn ID()
 		 *  \brief Unique Character ID
 		 */
-		const int ID() { return id; };
+		// const int ID() { return id; };
 		/*! \fn Name()
 		 *  \brief Character name
 		 */
@@ -458,7 +460,7 @@ namespace Character
 		static inline unsigned int id_gen{ 0 };
 		const int id = id_gen++;
 
-		int tempID;
+		// int tempID;
 
 		std::string name{ "Cirian" };
 		std::bitset<12> character_class;

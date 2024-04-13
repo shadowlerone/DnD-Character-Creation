@@ -14,11 +14,13 @@
     <ClCompile Include="Game\animations.cpp" />
     <ClCompile Include="Game\gui.cxx" />
     <ClCompile Include="Game\main.cpp" />
+    <ClCompile Include="Game\MapGamer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Combat.h" />
     <ClInclude Include="Game\gui.h" />
     <ClInclude Include="Game\Main.h" />
+    <ClInclude Include="Game\MapGamer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -81,8 +83,7 @@
       <AdditionalLibraryDirectories>$(IntDir)..\Project;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy "$(Solutiondir)Campaign" "$(outdir)Campaign"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

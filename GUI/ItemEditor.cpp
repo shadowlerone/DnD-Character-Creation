@@ -85,7 +85,7 @@ namespace CampaignEditor
 	{
 		std::cout << "updating items" << std::endl;
 		int i = browser->value();
-		if (i <= items.size() && i > 0)
+		if (i <= items->size() && i > 0)
 		{
 			std::cout << "selected: " << i << std::endl;
 			current_item = (Item*)browser->data(i);
@@ -101,16 +101,16 @@ namespace CampaignEditor
 	{
 		browser->clear();
 		std::string label;
-		for (Item* i : items)
+		for (Item *i : *items)
 		{
-			label = std::to_string(i->GetItemId()) + ": " + i->GetItemName();
+			label = std::to_string(i->getID()) + ": " + i->GetItemName();
 			browser->add(label.c_str(), i);
 		}
 	}
 	void ItemEditor::create()
 	{
-		Item* i = new Item();
-		items.push_back(i);
+		Item *i = new Item();
+		items->push_back(i);
 		populate_browser();
 		browser->bottomline(browser->size());
 		browser->select(browser->size());
@@ -119,16 +119,16 @@ namespace CampaignEditor
 
 	void ItemEditor::delete_entry()
 	{
-		if (items.size() < 0)
+		if (items->size() < 0)
 		{
 			return;
 		}
 		int i = browser->value();
-		if (i < 1 || i > items.size())
+		if (i < 1 || i > items->size())
 		{
 			return;
 		};
-		items.erase(items.begin() + (i - 1));
+		items->erase(items->begin() + (i - 1));
 		browser->value(0);
 		populate_browser();
 	}
@@ -136,7 +136,7 @@ namespace CampaignEditor
 	void ItemEditor::save_data()
 	{
 		// TODO
-		current_item->SetItemID(std::stoi(idInput->value()));
+		current_item->setID(std::stoi(idInput->value()));
 		current_item->SetItemName(nameInput->value());
 		current_item->SetItemType(stoit(itemTypeInput->value())); // TODO: change input to dropdown
 
@@ -149,7 +149,7 @@ namespace CampaignEditor
 	}
 	void ItemEditor::update_data()
 	{
-		_loadedItemId = current_item->GetItemId();
+		_loadedItemId = current_item->getID();
 		// _loadedContainerId =- current_item->get
 		_loadedItemName = current_item->GetItemName();
 		_loadedEnchantmentBonus = current_item->GetEnchantmentBonus();
@@ -184,7 +184,7 @@ namespace CampaignEditor
 		{
 			try
 			{
-				serializeItem::SaveItems(this->filepath, items);
+				serializeItem::SaveItems(this->filepath, *items);
 			}
 			catch (const std::exception& e)
 			{
@@ -192,7 +192,7 @@ namespace CampaignEditor
 			}
 			try
 			{
-				items = serializeItem::LoadItems(filepath);
+				*items = serializeItem::LoadItems(filepath);
 				populate_browser();
 				/* code */
 			}
@@ -207,7 +207,7 @@ namespace CampaignEditor
 		filepath = s;
 		try
 		{
-			items = serializeItem::LoadItems(filepath);
+			*items = serializeItem::LoadItems(filepath);
 			/* code */
 		}
 		catch (const std::exception& e)
@@ -230,7 +230,7 @@ namespace CampaignEditor
 		{
 			try
 			{
-				items = serializeItem::LoadItems(filepath);
+				*items = serializeItem::LoadItems(filepath);
 				/* code */
 			}
 			catch (const std::exception& e)
@@ -265,7 +265,7 @@ namespace CampaignEditor
 	{
 		try
 		{
-			serializeItem::SaveItems(s, items);
+			serializeItem::SaveItems(s, *items);
 		}
 		catch (const std::exception& e)
 		{
