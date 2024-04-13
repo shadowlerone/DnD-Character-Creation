@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include <random>
-#include <string>
 #include <sstream>
+#include <string>
 
 #include "item.h"
 
@@ -37,7 +37,7 @@ namespace {
 
 	/*!
 	* \fn PickEnchantmentType
-	* \brief RNG index helper function for Item's item types 
+	* \brief RNG index helper function for Item's item types
 	*
 	* Helper function to the Item class to generate an int corresponding to the index of an enchantment type.
 	* Uses the array to specify the index range.
@@ -46,7 +46,7 @@ namespace {
 	*
 	* @returns Enum index that represents the assigned enchantment type for the item.
 	*/
-	item::CharacterStats PickEnchantmentType(const item::CharacterStats *allowedTypesArray) {
+	item::CharacterStats PickEnchantmentType(const item::CharacterStats* allowedTypesArray) {
 		std::random_device seed;
 		std::mt19937 gen(seed());
 		std::uniform_int_distribution<int> distrib(0, (sizeof(*allowedTypesArray) / sizeof(item::CharacterStats)) - 1);
@@ -63,54 +63,54 @@ namespace item {
 		enchantmentBonus = GenerateRandomInt(1, 5);
 		itemType = (ItemType)GenerateRandomInt(Helmet, Weapon);
 		switch (itemType) {
-			case 1:
-			{
-				CharacterStats helmetEnchantmentTypes[3] = { Intelligence, Wisdom, ArmorClass };
-				enchantmentType = PickEnchantmentType(helmetEnchantmentTypes);
-				weight = enchantmentType  == 6 ? GenerateRandomInt(8, 13) : 5;
-			}
-				break;
-			case 2:
-			case 3:
-			{
-				enchantmentType = ArmorClass;
-				weight = itemType == 2 ? enchantmentBonus >= 3 ? GenerateRandomInt(40, 65) : GenerateRandomInt(12, 20) : GenerateRandomInt(8, 13);
-			}
-				break;
-			case 4:
-			{
-				CharacterStats ringEnchantmentTypes[5] = { ArmorClass, Strength, Constitution, Wisdom, Charisma };
-				enchantmentType = PickEnchantmentType(ringEnchantmentTypes);
-				weight = 0.5;
-			}
-				break;
-			case 5:
-			{
-				CharacterStats beltEnchantmentTypes[2] = { Constitution, Strength };
-				enchantmentType = PickEnchantmentType(beltEnchantmentTypes);
-				weight = 4.5;
-			}
-				break;
-			case 6:
-			{
-				CharacterStats bootsEnchantmentTypes[2] = { ArmorClass, Dexterity };
-				enchantmentType = PickEnchantmentType(bootsEnchantmentTypes);
-				weight = enchantmentType == 6 ? GenerateRandomInt(8, 13) : 5;
-			}
-				break;
-			case 7:
-			{
-				CharacterStats weaponEnchantmentTypes[2] = { AttackBonus, DamageBonus };
-				enchantmentType = PickEnchantmentType(weaponEnchantmentTypes);
-				weight = enchantmentBonus >= 3 ? GenerateRandomInt(5, 18) : GenerateRandomInt(2, 4);
-			}
-				break;
-			default:
-			{
-				enchantmentType = (CharacterStats)1;
-				weight = 3;
-			}
-				break;
+		case 1:
+		{
+			CharacterStats helmetEnchantmentTypes[3] = { Intelligence, Wisdom, ArmorClass };
+			enchantmentType = PickEnchantmentType(helmetEnchantmentTypes);
+			weight = enchantmentType == 6 ? GenerateRandomInt(8, 13) : 5;
+		}
+		break;
+		case 2:
+		case 3:
+		{
+			enchantmentType = ArmorClass;
+			weight = itemType == 2 ? enchantmentBonus >= 3 ? GenerateRandomInt(40, 65) : GenerateRandomInt(12, 20) : GenerateRandomInt(8, 13);
+		}
+		break;
+		case 4:
+		{
+			CharacterStats ringEnchantmentTypes[5] = { ArmorClass, Strength, Constitution, Wisdom, Charisma };
+			enchantmentType = PickEnchantmentType(ringEnchantmentTypes);
+			weight = 0.5;
+		}
+		break;
+		case 5:
+		{
+			CharacterStats beltEnchantmentTypes[2] = { Constitution, Strength };
+			enchantmentType = PickEnchantmentType(beltEnchantmentTypes);
+			weight = 4.5;
+		}
+		break;
+		case 6:
+		{
+			CharacterStats bootsEnchantmentTypes[2] = { ArmorClass, Dexterity };
+			enchantmentType = PickEnchantmentType(bootsEnchantmentTypes);
+			weight = enchantmentType == 6 ? GenerateRandomInt(8, 13) : 5;
+		}
+		break;
+		case 7:
+		{
+			CharacterStats weaponEnchantmentTypes[2] = { AttackBonus, DamageBonus };
+			enchantmentType = PickEnchantmentType(weaponEnchantmentTypes);
+			weight = enchantmentBonus >= 3 ? GenerateRandomInt(5, 18) : GenerateRandomInt(2, 4);
+		}
+		break;
+		default:
+		{
+			enchantmentType = (CharacterStats)1;
+			weight = 3;
+		}
+		break;
 		}
 
 		std::ostringstream name;
@@ -120,10 +120,10 @@ namespace item {
 	}
 
 	Item::Item(const std::string& _itemName,
-				const int& _enchantmentBonus,
-				const int& _itemType,
-				const int& _enchantmentType,
-				const float& _weight) : ComponentDecorator() {
+		const int& _enchantmentBonus,
+		const int& _itemType,
+		const int& _enchantmentType,
+		const float& _weight) : ComponentDecorator() {
 		nextItemId = nextItemId + 1;
 		itemId = nextItemId;
 		itemName = _itemName;
@@ -135,11 +135,11 @@ namespace item {
 	}
 
 	Item::Item(const int& _itemId,
-				const string& _itemName,
-				const int& _enchantmentBonus,
-				const int& _itemType,
-				const int& _enchantmentType,
-				const float& _weight) : ComponentDecorator() {
+		const string& _itemName,
+		const int& _enchantmentBonus,
+		const int& _itemType,
+		const int& _enchantmentType,
+		const float& _weight) : ComponentDecorator() {
 		itemId = _itemId;
 		itemName = _itemName;
 		enchantmentBonus = _enchantmentBonus;
@@ -174,7 +174,7 @@ namespace item {
 		}
 		catch (std::exception& e) {
 			std::cerr << &e << std::endl;
-			
+
 			return 0;
 		}
 

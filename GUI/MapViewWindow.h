@@ -3,6 +3,6 @@
 
 namespace CampaignEditor {
 	class MapViewWindow : public BaseViewer {
-		
+
 	};
 }

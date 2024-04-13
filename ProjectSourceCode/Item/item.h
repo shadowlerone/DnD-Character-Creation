@@ -108,7 +108,7 @@ namespace item
 	 * Class that abstracts the Items available to a character that are put into a container or worn.
 	 */
 	class Item : public ComponentDecorator, public Interactable::Interactable
-{
+	{
 	public:
 		/*!
 		 * \fn Item

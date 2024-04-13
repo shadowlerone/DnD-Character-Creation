@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 
-#include "demoitem.h"
 #include "..\Item\item.h"
 #include "..\Item\itemcontainer.h"
+#include "demoitem.h"
 
 // using namespace std;
 using namespace item;

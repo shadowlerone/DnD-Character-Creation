@@ -1,16 +1,16 @@
 /*!
 * \file serializeItem.cpp
 * \brief File that implements the serialization of the Items and Containers present in a campaign.
-* 
+*
 * \author Tristan Lafleur (40245238)
 */
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
 #include <algorithm>
+#include <fstream>
+#include <iostream>
 #include <regex>
+#include <sstream>
+#include <string>
 
 #include "serializeItem.h"
 
@@ -20,9 +20,9 @@ namespace {
 	/*!
 	* \fn BuildItems
 	* \brief Free function that takes a vector of ItemRecord instance pointers to make instances of Item into memory
-	* 
+	*
 	* \param _loadedRecords Vector of ItemRecord instance pointers that represent the retrieved CSV records
-	* 
+	*
 	* \return Vector of dynamically allocated Item instance pointers representing the saved items loaded into memory
 	*/
 	std::vector<Item*> BuildItems(const std::vector<ItemRecord*>& _loadedRecords) {
@@ -31,11 +31,11 @@ namespace {
 		for (int i = 0; i < (int)_loadedRecords.size(); i++)
 		{
 			Item* loadedItem = new Item(_loadedRecords[i]->itemId,
-										_loadedRecords[i]->itemName,
-										_loadedRecords[i]->enchantmentBonus,
-										_loadedRecords[i]->itemtype,
-										_loadedRecords[i]->enchantmentType,
-										_loadedRecords[i]->weight);
+				_loadedRecords[i]->itemName,
+				_loadedRecords[i]->enchantmentBonus,
+				_loadedRecords[i]->itemtype,
+				_loadedRecords[i]->enchantmentType,
+				_loadedRecords[i]->weight);
 			loadedItems.push_back(loadedItem);
 		}
 
@@ -45,9 +45,9 @@ namespace {
 	/*!
 	* \fn GetItems
 	* \brief Free function that takes a pointer to an opened file stream and reads the contents to create Item instances
-	* 
+	*
 	* \param fileInput Pointer to the opened file stream
-	* 
+	*
 	* \return Vector of dynamically allocated Item instance pointers representing the saved items loaded into memory
 	*/
 	std::vector<Item*> GetItems(std::ifstream* fileInput) {
@@ -84,13 +84,13 @@ namespace {
 
 		return resultVector;
 	}
-	
+
 	/*!
 	* \fn GetContainerRecords
 	* \brief Free function that takes a pointer to an opened file stream and reads the contents to create ItemContainerRecord instances
-	* 
+	*
 	* \param fileInput Pointer to the opened file stream
-	* 
+	*
 	* \return Vector of dynamically allocated ItemContainerRecord instance pointers representing the container records loaded into memory
 	*/
 	std::vector<ItemContainerRecord*> GetContainerRecords(std::ifstream* fileInput) {
@@ -139,9 +139,9 @@ namespace {
 	/*!
 	* \fn BuildItemRecords
 	* \brief Free function that takes a vector of Item instance pointers to build the records to save into a CSV
-	* 
+	*
 	* \param _items Vector of Item instance pointers that represent all the Item instances in memory to save
-	* 
+	*
 	* \return Vector of dynamically allocated ItemRecord instance pointers representing the item records to save
 	*/
 	std::vector<ItemRecord*> BuildItemRecords(const std::vector<Item*>& _items) {
@@ -161,13 +161,13 @@ namespace {
 
 		return resultList;
 	}
-	
+
 	/*!
 	* \fn BuildContainerRecords
 	* \brief Free function that takes a vector of ItemContainer instance pointers to build the records to save into a CSV
-	* 
+	*
 	* \param _containers Vector of ItemContainer instance pointers that represent all the ItemContainer instances in memory to save
-	* 
+	*
 	* \return Vector of dynamically allocated ItemContainerRecord instance pointers representing the container records to save
 	*/
 	std::vector<ItemContainerRecord*> BuildContainerRecords(const std::vector<ItemContainer*>& _containers) {
@@ -183,13 +183,13 @@ namespace {
 			newRecord->capacity = _containers[i]->GetCapacity();
 
 			std::vector<int> itemIDs;
-			
+
 			std::vector<Item> containerItems = _containers[i]->GetAllItems();
 			for (int i = 0; i < (int)containerItems.size(); i++)
 			{
 				itemIDs.push_back(containerItems[i].GetItemId());
 			}
-			
+
 			newRecord->itemIDs = itemIDs;
 			resultList.push_back(newRecord);
 		}
@@ -200,9 +200,9 @@ namespace {
 	/*!
 	* \fn BuildItemCSVOutput
 	* \brief Free function that takes a vector of Itemrecord instance pointers to build the CSV output to write to a file
-	* 
+	*
 	* \param _recordsToSave Vector of ItemRecord instance pointers that represent all the item records derive an output from
-	* 
+	*
 	* \return String that represents the completed CSV output to write to a file
 	*/
 	std::string BuildItemCSVOutput(const std::vector<ItemRecord*>& _recordsToSave) {
@@ -229,13 +229,13 @@ namespace {
 
 		return csvOutput.str();
 	}
-	
+
 	/*!
 	* \fn BuildContainerCSVOutput
 	* \brief Free function that takes a vector of ItemContainerRecord instance pointers to build the CSV output to write to a file
-	* 
+	*
 	* \param _recordsToSave Vector of ItemContainerRecord instance pointers that represent all the container records derive an output from
-	* 
+	*
 	* \return String that represents the completed CSV output to write to a file
 	*/
 	std::string BuildContainerCSVOutput(const std::vector<ItemContainerRecord*>& _recordsToSave) {
@@ -293,7 +293,7 @@ namespace serializeItem {
 
 		return loadedItems;
 	}
-	
+
 	std::vector<ItemContainerRecord*> LoadItemContainerRecords(const std::string& _fileURI) {
 		std::ifstream containerInputStream(_fileURI);
 		if (!containerInputStream.is_open()) {
@@ -317,7 +317,7 @@ namespace serializeItem {
 
 		itemOutputStream.close();
 	}
-	
+
 	void SaveItemContainers(const std::string& _fileURI, const std::vector<ItemContainer*>& _containersToSave) {
 		std::vector<ItemContainerRecord*> recordsToSave = BuildContainerRecords(_containersToSave);
 

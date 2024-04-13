@@ -1,11 +1,11 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include "Dice/Dice.h"
-#include <time.h>
+#include "gui.h"
 #include <chrono>
 #include <thread>
-#include "gui.h"
-extern Dice *dice;
+#include <time.h>
+extern Dice* dice;
 
 using namespace std::this_thread; // sleep_for, sleep_until
 using namespace std::chrono;	  // nanoseconds, system_clock, seconds
@@ -14,15 +14,15 @@ namespace GameView
 {
 	int updates;
 	int cu;
-	int * current_update;
-	void update_dice_roll_value(void *data)
+	int* current_update;
+	void update_dice_roll_value(void* data)
 	{
 		update_dice_roll_value();
 	}
 	void update_dice_roll_value()
 	{
 		// int count = *((int *)data);
-		(*current_update) --;
+		(*current_update)--;
 		int roll = dice->roll();
 		std::string v = std::to_string(roll);
 		// std::cout << v << std::endl;
@@ -41,12 +41,12 @@ namespace GameView
 			// Fl::remove_timeout(update_dice_roll_value, data);
 		}
 	}
-	void hide_roll(void* d){
-		
+	void hide_roll(void* d) {
+
 	}
 	void animate_dice_roll()
 	{
-		updates = (rand() % 5)+5;
+		updates = (rand() % 5) + 5;
 		// updates = 10;
 		// std::cout << updates << std::endl;
 		cu = 0;

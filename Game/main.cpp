@@ -5,7 +5,6 @@
 
 #include "Character/Character.h"
 #include "Game/game.h"
-#include "Game/game.h"
 #include "Game/gamelogger.h"
 #include "gui.h"
 #include "Interactable/Wall.h"

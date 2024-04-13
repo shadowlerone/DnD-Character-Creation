@@ -9,8 +9,8 @@
 
 #include <string>
 
-#include "..\Observer\Observer.h"
 #include "..\Observer\Observable.h"
+#include "..\Observer\Observer.h"
 
 using namespace observer;
 using namespace observable;
@@ -21,60 +21,60 @@ using namespace observable;
 */
 namespace gamelogger
 {
-    /*!
-    * \class GameLogger
-    * \brief Class to abstract the game logger functionality, implements the Observer interface as a concrete observer
-    */    
-    class GameLogger : public Observer {
-        public:
-            /*!
-            * \fn GameLogger
-            * \brief No args constructor for GameLogger
-            */
-            GameLogger() { messageFromObservable = ""; firstMessageOfSession = false; };
+	/*!
+	* \class GameLogger
+	* \brief Class to abstract the game logger functionality, implements the Observer interface as a concrete observer
+	*/
+	class GameLogger : public Observer {
+	public:
+		/*!
+		* \fn GameLogger
+		* \brief No args constructor for GameLogger
+		*/
+		GameLogger() { messageFromObservable = ""; firstMessageOfSession = false; };
 
-            /*!
-            * \fn GameLogger
-            * \brief Custom constructor for GameLogger
-            * 
-            * \param _observable Pointer to an observable instance to attach this object to
-            */
-            GameLogger(Observable* _observable) { _observable->Attach(this); messageFromObservable = ""; firstMessageOfSession = false; };
+		/*!
+		* \fn GameLogger
+		* \brief Custom constructor for GameLogger
+		*
+		* \param _observable Pointer to an observable instance to attach this object to
+		*/
+		GameLogger(Observable* _observable) { _observable->Attach(this); messageFromObservable = ""; firstMessageOfSession = false; };
 
-            /*!
-            * \fn ~GameLogger
-            * \brief Destructor for GameLogger
-            */
-            virtual ~GameLogger(){};
+		/*!
+		* \fn ~GameLogger
+		* \brief Destructor for GameLogger
+		*/
+		virtual ~GameLogger() {};
 
-            /*!
-            * \fn update
-            * \brief Implemented function to log a message passed to this logger instance
-            * 
-            * \param _receivedMessage String representing the core message to log into a file passed to this logger instance
-            */
-            void update(std::string) override;
+		/*!
+		* \fn update
+		* \brief Implemented function to log a message passed to this logger instance
+		*
+		* \param _receivedMessage String representing the core message to log into a file passed to this logger instance
+		*/
+		void update(std::string) override;
 
-            void update(void*) const override {};
+		void update(void*) const override {};
 
-            std::string GetMessageFromObservable() { return messageFromObservable; };
+		std::string GetMessageFromObservable() { return messageFromObservable; };
 
-            void SetMessageFromObservable (const std::string& _messageFromObservable) { messageFromObservable = _messageFromObservable; };
+		void SetMessageFromObservable(const std::string& _messageFromObservable) { messageFromObservable = _messageFromObservable; };
 
-            bool GetFirstMessageOfSession() { return firstMessageOfSession; };
+		bool GetFirstMessageOfSession() { return firstMessageOfSession; };
 
-            void SetFirstMessageOfSession(bool _firstMessageOfSession) { firstMessageOfSession = _firstMessageOfSession; };
-        private:
-            /*!
-            * \var messageFromObservable
-            * \brief String representing the received message passed from an observable object
-            */
-            std::string messageFromObservable;
+		void SetFirstMessageOfSession(bool _firstMessageOfSession) { firstMessageOfSession = _firstMessageOfSession; };
+	private:
+		/*!
+		* \var messageFromObservable
+		* \brief String representing the received message passed from an observable object
+		*/
+		std::string messageFromObservable;
 
-            /*!
-            * \var firstMessageOfSession
-            * \brief Was the first message received and logged?
-            */
-            bool firstMessageOfSession;
-    };
+		/*!
+		* \var firstMessageOfSession
+		* \brief Was the first message received and logged?
+		*/
+		bool firstMessageOfSession;
+	};
 }

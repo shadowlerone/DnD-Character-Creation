@@ -1,5 +1,5 @@
-#include <iostream>
 #include <FL/Fl_Native_File_Chooser.H>
+#include <iostream>
 
 #include "BaseEditor.h"
 
@@ -7,15 +7,15 @@ namespace CampaignEditor
 {
 	bool BaseEditor::open()
 	{
-		return File_Chooser("Open...", Fl_Native_File_Chooser::BROWSE_FILE );
+		return File_Chooser("Open...", Fl_Native_File_Chooser::BROWSE_FILE);
 	}
 	bool BaseEditor::save_as() {
 		return File_Chooser("Save As...", Fl_Native_File_Chooser::BROWSE_SAVE_FILE, Fl_Native_File_Chooser::SAVEAS_CONFIRM);
 	}
-	bool BaseEditor::File_Chooser(){
+	bool BaseEditor::File_Chooser() {
 		return File_Chooser("Open", Fl_Native_File_Chooser::BROWSE_FILE);
 	}
-	bool BaseEditor::File_Chooser(std::string title, Fl_Native_File_Chooser::Type t, int o){
+	bool BaseEditor::File_Chooser(std::string title, Fl_Native_File_Chooser::Type t, int o) {
 		Fl_Native_File_Chooser fnfc;
 		fnfc.title(title.c_str());
 		fnfc.filter("*.csv");

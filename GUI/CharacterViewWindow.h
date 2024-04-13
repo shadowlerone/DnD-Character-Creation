@@ -3,6 +3,6 @@
 
 namespace CampaignEditor {
 	class CharacterViewWindow : public BaseViewer {
-		
+
 	};
 }

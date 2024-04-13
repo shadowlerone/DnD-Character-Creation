@@ -1,12 +1,12 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
-#include <FL/Fl.H>
 #include "Game/game.h"
-#include "MainMenu.h"
-#include "Interactable/Wall.h"
 #include "Game/gamelogger.h"
+#include "Interactable/Wall.h"
+#include "MainMenu.h"
+#include <FL/Fl.H>
+#include <iostream>
 using namespace CampaignEditor;
 int main()
 {

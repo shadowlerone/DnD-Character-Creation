@@ -1,24 +1,23 @@
 #pragma once
-#include <iostream>
-#include <vector>
 #include <FL/Fl.H>
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
-#include <FL/Fl_Group.H>
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Input_Choice.H>
-#include <FL/Fl_Input.H>
 #include <FL/Fl_Browser.H>
-#include <FL/Fl_Select_Browser.H>
-#include <FL/Fl_Menu_Button.H>
-#include <FL/Fl_Hold_Browser.H>
-#include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Float_Input.H>
+#include <FL/Fl_Group.H>
+#include <FL/Fl_Hold_Browser.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Input_Choice.H>
+#include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Menu_Button.H>
+#include <FL/Fl_Pack.H>
+#include <FL/Fl_Select_Browser.H>
+#include <FL/Fl_Window.H>
+#include <iostream>
+#include <vector>
 
-#include "../ProjectSourceCode/Item/item.h"
 #include "../ProjectSourceCode/Character/Character.h"
+#include "../ProjectSourceCode/Item/item.h"
 #include "../ProjectSourceCode/Serialize/serializeItem.h"
 
 #include "BaseEditor.h"
@@ -27,7 +26,7 @@ namespace CampaignEditor
 {
 	class ItemEditor : public BaseEditor
 	{
-		friend class MainMenu; 
+		friend class MainMenu;
 
 	public:
 		ItemEditor(int x, int y, int w, int h);
@@ -49,14 +48,14 @@ namespace CampaignEditor
 		std::vector<std::string> item_database;
 		// UI Components
 
-		Fl_Int_Input *idInput; // constant
-		Fl_Input *nameInput;
-		Fl_Input_Choice *itemTypeInput;
-		Fl_Float_Input *weightInput;
+		Fl_Int_Input* idInput; // constant
+		Fl_Input* nameInput;
+		Fl_Input_Choice* itemTypeInput;
+		Fl_Float_Input* weightInput;
 
 		// TODO: enchantment section
-		Fl_Int_Input *enchantmentBonusInput;
-		Fl_Input_Choice *enchantmentTypeInput;
+		Fl_Int_Input* enchantmentBonusInput;
+		Fl_Input_Choice* enchantmentTypeInput;
 		// Values loaded from file
 		int _loadedItemId;
 		// int _loadedContainerId;
@@ -66,7 +65,7 @@ namespace CampaignEditor
 		item::CharacterStats _loadedEnchantmentType;
 		float _loadedWeight;
 
-		Item *current_item;
+		Item* current_item;
 		// Values currently in GUI
 		std::string currentItemId;
 		std::string currentItemName;
@@ -74,6 +73,6 @@ namespace CampaignEditor
 		std::string currentItemType;
 		std::string currentEnchantmentType;
 		std::string currentWeight;
-		std::vector<Item *> items;
+		std::vector<Item*> items;
 	};
 }
