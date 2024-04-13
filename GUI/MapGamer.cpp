@@ -3,7 +3,9 @@
 #include "MapGamer.h"
 #include <iostream>
 
-void GameView::MapGamer::drawGame() {
+using namespace GameView;
+
+void MapGamer::drawGame() {
 
 	std::cout << "Drawing the map in game." << std::endl;
 
@@ -23,4 +25,21 @@ void GameView::MapGamer::drawGame() {
 	}
 	map_group->end();
 	map_group->show();
+}
+
+int MapCellButton::handle(int e)
+{
+	if (e == FL_RELEASE)
+	{
+		current_l = (current_l + 1) % 3;
+		copy_label(Cell_Labels[current_l].c_str());
+		this->value(current_l != 0);
+		return 1;
+	}
+	if (e == FL_PUSH)
+	{
+		this->set();
+		return 1;
+	}
+	return 0;
 }

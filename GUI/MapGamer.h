@@ -6,6 +6,9 @@
 
 namespace GameView
 {
+	//global vars
+	const std::string Cell_Labels[4] = { " ", "w", "i", "c" };
+
 	class MapCellButton : public Fl_Button
 	{
 	public:
@@ -23,11 +26,15 @@ namespace GameView
 
 		int x, y;
 		int current_l = 0;
+
 	};
+	//end class MapCellButton
 
 	class MapGamer {
 
 	public:
+		MapCellButton* get_cell(int x, int y) { return mcbs[y][x]; }
+
 		void drawGame();
 
 	private:
@@ -36,5 +43,6 @@ namespace GameView
 		std::vector<std::vector<MapCellButton*>> mcbs;
 
 	};
+	//end class MapGamer
 
 }
