@@ -6,17 +6,12 @@
  */
 
 #pragma once
-#include "Utils/Utils.h"
-#include <vector>
-#include <string>
-#include <filesystem>
-#include <Fl/Fl_Double_Window.H>
-
-#include "Observer/Observable.h"
-#include "Campaign/campaign.h"
-#include "Item/item.h"
 #include "Builder/MapBuilder.h"
+#include "Campaign/campaign.h"
 #include "gui.h"
+#include "Item/item.h"
+#include "Observer/Observable.h"
+#include "Utils/Utils.h"
 #include <filesystem>
 #include <Fl/Fl_Double_Window.H>
 #include <string>
@@ -47,6 +42,7 @@ namespace game
 		Game(fs::path fp)
 		{
 			std::vector<Map::Map*> maps;
+			MapDatabase = {};
 			fs::path item_directory = fp / "Items" / "items.csv";
 			std::vector<Item*> items = serializeItem::LoadItems(item_directory.string());
 			std::vector<serializeItem::ItemContainerRecord*> itemcontainers = serializeItem::LoadItemContainerRecords(item_directory.string());
@@ -107,17 +103,18 @@ namespace game
 					characteractionstrategy::CellActionInfo t = c->GetActionStrategy()->UseMovementStrategy(currentMap->getGrid(), c->x, c->y)[0];
 					if (t.actionName == Character::EMPTY_CELL_ACTION) {
 						currentMap->MoveCharacter(t.col, t.row, c);
-					} else if (t.actionName == Character::ATTACK_CELL_ACTION) {
+					}
+					else if (t.actionName == Character::ATTACK_CELL_ACTION) {
 						Combat(c, playerCharacter);
 					}
 				}
 
 				//Notify();
-				
+
 			}
 		};
 		void update_window();
-		void Attach(Fl_Double_Window *window) { this->window = window; };
+		void Attach(Fl_Double_Window* window) { this->window = window; };
 
 		std::vector<Observer*> GetObservers() { return observers; };
 
