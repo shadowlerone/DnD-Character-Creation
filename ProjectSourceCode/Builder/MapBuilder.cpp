@@ -103,7 +103,7 @@ Map::Map MapBuilder::MapBuilder::LoadMap(std::string& filename) {
 					}
 					else if (type == "i") {
 						item::Item* i = new item::Item();
-						i->SetItemID(std::stoi(split[3]));
+						i->setID(std::stoi(split[3]));
 						mapload.setItem(row, col, i);
 					}
 					else if (type == "c") {

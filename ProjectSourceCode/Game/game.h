@@ -60,11 +60,11 @@ namespace game
 			}
 			for (Map::Map *_m : maps)
 			{
-				MapDatabase.insert(MapDatabase.begin() + _m->GetMapID(), _m);
+				MapDatabase.insert(MapDatabase.begin() + _m->getID(), _m);
 			}
 			for (Item *_i : items)
 			{
-				ItemDatabase.insert(ItemDatabase.begin() + _i->GetItemId(), _i);
+				ItemDatabase.insert(ItemDatabase.begin() + _i->getID(), _i);
 			}
 		};
 

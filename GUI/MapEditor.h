@@ -21,7 +21,7 @@ namespace CampaignEditor
 	class MapCellButton : public Fl_Button
 	{
 	public:
-		MapCellButton(int x, int y, int w, int h, int _x, int _y);
+		MapCellButton(int x, int y, int w, int h, int _x, int _y, Interactable::Interactable *c=nullptr);
 
 		//void cell_type(Map::Cell_Type ct) { this->ct = ct; };
 		void cell_type(Interactable::Interactable* ct) { this->ct = ct; };

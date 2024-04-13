@@ -12,11 +12,13 @@
 #include <typeinfo>
 #include <vector>
 
-#include "..\Character/Character.h"
-#include "..\Interactable\EmptyCell.h"
-#include "..\Interactable\Interactable.h"
-#include "..\Item\item.h"
-#include "..\Observer\Observable.h"
+#include "Identifiable/Identifiable.h"
+
+#include "Character/Character.h"
+#include "Interactable/EmptyCell.h"
+#include "Interactable/Interactable.h"
+#include "Item/item.h"
+#include "Observer/Observable.h"
 
 using namespace observable;
 
@@ -37,7 +39,7 @@ namespace Map {
 	* \class Map
 	* \brief Class to encapsulate the map functionality
 	*/
-	class Map : public Observable {
+	class Map : public Observable, public Identifiable {
 	public:
 		/*!
 		* \fn Map

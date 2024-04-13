@@ -51,19 +51,7 @@ std::string cttos(Interactable::Interactable* ct)
 
 	//	break;
 	//}
-
-	if (typeid(*ct) == typeid(Wall)) {
-		return "w";
-	}
-	else if (typeid(*ct) == typeid(item::Item)) {
-		return "i";
-	}
-	else if (typeid(*ct) == typeid(Character::Character)) {
-		return "c";
-	}
-	else {
-		return " ";
-	}
+	return ct->serialize();
 
 }
 
@@ -71,8 +59,10 @@ int MapCellButton::handle(int e)
 {
 	if (e == FL_RELEASE)
 	{
-		current_l = (current_l + 1) % 3;
-		copy_label(Cell_Labels[current_l].c_str());
+		current_l = (current_l + 1) % 4;
+		//copy_label(Cell_Labels[current_l].c_str());
+
+		copy_label(ct->serialize().c_str());
 		this->value(current_l != 0);
 		return 1;
 	}

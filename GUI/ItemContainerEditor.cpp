@@ -71,7 +71,7 @@ namespace CampaignEditor
 		std::vector<itemcontainer::ItemContainer*>* out = new std::vector<itemcontainer::ItemContainer*>();
 		for (serializeItem::ItemContainerRecord* i : v) {
 			ItemContainer* ic = new ItemContainer(0);
-			ic->SetItemID(i->containerId);
+			ic->setID(i->containerId);
 			ic->SetItemName(i->itemName);
 			ic->SetItemType(i->itemtype);
 			ic->SetItemWeight(i->weight);

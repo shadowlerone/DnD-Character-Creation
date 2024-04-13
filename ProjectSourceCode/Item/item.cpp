@@ -58,8 +58,8 @@ namespace {
 
 namespace item {
 	Item::Item() : ComponentDecorator() {
-		nextItemId = nextItemId + 1;
-		itemId = nextItemId;
+		// nextItemId = nextItemId + 1;
+		setID(++nextItemId);
 		enchantmentBonus = GenerateRandomInt(1, 5);
 		itemType = (ItemType)GenerateRandomInt(Helmet, Weapon);
 		switch (itemType) {
@@ -124,8 +124,9 @@ namespace item {
 				const int& _itemType,
 				const int& _enchantmentType,
 				const float& _weight) : ComponentDecorator() {
-		nextItemId = nextItemId + 1;
-		itemId = nextItemId;
+		// nextItemId = nextItemId + 1;
+		// itemId = nextItemId;
+		setID(++nextItemId);
 		itemName = _itemName;
 		enchantmentBonus = _enchantmentBonus;
 		itemType = (ItemType)_itemType;
@@ -140,7 +141,7 @@ namespace item {
 				const int& _itemType,
 				const int& _enchantmentType,
 				const float& _weight) : ComponentDecorator() {
-		itemId = _itemId;
+		setID(_itemId);
 		itemName = _itemName;
 		enchantmentBonus = _enchantmentBonus;
 		itemType = (ItemType)_itemType;
@@ -190,7 +191,7 @@ namespace item {
 
 	std::string item::Item::serialize() {
 		std::string str = "i,";
-		str += std::to_string(this->itemId);
+		str += std::to_string(this->getID());
 		return str;
 		//i,id
 	}

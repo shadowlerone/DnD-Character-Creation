@@ -103,7 +103,7 @@ namespace CampaignEditor
 		std::string label;
 		for (Item *i : items)
 		{
-			label = std::to_string(i->GetItemId()) + ": " + i->GetItemName();
+			label = std::to_string(i->getID()) + ": " + i->GetItemName();
 			browser->add(label.c_str(), i);
 		}
 	}
@@ -136,7 +136,7 @@ namespace CampaignEditor
 	void ItemEditor::save_data()
 	{
 		// TODO
-		current_item->SetItemID(std::stoi(idInput->value()));
+		current_item->setID(std::stoi(idInput->value()));
 		current_item->SetItemName(nameInput->value());
 		current_item->SetItemType(stoit(itemTypeInput->value())); // TODO: change input to dropdown
 
@@ -149,7 +149,7 @@ namespace CampaignEditor
 	}
 	void ItemEditor::update_data()
 	{
-		_loadedItemId = current_item->GetItemId();
+		_loadedItemId = current_item->getID();
 		// _loadedContainerId =- current_item->get
 		_loadedItemName = current_item->GetItemName();
 		_loadedEnchantmentBonus = current_item->GetEnchantmentBonus();

@@ -8,7 +8,7 @@ bool serializecharacter::SaveCharacter(Character::Character* t_character, const 
     //Copy data from t_character into a record
     CharacterRecord record;
     record.name = t_character->Name();
-    record.id = t_character->ID();
+    record.id = t_character->getID();
     //copy ability scores
     for (int i{ 0 }; i < 6; i++) {
         record.ability_scores.at(i) = t_character->Ability_Score_Natural(i, 0);
@@ -21,7 +21,7 @@ bool serializecharacter::SaveCharacter(Character::Character* t_character, const 
     record.hit_points = t_character->Hit_Points();
     //copy inventory item IDs
     for (auto i : t_character->Inventory().GetAllItems()) {
-        record.inventory_item_ids.push_back(i.GetItemId());
+        record.inventory_item_ids.push_back(i.getID());
     }
     //copy equipped item IDs
     for (int i{ 0 }; i < 8; i++) {
@@ -32,7 +32,7 @@ bool serializecharacter::SaveCharacter(Character::Character* t_character, const 
             for (int i = 0; i < (int)itemDecoratorList.size(); ++i)
             {
                 Item* decoratorItem = dynamic_cast<Item*>(itemDecoratorList.at(i));
-                auto item_id = decoratorItem->GetItemId();
+                auto item_id = decoratorItem->getID();
                 record.equipped_item_ids.push_back(item_id);
             }
 
@@ -65,7 +65,7 @@ bool serializecharacter::SaveCharacter(Character::Character* t_character, const 
 
     if (t_character->Inventory().GetCapacity() > 0)
         serializeItem::SaveItems(fullURI.str(), inventoryVector);
-    record.inventory_container_id = t_character->Inventory().GetItemId();
+    record.inventory_container_id = t_character->Inventory().getID();
 
     record.isPlayerControlled = t_character->GetIsPlayerControlled();
 

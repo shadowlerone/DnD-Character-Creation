@@ -50,7 +50,7 @@ namespace CampaignEditor
 			item_list->add("");
 			for (item::Item* i : *items)
 			{
-				label = std::to_string(i->GetItemId());
+				label = std::to_string(i->getID());
 				item_list->add(label.c_str());
 			}
 		}

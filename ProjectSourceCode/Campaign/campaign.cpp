@@ -49,7 +49,7 @@ namespace {
     CampaignRecord BuildCampaignRecord(Campaign _campaign) {
         CampaignRecord result;
 
-        result.campaignID = _campaign.GetCampaignID();
+        result.campaignID = _campaign.getID();
         result.numRows = _campaign.GetMapIDs().size();
         result.numCols = _campaign.GetMapIDs().at(0).size();
         result.mapIDs = _campaign.GetMapIDs();
@@ -226,8 +226,9 @@ namespace campaign {
     Campaign::Campaign(){};
 
     Campaign::Campaign(const int& _rows, const int& _cols) {
-        nextCampaignID += 1;
-        campaignID = nextCampaignID;
+        //nextCampaignID += 1;
+        //campaignID = nextCampaignID;
+        setID(++nextCampaignID);
         gridRows = _rows;
         gridCols = _cols;
 
@@ -256,7 +257,7 @@ namespace campaign {
                         std::vector<std::vector<int>> _mapMatrix,
                         CampaignMap _currentMap,
                         std::vector<Map::Map*> _mapsInCampaign) {
-        campaignID = _existingCampaignID;
+        setID(_existingCampaignID);
         gridRows = _rows;
         gridCols = _cols;
         mapIDs = _mapMatrix;
@@ -310,7 +311,7 @@ namespace campaign {
 
     void SaveCampaigns(const std::string& _folderDir, Campaign _campaignToSave) {
         std::ostringstream fileNamePattern;
-        fileNamePattern << "Campaign" << _campaignToSave.GetCampaignID() << ".csv";
+        fileNamePattern << "Campaign" << _campaignToSave.getID() << ".csv";
 
         std::ostringstream fullURI;
         fullURI << _folderDir << "\\" << fileNamePattern.str();

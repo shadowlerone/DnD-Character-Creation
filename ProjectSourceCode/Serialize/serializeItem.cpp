@@ -150,7 +150,7 @@ namespace {
 		for (int i = 0; i < (int)_items.size(); i++)
 		{
 			ItemRecord* newRecord = new ItemRecord;
-			newRecord->itemId = _items[i]->GetItemId();
+			newRecord->itemId = _items[i]->getID();
 			newRecord->itemName = _items[i]->GetItemName();
 			newRecord->enchantmentBonus = _items[i]->GetEnchantmentBonus();
 			newRecord->itemtype = _items[i]->GetItemType();
@@ -176,7 +176,7 @@ namespace {
 		for (int i = 0; i < (int)_containers.size(); i++)
 		{
 			ItemContainerRecord* newRecord = new ItemContainerRecord;
-			newRecord->containerId = _containers[i]->GetItemId();
+			newRecord->containerId = _containers[i]->getID();
 			newRecord->itemName = _containers[i]->GetItemName();
 			newRecord->itemtype = _containers[i]->GetItemType();
 			newRecord->weight = _containers[i]->GetItemWeight();
@@ -187,7 +187,7 @@ namespace {
 			std::vector<Item> containerItems = _containers[i]->GetAllItems();
 			for (int i = 0; i < (int)containerItems.size(); i++)
 			{
-				itemIDs.push_back(containerItems[i].GetItemId());
+				itemIDs.push_back(containerItems[i].getID());
 			}
 			
 			newRecord->itemIDs = itemIDs;

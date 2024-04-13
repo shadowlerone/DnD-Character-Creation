@@ -2,7 +2,8 @@
 
 #include <vector>
 
-#include "..\Interactable\Interactable.h"
+#include "Interactable/Interactable.h"
+#include "Identifiable/Identifiable.h"
 
 namespace door {
     struct DoorDestinationInfo
@@ -19,9 +20,9 @@ namespace door {
     };
     
 
-    class Door : public Interactable::Interactable {
+    class Door : public Interactable::Interactable, Identifiable {
         public:
-            Door() { nextDoorID++; doorID = nextDoorID; };
+            Door() { setID(++nextDoorID); };
 
             Door(int _doorID,
                     int _firstMapID,
@@ -31,7 +32,7 @@ namespace door {
                     std::vector<int> _firstMapSpawnPoint,
                     std::vector<int> _secondMapSpawnPoint)
             {
-                doorID = _doorID;
+                setID(_doorID);
                 firstMapID = _firstMapID;
                 secondMapID = _secondMapID;
                 firstMapLocation = _firstMapLocation;
@@ -41,7 +42,7 @@ namespace door {
             };
 
             Door(Door& _door) {
-                doorID = _door.doorID;
+                setID(_door.getID());
                 firstMapID = _door.firstMapID;
                 secondMapID = _door.secondMapID;
                 firstMapLocation = _door.firstMapLocation;
@@ -56,9 +57,9 @@ namespace door {
 
             void SetNextDoorID(int _nextDoorID) { nextDoorID = _nextDoorID; };
             
-            int GetDoorID() { return doorID; };
+            // int GetDoorID() { return doorID; };
 
-            void SetDoorID(int _doorID) { doorID = _doorID; };
+            // void SetDoorID(int _doorID) { doorID = _doorID; };
             
             int GetFirstMapID() { return firstMapID; };
 
@@ -88,7 +89,7 @@ namespace door {
         private:
             static inline int nextDoorID = 0;
 
-            int doorID;
+            // int doorID;
 
             int firstMapID;
 

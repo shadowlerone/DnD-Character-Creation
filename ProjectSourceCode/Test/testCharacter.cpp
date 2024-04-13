@@ -26,7 +26,7 @@ void TestCharacter::tearDown(void)
 
 void TestCharacter::TestNoArgsCharacterConstructor(void)
 {
-	CPPUNIT_ASSERT(noArgsCharacterObject->ID() >= 0);
+	CPPUNIT_ASSERT(noArgsCharacterObject->getID() >= 0);
 	CPPUNIT_ASSERT(noArgsCharacterObject->Name() == "Cirian");
 	CPPUNIT_ASSERT(noArgsCharacterObject->Classes() == Character::isFighter);
 	CPPUNIT_ASSERT(noArgsCharacterObject->Levels(Character::Character_Class::Fighter) >= 1);
@@ -39,7 +39,7 @@ void TestCharacter::TestNoArgsCharacterConstructor(void)
 
 void TestCharacter::TestCharacterConstructor(void)
 {
-	CPPUNIT_ASSERT(customCharacterObject->ID() >= 0);
+	CPPUNIT_ASSERT(customCharacterObject->getID() >= 0);
 	CPPUNIT_ASSERT(customCharacterObject->Name() == "Testaniel Unitoph");
 	CPPUNIT_ASSERT(customCharacterObject->Classes() == Character::isFighter);
 	CPPUNIT_ASSERT(customCharacterObject->Levels(Character::Character_Class::Fighter) == 1);
@@ -51,7 +51,7 @@ void TestCharacter::TestCharacterConstructor(void)
 
 void TestCharacter::TestGetCharacterID(void)
 {
-	CPPUNIT_ASSERT(noArgsCharacterObject->ID() >= 0);
+	CPPUNIT_ASSERT(noArgsCharacterObject->getID() >= 0);
 	CPPUNIT_ASSERT(customCharacterObject->ID() >= 1);
 	CPPUNIT_ASSERT(noArgsCharacterObject->ID() != customCharacterObject->ID());
 }

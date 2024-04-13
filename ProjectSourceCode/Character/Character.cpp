@@ -141,7 +141,7 @@ Character::Character::Character() {
 }
 
 Character::Character::Character(int id) {
-	tempID = id;
+	setID(id);
 }
 
 Character::Character::Character(const Character& t_character) : id(t_character.id)
@@ -243,7 +243,7 @@ Character::Character::Character(const serializecharacter::CharacterRecord& t_rec
 	for (int i{ 0 }; i < t_record.equipped_item_ids.size(); i++) {
 		bool found = false;
 		for (int j{ 0 }; j < this->Inventory().GetAllItems().size(); j++) {
-			if (this->Inventory().GetAllItems().at(j).GetItemId() == t_record.equipped_item_ids.at(i)) {
+			if (this->Inventory().GetAllItems().at(j).getID() == t_record.equipped_item_ids.at(i)) {
 				this->Equip_Item_Decorator(&this->Inventory().GetAllItems().at(j));
 				found = true;
 			}
@@ -288,7 +288,7 @@ std::string Character::Character::Name(const std::string& t_name)
 
 void Character::Character::Print_Character_Sheet()
 {
-	std::cout << std::right << std::setw(25) << "Name: " << name << " (ID: " << ID() << ")" << std::endl;
+	std::cout << std::right << std::setw(25) << "Name: " << name << " (ID: " << getID() << ")" << std::endl;
 	std::cout << std::right << std::setw(25) << "Class: ";
 	for (int i = 0; i < 12; i++) {
 		if (character_class.test(i)) {
@@ -329,7 +329,7 @@ void Character::Character::Print_Character_Sheet()
 		item::Item* i = dynamic_cast<item::Item*>(wornItems->GetDecoratorList().at(j));
 		if (i != nullptr) {
 			std::cout << std::right << std::setw(35) << item::itemTypeStrings[i->GetItemType()] << " | ";
-			std::cout << std::left << std::setw(35) << i->GetItemName() << " (" << i->GetItemId() << ")";
+			std::cout << std::left << std::setw(35) << i->GetItemName() << " (" << i->getID() << ")";
 			std::cout << std::right << std::setw(3) << " | ";
 			if (i->GetEnchantmentBonus() > 0) {
 				std::cout << "+";
@@ -412,7 +412,7 @@ bool Character::Character::Equip_Item(item::Item* t_item) {
 	}
 	else {
 		for (int i{ 0 }; i < inventory.GetAllItems().size(); i++) {
-			if (inventory.GetAllItems().at(i).GetItemId() == t_item->GetItemId()) {
+			if (inventory.GetAllItems().at(i).getID() == t_item->getID()) {
 				pointer_to_item = &inventory.GetAllItems().at(i);
 			}
 		}
@@ -453,7 +453,7 @@ bool Character::Character::Equip_Item(item::Item* t_item) {
 }
 
 void Character::Character::Equip_Item_Decorator(item::Item* _itemToEquip) {
-	if (inventory.GetItem(_itemToEquip->GetItemId()) == nullptr) {
+	if (inventory.GetItem(_itemToEquip->getID()) == nullptr) {
 		throw std::invalid_argument("[Character/Equip_Item_Decorator] -- Failed to find the item in the inventory to equip");
 	}
 
@@ -495,7 +495,7 @@ void Character::Character::Unequip_Item_Decorator(item::Item* _itemToRemove) {
 	for (int i = 0; i < (int)decoratorList.size(); ++i)
 	{
 		Item* decoratorItem = dynamic_cast<Item*>(decoratorList.at(i));
-		if (_itemToRemove->GetItemId() == decoratorItem->GetItemId()) {
+		if (_itemToRemove->getID() == decoratorItem->getID()) {
 			_itemToRemove->SetWrappee(nullptr);
 
 			continue;
@@ -707,7 +707,7 @@ void Character::Character::TakeItems(itemcontainer::ItemContainer* _targetContai
 	const std::vector<Item*>& _selectedItems,
 	const int& _destinationContainerID)
 {
-	ItemContainer* destinationContainer = inventory.GetItemId() == _destinationContainerID ?
+	ItemContainer* destinationContainer = inventory.getID() == _destinationContainerID ?
 		&inventory :
 		static_cast<ItemContainer*>(inventory.GetItem(_destinationContainerID));
 	if (destinationContainer == nullptr) {
@@ -718,7 +718,7 @@ void Character::Character::TakeItems(itemcontainer::ItemContainer* _targetContai
 
 	for (int i = 0; i < (int)_selectedItems.size(); i++)
 	{
-		if (_targetContainer->GetItem(_selectedItems[i]->GetItemId()) == nullptr) {
+		if (_targetContainer->GetItem(_selectedItems[i]->getID()) == nullptr) {
 			std::ostringstream excMsg;
 			excMsg << "[Character/TakeItems] -- Failed to find the item " << _selectedItems[i]->GetItemName() << " in the target container " << _targetContainer->GetItemName();
 			throw std::invalid_argument(excMsg.str().c_str());
@@ -740,7 +740,7 @@ void Character::Character::TakeItems(itemcontainer::ItemContainer* _targetContai
 }
 
 void Character::Character::DropItems(const std::vector<Item*>& _selectedItems, const int& _targetContainerID) {
-	ItemContainer* targetContainer = inventory.GetItemId() == _targetContainerID ?
+	ItemContainer* targetContainer = inventory.getID() == _targetContainerID ?
 		&inventory :
 		static_cast<ItemContainer*>(inventory.GetItem(_targetContainerID));
 	if (targetContainer == nullptr) {
