@@ -13,10 +13,10 @@ void GameView::MapGamer::drawGame() {
 
 	for (int j = 0; j < _grid_y; j++)
 	{
-		mcbs.push_back(std::vector<CampaignEditor::MapCellButton*>());
+		mcbs.push_back(std::vector<MapCellButton*>());
 		for (int i = 0; i < _grid_x; i++)
 		{
-			CampaignEditor::MapCellButton* m = new CampaignEditor::MapCellButton(32 + 32 * i, 32 + 32 * j, 32, 32, i, j);
+			MapCellButton* m = new MapCellButton(32 + 32 * i, 32 + 32 * j, 32, 32, i, j);
 			//m->copy_label(cttos(current_map->getGrid()[j][i]).c_str());//TODO. error here.
 			mcbs[j].push_back(m);
 		}

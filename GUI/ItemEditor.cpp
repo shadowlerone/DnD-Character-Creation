@@ -1,6 +1,6 @@
 // #include <FL.H>
-#include <FL/fl_ask.H>
 #include "ItemEditor.h"
+#include <FL/fl_ask.H>
 
 using std::cout;
 using std::endl;
@@ -45,7 +45,7 @@ namespace CampaignEditor
 		nameInput = new Fl_Input(0, 0, w, height, "name");
 		// itemTypeInput = new Fl_Int_Input(0, 0, w, height, "Item Type");
 		itemTypeInput = new Fl_Input_Choice(0, 0, w, height, "Item Type");
-		Fl_Input *_temp = itemTypeInput->input();
+		Fl_Input* _temp = itemTypeInput->input();
 		_temp->readonly(true);
 		int s = 7;
 		for (int i = 0; i < s; i++)
@@ -57,12 +57,12 @@ namespace CampaignEditor
 		/*
 			enchantment information
 		*/
-		Fl_Pack *ench = new Fl_Pack(0, 0, w, 200);
+		Fl_Pack* ench = new Fl_Pack(0, 0, w, 200);
 
 		enchantmentTypeInput = new Fl_Input_Choice(0, 0, w, height, "Ench type");
-		Fl_Input *__temp = enchantmentTypeInput->input();
+		Fl_Input* __temp = enchantmentTypeInput->input();
 		__temp->readonly(true);
-		Fl_Menu_Button *mb = enchantmentTypeInput->menubutton();
+		Fl_Menu_Button* mb = enchantmentTypeInput->menubutton();
 		s = 9;
 		for (int i = 0; i < s; i++)
 		{
@@ -72,13 +72,13 @@ namespace CampaignEditor
 
 		ench->end();
 
-		Fl_Pack *b = new Fl_Pack(0, 0, w, height / 2);
+		Fl_Pack* b = new Fl_Pack(0, 0, w, height / 2);
 		b->type(Fl_Pack::HORIZONTAL);
-		Fl_Button *cancel = new Fl_Button(margin, 0, w / 4, height, "cancel");
-		Fl_Button *apply = new Fl_Button(margin, 0, w / 4, height, "apply");
+		Fl_Button* cancel = new Fl_Button(margin, 0, w / 4, height, "cancel");
+		Fl_Button* apply = new Fl_Button(margin, 0, w / 4, height, "apply");
 		b->end();
-		cancel->callback(static_load_data, (void *)this);
-		apply->callback(static_save_data, (void *)this);
+		cancel->callback(static_load_data, (void*)this);
+		apply->callback(static_save_data, (void*)this);
 		g->end();
 	};
 	void ItemEditor::load_data()
@@ -88,7 +88,7 @@ namespace CampaignEditor
 		if (i <= items.size() && i > 0)
 		{
 			std::cout << "selected: " << i << std::endl;
-			current_item = (Item *)browser->data(i);
+			current_item = (Item*)browser->data(i);
 			update_data();
 		}
 	}
@@ -101,7 +101,7 @@ namespace CampaignEditor
 	{
 		browser->clear();
 		std::string label;
-		for (Item *i : items)
+		for (Item* i : items)
 		{
 			label = std::to_string(i->GetItemId()) + ": " + i->GetItemName();
 			browser->add(label.c_str(), i);
@@ -109,7 +109,7 @@ namespace CampaignEditor
 	}
 	void ItemEditor::create()
 	{
-		Item *i = new Item();
+		Item* i = new Item();
 		items.push_back(i);
 		populate_browser();
 		browser->bottomline(browser->size());
@@ -186,7 +186,7 @@ namespace CampaignEditor
 			{
 				serializeItem::SaveItems(this->filepath, items);
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				fl_alert("There was an error saving the file. Try using 'save as'");
 			}
@@ -196,7 +196,7 @@ namespace CampaignEditor
 				populate_browser();
 				/* code */
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
 			}
@@ -210,7 +210,7 @@ namespace CampaignEditor
 			items = serializeItem::LoadItems(filepath);
 			/* code */
 		}
-		catch (const std::exception &e)
+		catch (const std::exception& e)
 		{
 			std::cerr << e.what() << '\n';
 		}
@@ -218,7 +218,7 @@ namespace CampaignEditor
 		{
 			populate_browser();
 		}
-		catch (const std::exception &e)
+		catch (const std::exception& e)
 		{
 			std::cerr << e.what() << '\n';
 		}
@@ -233,7 +233,7 @@ namespace CampaignEditor
 				items = serializeItem::LoadItems(filepath);
 				/* code */
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
 			}
@@ -241,7 +241,7 @@ namespace CampaignEditor
 			{
 				populate_browser();
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
 			}
@@ -255,7 +255,7 @@ namespace CampaignEditor
 			{
 				save();
 			}
-			catch (const std::exception &e)
+			catch (const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
 			}
@@ -267,7 +267,7 @@ namespace CampaignEditor
 		{
 			serializeItem::SaveItems(s, items);
 		}
-		catch (const std::exception &e)
+		catch (const std::exception& e)
 		{
 			fl_alert("There was an error saving the file. Try using 'save as'");
 		}
