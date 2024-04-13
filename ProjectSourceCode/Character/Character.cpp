@@ -259,6 +259,18 @@ Character::Character::Character(const serializecharacter::CharacterRecord& t_rec
 		static_cast<CharacterActionStrategy*>(new AggressorStrategy());
 }
 
+std::string Character::Character::imgpath() {
+	//if it's the player
+	if (this->GetIsPlayerControlled()) {
+		return "../../../images/player.png";
+	}
+	//if it's an NPC
+	else {
+		// friendly or aggresor NPC
+		return (dynamic_cast<friendlystrategy::FriendlyStrategy*>(actionStrategy)) ? "../../../images/npc_friendly.png" : "../../../imagesnpc_hostile.png";
+	}
+}
+
 std::string Character::Character::serialize() {
 	std::string str = "c,";
 	str += std::to_string(this->id);
