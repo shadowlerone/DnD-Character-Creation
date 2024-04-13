@@ -14,11 +14,13 @@
     <ClCompile Include="Game\animations.cpp" />
     <ClCompile Include="Game\gui.cxx" />
     <ClCompile Include="Game\main.cpp" />
+    <ClCompile Include="MapGamer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Combat.h" />
     <ClInclude Include="Game\gui.h" />
     <ClInclude Include="Game\Main.h" />
+    <ClInclude Include="MapGamer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
