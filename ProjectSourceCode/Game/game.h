@@ -7,16 +7,15 @@
 
 #pragma once
 
-#include <filesystem>
-#include <Fl/Fl_Double_Window.H>
-#include <string>
-#include <vector>
-
 #include "..\Builder\MapBuilder.h"
 #include "..\Campaign\campaign.h"
 #include "..\Item\item.h"
 #include "..\Observer\Observable.h"
 #include "gui.h"
+#include <filesystem>
+#include <Fl/Fl_Double_Window.H>
+#include <string>
+#include <vector>
 
 using namespace observable;
 using namespace campaign;

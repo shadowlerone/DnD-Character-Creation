@@ -1,13 +1,12 @@
 #pragma once
-#include "Globals.h"
-
 #include "BaseEditor.h"
+#include "Globals.h"
+#include "Item/item.h"
 #include "Item/itemcontainer.h"
 #include "Map/Map.h"
-#include "Item/item.h"
 #include "Serialize/serializeItem.h"
-
 #include <FL/Fl_Input_Choice.H>
+
 namespace CampaignEditor
 {
 	std::vector<itemcontainer::ItemContainer*>* rtoc(std::vector<serializeItem::ItemContainerRecord*>& v);
@@ -32,9 +31,9 @@ namespace CampaignEditor
 		void delete_entry() {}
 		void update_data();
 		void populate_browser();
-		void set_items(std::vector<item::Item *> * i) {
+		void set_items(std::vector<item::Item*>* i) {
 			items = i;
-		} 
+		}
 		void add_item() {
 			//if (contents->value() == 0) return;
 			if (item_list->value() == "") return;
@@ -70,5 +69,5 @@ namespace CampaignEditor
 	static void static_remove(Fl_Widget* w, void* f) {
 		((ItemContainerEditor*)f)->remove_item();
 	}
-	
+
 }

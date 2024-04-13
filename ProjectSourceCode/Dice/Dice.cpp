@@ -1,7 +1,6 @@
+#include "Dice.h"
 #include <sstream>
 #include <string>
-
-#include "Dice.h"
 
 Dice::Dice(std::string query) {
 	// seed the random number generator

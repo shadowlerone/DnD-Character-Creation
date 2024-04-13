@@ -5,12 +5,11 @@
 * This file puts in the implementation functions for the ItemContainer class
 */
 
+#include "item.h"
+#include "itemcontainer.h"
 #include <algorithm>
 #include <iostream>
 #include <string>
-
-#include "item.h"
-#include "itemcontainer.h"
 
 // using namespace std;
 using namespace item;

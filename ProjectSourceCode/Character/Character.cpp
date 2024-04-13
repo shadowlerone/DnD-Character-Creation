@@ -1,7 +1,6 @@
+#include "Character.h"
 #include <sstream>
 #include <string>
-
-#include "Character.h"
 
 namespace {
 	std::vector<int> DetectPlayer(const std::vector<std::vector<Interactable::Interactable*>>& _mapGrid, const int& _posX, const int& _posY) {

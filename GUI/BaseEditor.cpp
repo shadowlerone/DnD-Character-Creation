@@ -1,7 +1,6 @@
+#include "BaseEditor.h"
 #include <FL/Fl_Native_File_Chooser.H>
 #include <iostream>
-
-#include "BaseEditor.h"
 
 namespace CampaignEditor
 {

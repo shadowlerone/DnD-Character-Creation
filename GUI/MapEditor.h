@@ -1,22 +1,20 @@
 #pragma once
+#include "../ProjectSourceCode/Interactable/Interactable.h"
+#include "../ProjectSourceCode/Map/Map.h"
+#include "BaseEditor.h"
 #include "Globals.h"
+#include "Interactable/Interactable.h"
+#include "Map/Map.h"
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Pack.H>
+#include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Window.H>
-
-#include "../ProjectSourceCode/Interactable/Interactable.h"
-#include "../ProjectSourceCode/Map/Map.h"
-#include "BaseEditor.h"
-#include <FL/Fl_Return_Button.H>
 #include <vector>
-#include "BaseEditor.h"
-#include "Map/Map.h"
-#include "Interactable/Interactable.h"
 
 namespace CampaignEditor
 {
@@ -24,7 +22,7 @@ namespace CampaignEditor
 	class MapCellButton : public Fl_Button
 	{
 	public:
-		MapCellButton(int x, int y, int w, int h, int _x, int _y, Interactable::Interactable *c=nullptr);
+		MapCellButton(int x, int y, int w, int h, int _x, int _y, Interactable::Interactable* c = nullptr);
 		void bind(Map::Map* _m) { m = _m; }
 		//void cell_type(Map::Cell_Type ct) { this->ct = ct; };
 		void cell_type(Interactable::Interactable* ct) { this->ct = ct; };
@@ -72,8 +70,8 @@ namespace CampaignEditor
 		static void hide(Fl_Widget* widget, void* f);
 
 	private:
-		Fl_Scroll *map_grid;
-		Map::Map *current_map;
+		Fl_Scroll* map_grid;
+		Map::Map* current_map;
 		int _grid_x, _grid_y;
 		std::vector<std::vector<MapCellButton*>> mcbs;
 		int _new_x, _new_y; // internal only, used during dialog to create map;

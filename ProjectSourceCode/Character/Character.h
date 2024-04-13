@@ -6,16 +6,9 @@
  * 'Feats', 'Race', 'Class Features', 'Backgrounds', 'spells', 'skills', 'Armour, Weapon & tool proficiencies', 'Death saves', 'initiative' and 'saving throws'
  */
 #pragma once
-#include <bitset>
-#include <chrono>
-#include <iomanip>
-#include <iostream>
-#include <random>
-#include <unordered_map>
-#include <vector>
-
 #include "Decorator/abstractcomponent.h"
 #include "Dice/Dice.h"
+#include "Identifiable/Identifiable.h"
 #include "Interactable/Interactable.h"
 #include "Item/item.h"
 #include "Item/itemcontainer.h"
@@ -25,8 +18,13 @@
 #include "Strategy/characteractionstrategy.h"
 #include "Strategy/friendlystrategy.h"
 #include "Strategy/humanplayerstrategy.h"
-
-#include "Identifiable/Identifiable.h"
+#include <bitset>
+#include <chrono>
+#include <iomanip>
+#include <iostream>
+#include <random>
+#include <unordered_map>
+#include <vector>
 
 using namespace abstractcomponent;
 using namespace characteractionstrategy;
@@ -225,10 +223,10 @@ namespace Character
 		/* \fn ID()
 		 *  \brief Unique Character ID
 		 */
-		// const int ID() { return id; };
-		/*! \fn Name()
-		 *  \brief Character name
-		 */
+		 // const int ID() { return id; };
+		 /*! \fn Name()
+		  *  \brief Character name
+		  */
 		std::string Name() const { return this->name; };
 		std::string Name(const std::string& t_name);
 		/* \fn Print_Character_Sheet

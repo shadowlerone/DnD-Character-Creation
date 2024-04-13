@@ -5,12 +5,11 @@
 * This file puts in the function implementations for the Item class
 */
 
+#include "item.h"
 #include <iostream>
 #include <random>
 #include <sstream>
 #include <string>
-
-#include "item.h"
 
 // using namespace std;
 using std::string;
@@ -120,10 +119,10 @@ namespace item {
 	}
 
 	Item::Item(const std::string& _itemName,
-				const int& _enchantmentBonus,
-				const int& _itemType,
-				const int& _enchantmentType,
-				const float& _weight) : ComponentDecorator() {
+		const int& _enchantmentBonus,
+		const int& _itemType,
+		const int& _enchantmentType,
+		const float& _weight) : ComponentDecorator() {
 		// nextItemId = nextItemId + 1;
 		// itemId = nextItemId;
 		setID(++nextItemId);
@@ -136,11 +135,11 @@ namespace item {
 	}
 
 	Item::Item(const int& _itemId,
-				const string& _itemName,
-				const int& _enchantmentBonus,
-				const int& _itemType,
-				const int& _enchantmentType,
-				const float& _weight) : ComponentDecorator() {
+		const string& _itemName,
+		const int& _enchantmentBonus,
+		const int& _itemType,
+		const int& _enchantmentType,
+		const float& _weight) : ComponentDecorator() {
 		setID(_itemId);
 		itemName = _itemName;
 		enchantmentBonus = _enchantmentBonus;

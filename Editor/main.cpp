@@ -1,5 +1,4 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include "Game/game.h"
 #include "Game/gamelogger.h"
@@ -7,11 +6,13 @@
 #include "MainMenu.h"
 #include <FL/Fl.H>
 #include <iostream>
+
 using namespace CampaignEditor;
 std::vector<Map::Map*>* maps = new std::vector<Map::Map*>();
 std::vector<item::Item*>* items = new std::vector<item::Item*>();
 std::vector<serializeItem::ItemContainerRecord*>* itemcontainers = new std::vector<serializeItem::ItemContainerRecord*>();
-campaign::CampaignRecord * currentCampaign = new CampaignRecord();
+campaign::CampaignRecord* currentCampaign = new CampaignRecord();
+
 int main()
 {
 	MainMenu* m = new MainMenu();

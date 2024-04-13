@@ -3,7 +3,6 @@
 #include "../ProjectSourceCode/Interactable/Wall.h"
 #include "../ProjectSourceCode/Item/Item.h"
 #include "MapBuilder.h"
-
 #include <fstream>
 #include <iostream>
 #include <sstream>

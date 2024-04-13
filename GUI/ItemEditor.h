@@ -1,8 +1,10 @@
 #pragma once
+#include "BaseEditor.h"
+#include "Character/Character.h"
 #include "Globals.h"
-
-#include <iostream>
-#include <vector>
+#include "Item/item.h"
+#include "Map/Map.h"
+#include "Serialize/serializeItem.h"
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Browser.H>
@@ -19,14 +21,6 @@
 #include <FL/Fl_Window.H>
 #include <iostream>
 #include <vector>
-
-#include "Item/item.h"
-#include "Map/Map.h"
-#include "Character/Character.h"
-#include "Serialize/serializeItem.h"
-
-#include "BaseEditor.h"
-
 
 namespace CampaignEditor
 {

@@ -1,8 +1,8 @@
 #pragma once
-#include "Globals.h"
 #include "Builder/MapBuilder.h"
 #include "CampaignEditor.h"
 #include "CharacterEditor.h"
+#include "Globals.h"
 #include "ItemContainerEditor.h"
 #include "ItemEditor.h"
 #include "Map/Map.h"
@@ -54,7 +54,7 @@ namespace CampaignEditor
 		{
 			std::cout << "Saving in Campaign Editor" << std::endl;
 			// ie->save_as();
-			
+
 			if (!ce->save()) {
 				return;
 			}
@@ -233,7 +233,7 @@ namespace CampaignEditor
 			ce->filepath = campaign_dir.string();
 			item_directory = campaign_dir / "Items" / "items.csv";
 			map_directory = campaign_dir / "Maps";
-			
+
 			item_container_directory = campaign_dir / "ItemContainers" / "containers.csv";
 			fs::create_directories(item_directory.parent_path());
 			fs::create_directories(map_directory);

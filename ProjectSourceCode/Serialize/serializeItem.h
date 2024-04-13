@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
-
 #include "..\Item\item.h"
 #include "..\Item\itemcontainer.h"
+#include <string>
+#include <vector>
 
 using namespace item;
 using namespace itemcontainer;
@@ -81,7 +80,7 @@ namespace serializeItem {
 	* \param _itemsToSave Vector of Item instance pointers that represent all the items in memory to save to a CSV file
 	*/
 	void SaveItems(const std::string&, const std::vector<Item*>&);
-	
+
 	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>* recordsToSave, const std::string& _fileURI);
 
 	/*!

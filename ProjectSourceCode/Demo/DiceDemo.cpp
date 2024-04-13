@@ -1,5 +1,4 @@
 #include "..\Dice\Dice.h"
-
 #include "DiceDemo.h"
 
 void DiceDemo() {

@@ -2,39 +2,39 @@
 
 bool serializecharacter::SaveCharacter(Character::Character* t_character, const std::string& t_path = "")
 {
-    if (t_character == nullptr) {
-        return false;
-    }
-    //Copy data from t_character into a record
-    CharacterRecord record;
-    record.name = t_character->Name();
-    record.id = t_character->getID();
-    //copy ability scores
-    for (int i{ 0 }; i < 6; i++) {
-        record.ability_scores.at(i) = t_character->Ability_Score_Natural(i, 0);
-    }
-    //copy levels
-    for (int i{ 0 }; i < 12; i++) {
-        record.level.at(i) = t_character->Levels((Character::Character_Class)i);
-    }
-    record.max_hit_points = t_character->Max_Hit_Points();
-    record.hit_points = t_character->Hit_Points();
-    //copy inventory item IDs
-    for (auto i : t_character->Inventory().GetAllItems()) {
-        record.inventory_item_ids.push_back(i.getID());
-    }
-    //copy equipped item IDs
-    for (int i{ 0 }; i < 8; i++) {
-        try {
-            AbstractComponent* currentWornItems = t_character->GetWornItems();
-            std::vector<AbstractComponent*> itemDecoratorList = currentWornItems->GetDecoratorList();
+	if (t_character == nullptr) {
+		return false;
+	}
+	//Copy data from t_character into a record
+	CharacterRecord record;
+	record.name = t_character->Name();
+	record.id = t_character->getID();
+	//copy ability scores
+	for (int i{ 0 }; i < 6; i++) {
+		record.ability_scores.at(i) = t_character->Ability_Score_Natural(i, 0);
+	}
+	//copy levels
+	for (int i{ 0 }; i < 12; i++) {
+		record.level.at(i) = t_character->Levels((Character::Character_Class)i);
+	}
+	record.max_hit_points = t_character->Max_Hit_Points();
+	record.hit_points = t_character->Hit_Points();
+	//copy inventory item IDs
+	for (auto i : t_character->Inventory().GetAllItems()) {
+		record.inventory_item_ids.push_back(i.getID());
+	}
+	//copy equipped item IDs
+	for (int i{ 0 }; i < 8; i++) {
+		try {
+			AbstractComponent* currentWornItems = t_character->GetWornItems();
+			std::vector<AbstractComponent*> itemDecoratorList = currentWornItems->GetDecoratorList();
 
-            for (int i = 0; i < (int)itemDecoratorList.size(); ++i)
-            {
-                Item* decoratorItem = dynamic_cast<Item*>(itemDecoratorList.at(i));
-                auto item_id = decoratorItem->getID();
-                record.equipped_item_ids.push_back(item_id);
-            }
+			for (int i = 0; i < (int)itemDecoratorList.size(); ++i)
+			{
+				Item* decoratorItem = dynamic_cast<Item*>(itemDecoratorList.at(i));
+				auto item_id = decoratorItem->getID();
+				record.equipped_item_ids.push_back(item_id);
+			}
 
 
 			// const item::Item* item_ptr = t_character->Equipped_Items((Character::Equipment_Slots)i);
@@ -63,9 +63,9 @@ bool serializecharacter::SaveCharacter(Character::Character* t_character, const 
 	}
 	record.inventory_container_path = fullURI.str();
 
-    if (t_character->Inventory().GetCapacity() > 0)
-        serializeItem::SaveItems(fullURI.str(), inventoryVector);
-    record.inventory_container_id = t_character->Inventory().getID();
+	if (t_character->Inventory().GetCapacity() > 0)
+		serializeItem::SaveItems(fullURI.str(), inventoryVector);
+	record.inventory_container_id = t_character->Inventory().getID();
 
 	record.isPlayerControlled = t_character->GetIsPlayerControlled();
 

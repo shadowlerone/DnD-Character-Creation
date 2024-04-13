@@ -1,11 +1,10 @@
+#include "gamelogger.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <time.h>
-
-#include "gamelogger.h"
 
 #define LOG_FILE_DIR "\\Game Log\\Game_Log.txt"
 

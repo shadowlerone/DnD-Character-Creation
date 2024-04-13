@@ -27,7 +27,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 #include "item.h"
 
 // using namespace std;
@@ -46,16 +45,16 @@ namespace itemcontainer {
 	* These containers use a list from the std library to allow for any number of items to be added to a container.
 	*/
 	class ItemContainer : public Item {
-		public:
-			/*!
-			* \fn ItemContainer
-			* \brief Overloaded constructior for ItemContainer
-			*/
-			ItemContainer(const std::string&, const int&, const float&);
-			ItemContainer(int);
+	public:
+		/*!
+		* \fn ItemContainer
+		* \brief Overloaded constructior for ItemContainer
+		*/
+		ItemContainer(const std::string&, const int&, const float&);
+		ItemContainer(int);
 
 
-			float GetCapacity() { return capacity; };
+		float GetCapacity() { return capacity; };
 
 		void SetWeightLimit(const float& _capacity) { capacity = _capacity; };
 
@@ -66,14 +65,14 @@ namespace itemcontainer {
 
 		void SetItems(std::vector<Item> _items) { items = _items; };
 
-			//void SetCapacity(float f) {capac}
+		//void SetCapacity(float f) {capac}
 
-			/*!
-			* \fn RemoveItems
-			* \brief Method to remove some items from a container
-			* \param _itemToRemove Vector of Item instance pointers representing the items selected for removal
-			*/
-			void RemoveItems(std::vector<Item*>);
+		/*!
+		* \fn RemoveItems
+		* \brief Method to remove some items from a container
+		* \param _itemToRemove Vector of Item instance pointers representing the items selected for removal
+		*/
+		void RemoveItems(std::vector<Item*>);
 
 		float GetTotalItemWeight();
 
@@ -94,48 +93,48 @@ namespace itemcontainer {
 		*/
 		Item* GetItem(ItemType);
 
-			/*!
-			* \fn GetItems
-			* \brief Overloaded method to find a list of items via enchantment bonus
-			* 
-			* Overloaded member function that will use an enchantment bonus (1-5) to find the items that have that bonus.
-			*/
-			std::vector<Item> GetItemsByEnchantmentBonus(const int&);
-			/*!
-			* \fn GetItems
-			* \brief Overloaded method to find a list of items via item type
-			*
-			* Overloaded member function that will use an item type enum value (1-7) to find the items that have that type.
-			*/
-			std::vector<Item> GetItemsByItemType(const int&);
-			/*!
-			* \fn GetItems
-			* \brief Overloaded method to find a list of items via character stat
-			*
-			* Overloaded member function that will use a character stat enum value (0-8) to find the items that have that type.
-			*/
-			std::vector<Item> GetItemsByStat(const int&);
-			/*!
-			* \fn PrintItemVector
-			* \brief Function to print out the info on individual items
-			*/
-			void PrintItemVector();
+		/*!
+		* \fn GetItems
+		* \brief Overloaded method to find a list of items via enchantment bonus
+		*
+		* Overloaded member function that will use an enchantment bonus (1-5) to find the items that have that bonus.
+		*/
+		std::vector<Item> GetItemsByEnchantmentBonus(const int&);
+		/*!
+		* \fn GetItems
+		* \brief Overloaded method to find a list of items via item type
+		*
+		* Overloaded member function that will use an item type enum value (1-7) to find the items that have that type.
+		*/
+		std::vector<Item> GetItemsByItemType(const int&);
+		/*!
+		* \fn GetItems
+		* \brief Overloaded method to find a list of items via character stat
+		*
+		* Overloaded member function that will use a character stat enum value (0-8) to find the items that have that type.
+		*/
+		std::vector<Item> GetItemsByStat(const int&);
+		/*!
+		* \fn PrintItemVector
+		* \brief Function to print out the info on individual items
+		*/
+		void PrintItemVector();
 
-			int id;
-			std::vector<int> itemIds;
+		int id;
+		std::vector<int> itemIds;
 
-		private:
-			/*!
-			* \var capacity
-			* \brief Integer that represents the carrying capacity (in lbs) for the container
-			*/
-			float capacity;
+	private:
+		/*!
+		* \var capacity
+		* \brief Integer that represents the carrying capacity (in lbs) for the container
+		*/
+		float capacity;
 
-			/*!
-			* \var items
-			* \brief Vector of type Item that represents the containers item instances
-			*/
-			std::vector<Item> items;
+		/*!
+		* \var items
+		* \brief Vector of type Item that represents the containers item instances
+		*/
+		std::vector<Item> items;
 
 	};
 }

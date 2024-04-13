@@ -61,7 +61,7 @@ namespace CampaignEditor
 		{
 			// Fl_Pack * r = new Fl_Pack(0,0,50*_grid_x, 50);
 			// r->type(Fl_Pack::HORIZONTAL);
-			mbs.push_back(std::vector<MapButton *>());
+			mbs.push_back(std::vector<MapButton*>());
 			for (int i = 0; i < currentCampaign->numRows; i++)
 			{
 				MapButton* m = new MapButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
@@ -75,7 +75,8 @@ namespace CampaignEditor
 						m->copy_label(" ");
 					}
 
-				} catch (std::exception &e) {
+				}
+				catch (std::exception& e) {
 					std::cerr << e.what() << std::endl;
 					m->copy_label("");
 				}
@@ -126,9 +127,9 @@ namespace CampaignEditor
 		b->ID(std::stoi(map_list->value()));
 		b->label(map_list->value());
 		bool found = false;
-		Map::Map *m = NULL;
-		for (Map::Map *_m : *maps){
-			if (_m->getID() == std::stoi(map_list->value())){
+		Map::Map* m = NULL;
+		for (Map::Map* _m : *maps) {
+			if (_m->getID() == std::stoi(map_list->value())) {
 				found = true;
 				m = _m;
 				break;
@@ -139,11 +140,11 @@ namespace CampaignEditor
 			return;
 		}
 		currentCampaign->mapIDs[_c_y][_c_x] = m->getID();
-		std::cout<<"campaign modified" <<std::endl;
+		std::cout << "campaign modified" << std::endl;
 
 		// redraw_map();
 	}
-	bool CampaignEditor::save(){
+	bool CampaignEditor::save() {
 		if (filepath.empty())
 		{
 			save_as();

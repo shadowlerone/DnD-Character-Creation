@@ -7,10 +7,9 @@
 
 #pragma once
 
-#include <string>
-
 #include "..\Observer\Observable.h"
 #include "..\Observer\Observer.h"
+#include <string>
 
 using namespace observer;
 using namespace observable;

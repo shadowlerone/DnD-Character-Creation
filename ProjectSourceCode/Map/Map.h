@@ -8,20 +8,17 @@
 
 #pragma once 
 
-#include <string>
-#include <typeinfo>
-#include <vector>
-
-#include "Identifiable/Identifiable.h"
-
 #include "Character/Character.h"
+#include "Identifiable/Identifiable.h"
 #include "Interactable/EmptyCell.h"
 #include "Interactable/Interactable.h"
 #include "Item/item.h"
 #include "Observer/Observable.h"
+#include <string>
+#include <typeinfo>
+#include <vector>
 
 using namespace observable;
-
 
 /*!
 * \namespace Map

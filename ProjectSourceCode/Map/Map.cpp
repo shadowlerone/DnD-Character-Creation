@@ -1,3 +1,10 @@
+#include "..\Character\Character.h"
+#include "..\Door\door.h"
+#include "..\Interactable\EmptyCell.h"
+#include "..\Interactable\Interactable.h"
+#include "..\Interactable\Wall.h"
+#include "..\Item\item.h"
+#include "Map.h"
 #include <iostream>
 #include <list>
 #include <queue>
@@ -6,14 +13,6 @@
 #include <stack>
 #include <string>
 #include <vector>
-
-#include "..\Character\Character.h"
-#include "..\Door\door.h"
-#include "..\Interactable\EmptyCell.h"
-#include "..\Interactable\Interactable.h"
-#include "..\Interactable\Wall.h"
-#include "..\Item\item.h"
-#include "Map.h"
 
 using namespace door;
 

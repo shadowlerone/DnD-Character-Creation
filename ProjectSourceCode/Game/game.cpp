@@ -1,11 +1,10 @@
+#include "..\Interactable\EmptyCell.h"
+#include "game.h"
 #include <algorithm>
 #include <cctype>
 #include <iterator>
 #include <sstream>
 #include <string>
-
-#include "..\Interactable\EmptyCell.h"
-#include "game.h"
 
 /* namespace {
 	void ProcessContainerAction(Item* _target, Character::Character* _playerCharacter, const bool& dropItems = false) {

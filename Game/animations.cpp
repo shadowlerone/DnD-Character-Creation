@@ -1,15 +1,17 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+
 #include "Dice/Dice.h"
 #include "gui.h"
 #include <chrono>
 #include <thread>
 #include <time.h>
+
 extern Dice* dice;
 
 using namespace std::this_thread; // sleep_for, sleep_until
 using namespace std::chrono;	  // nanoseconds, system_clock, seconds
 using namespace std::chrono_literals;
+
 namespace GameView
 {
 	int updates;

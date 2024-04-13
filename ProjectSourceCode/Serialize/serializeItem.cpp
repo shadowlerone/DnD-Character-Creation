@@ -5,14 +5,13 @@
 * \author Tristan Lafleur (40245238)
 */
 
+#include "serializeItem.h"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <regex>
 #include <sstream>
 #include <string>
-
-#include "serializeItem.h"
 
 using namespace serializeItem;
 
@@ -317,7 +316,7 @@ namespace serializeItem {
 
 		itemOutputStream.close();
 	}
-	
+
 	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>* recordsToSave, const std::string& _fileURI)
 	{
 		std::string csvOutput = BuildContainerCSVOutput(*recordsToSave);

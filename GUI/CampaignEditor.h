@@ -1,15 +1,16 @@
 #pragma once
-#include "Globals.h"
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Scroll.H>
 #include "BaseEditor.h"
+#include "Campaign/campaign.h"
+#include "Globals.h"
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Input_Choice.H>
-#include "Campaign/campaign.h"
+#include <FL/Fl_Pack.H>
+#include <FL/Fl_Scroll.H>
 
 using namespace campaign;
 using std::vector;
+
 namespace CampaignEditor
 {
 	class MapButton : public Fl_Button
@@ -47,7 +48,7 @@ namespace CampaignEditor
 			currentCampaign->numCols = _grid_x;
 			currentCampaign->numRows = _grid_y;
 			currentCampaign->mapIDs = std::vector<vector<int>>(_grid_y);
-			for (int i = 0; i < _grid_y; i++) 
+			for (int i = 0; i < _grid_y; i++)
 			{
 				currentCampaign->mapIDs[i] = std::vector<int>(_grid_x);
 			}
@@ -111,13 +112,13 @@ namespace CampaignEditor
 		}
 		// void set_browser() {}
 	private:
-		Fl_Scroll *map_grid;
-		Fl_Box * sidebar_title;
+		Fl_Scroll* map_grid;
+		Fl_Box* sidebar_title;
 		//std::vector<Map::Map *> *maps;
-		Map::Map *current_map;
+		Map::Map* current_map;
 		int _grid_x, _grid_y;
 		std::vector<std::vector<MapButton*>> mbs;
 		int _c_x, _c_y; // Current x and y values. set by buttons
-		Fl_Input_Choice * map_list;
+		Fl_Input_Choice* map_list;
 	};
 }

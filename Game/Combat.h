@@ -6,8 +6,10 @@ using namespace humanplayerstrategy;
 using namespace aggressorstrategy;
 using namespace friendlystrategy;
 using namespace observable;
+
 extern Dice* dice;
 extern Fl_Double_Window* DiceWindow;
+
 namespace game
 {
 	void Game::Combat(Character::Character* c1, Character::Character* c2)

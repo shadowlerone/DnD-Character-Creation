@@ -7,9 +7,9 @@
 #include <FL/Fl_Pack.H>
 #include <iostream>
 
-namespace CampaignEditor {
-	class BaseEditor :
-		public Fl_Pack
+namespace CampaignEditor
+{
+	class BaseEditor :public Fl_Pack
 	{
 		friend class MainMenu;
 
@@ -51,6 +51,7 @@ namespace CampaignEditor {
 		static void static_delete(Fl_Widget* w, void* f) {
 			((BaseEditor*)f)->delete_entry();
 		}
+
 	protected:
 		Fl_Hold_Browser* browser;
 		Fl_Pack* g;
