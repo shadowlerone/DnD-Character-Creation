@@ -27,6 +27,10 @@ namespace itemcontainer {
 		capacity = _capacity;
 	}
 
+	ItemContainer::ItemContainer(int id) {
+		id = id;
+	}
+
 	int ItemContainer::AddNewItem(Item* newItem) {
 		if (GetItemType() == WornItems) {
 			Item* foundItem = GetItem(newItem->GetItemType());

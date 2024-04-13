@@ -52,6 +52,8 @@ namespace itemcontainer {
 			* \brief Overloaded constructior for ItemContainer
 			*/
 			ItemContainer(const std::string&, const int&, const float&);
+			ItemContainer(int);
+
 
 			float GetCapacity() { return capacity; };
 
@@ -63,6 +65,8 @@ namespace itemcontainer {
 
 
 			void SetItems(std::vector<Item> _items) { items = _items; };
+
+			//void SetCapacity(float f) {capac}
 
 			/*!
 			* \fn RemoveItems
@@ -116,6 +120,10 @@ namespace itemcontainer {
 			* \brief Function to print out the info on individual items
 			*/
 			void PrintItemVector();
+
+			int id;
+			std::vector<int> itemIds;
+
 		private:
 			/*!
 			* \var capacity
@@ -128,5 +136,6 @@ namespace itemcontainer {
 			* \brief Vector of type Item that represents the containers item instances
 			*/
 			std::vector<Item> items;
+
 	};
 }

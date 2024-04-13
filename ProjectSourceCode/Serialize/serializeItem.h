@@ -82,6 +82,8 @@ namespace serializeItem {
 	*/
 	void SaveItems(const std::string&, const std::vector<Item*>&);
 	
+	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>& recordsToSave, const std::string& _fileURI);
+
 	/*!
 	* \fn SaveItemContainers
 	* \brief Free function that takes an abcolute path to a file and a collection of ItemContainer instance pointers in memory to save to a CSV file

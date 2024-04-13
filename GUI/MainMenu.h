@@ -2,6 +2,7 @@
 #include "Builder/MapBuilder.h"
 #include "CampaignEditor.h"
 #include "CharacterEditor.h"
+#include "ItemContainerEditor.h"
 #include "ItemEditor.h"
 #include "Map/Map.h"
 #include "MapEditor.h"
@@ -22,6 +23,7 @@ namespace CampaignEditor
 	bool hasEnding(std::string const& fullString, std::string const& ending);
 	class MainMenu : public Fl_Window
 	{
+		friend class MainMenu;
 	public:
 		MainMenu();
 		void start();
@@ -37,14 +39,24 @@ namespace CampaignEditor
 		{
 			((MainMenu*)f)->open();
 		};
+		static void static_reload(Fl_Widget* w, void* f)
+		{
+			((MainMenu*)f)->reload();
+		};
 		// static void static_save_as(Fl_Widget *w, void * f) {
 		// 	((MainMenu*)f)->save_as();
 		// };
+		void reload() {
+			open(campaign_dir.string());
+		}
 		void save()
 		{
 			std::cout << "Saving in Campaign Editor" << std::endl;
 			// ie->save_as();
-			ce->save();
+			
+			if (!ce->save()) {
+				return;
+			}
 
 			// for (Map::Map *_m: *me->maps)
 			fs::create_directories(map_directory);
@@ -58,7 +70,8 @@ namespace CampaignEditor
 			}
 			fs::create_directories(item_directory.parent_path());
 			ie->save();
-
+			std::cout << "Updating containers" << std::endl;
+			ice->save();
 			return;
 		};
 		void open()
@@ -71,18 +84,26 @@ namespace CampaignEditor
 			if (ce->open())
 			{
 				campaign_dir = fs::path(ce->filepath);
+				std::cout << "Updating directories" << std::endl;
+
 				update_directories();
+				std::cout << "Updating Items" << std::endl;
 				if (fs::exists(item_directory))
 				{
+					std::cout << "items exist, loading items" << std::endl;
 					ie->open(item_directory.string());
 				}
 				else
 				{
+					std::cout << "items don't exist, creating directory" << std::endl;
+
 					fs::create_directories(item_directory.parent_path());
 				}
 
 				if (fs::exists(map_directory))
 				{
+					std::cout << "maps exist, loading maps" << std::endl;
+
 					std::string ext(".csv");
 					std::string path(map_directory.string());
 					for (auto& p : fs::directory_iterator(path))
@@ -97,15 +118,87 @@ namespace CampaignEditor
 				}
 				else
 				{
+					std::cout << "maps don't exist, creating directory" << std::endl;
+
+					fs::create_directory(map_directory);
+				}
+				if (fs::exists(item_container_directory))
+				{
+					std::cout << "item containers exist, loading item containers" << std::endl;
+
+					std::string ext(".csv");
+					std::string path(item_container_directory.string());
+					ice->open(path);
+				}
+				else
+				{
+					std::cout << "item_containers don't exist, creating directory" << std::endl;
+
+					fs::create_directory(item_container_directory);
+				}
+
+				ce->maps = this->maps;
+				me->set_maps(ce->maps);
+				items = &ie->items;
+				ice->set_items(items);
+				ice->update_dropdown();
+			}
+
+
+			return;
+		};
+		void open(std::string s) {
+			maps->clear();
+			if (ce->open(s))
+			{
+				campaign_dir = fs::path(ce->filepath);
+				std::cout << "Updating directories" << std::endl;
+
+				update_directories();
+				std::cout << "Updating Items" << std::endl;
+				if (fs::exists(item_directory))
+				{
+					std::cout << "items exist, loading items" << std::endl;
+					ie->open(item_directory.string());
+				}
+				else
+				{
+					std::cout << "items don't exist, creating directory" << std::endl;
+
+					fs::create_directories(item_directory.parent_path());
+				}
+
+				if (fs::exists(map_directory))
+				{
+					std::cout << "maps exist, loading maps" << std::endl;
+
+					std::string ext(".csv");
+					std::string path(map_directory.string());
+					for (auto& p : fs::directory_iterator(path))
+					{
+						if (p.path().extension() == ext)
+						{
+							std::string s = p.path().string();
+							Map::Map* m = new Map::Map(MapBuilder::MapBuilder::LoadMap(s));
+							maps->push_back(m);
+						}
+					}
+				}
+				else
+				{
+					std::cout << "maps don't exist, creating directory" << std::endl;
+
 					fs::create_directory(map_directory);
 				}
 
 				ce->maps = this->maps;
 				me->set_maps(ce->maps);
-			}
+				items = &ie->items;
+				ice->set_items(items);
+				ice->update_dropdown();
 
-			return;
-		};
+			}
+		}
 		void save_as()
 		{
 			// tabs->value()->save();
@@ -141,8 +234,16 @@ namespace CampaignEditor
 			ce->filepath = campaign_dir.string();
 			item_directory = campaign_dir / "Items" / "items.csv";
 			map_directory = campaign_dir / "Maps";
+			
+			item_container_directory = campaign_dir / "ItemContainers" / "containers.csv";
+			fs::create_directories(item_directory.parent_path());
+			fs::create_directories(map_directory);
+
+			fs::create_directories(item_container_directory.parent_path());
+
 			ie->filepath = item_directory.string();
 			me->filepath = map_directory.string();
+			ice->filepath = item_container_directory.string();
 		}
 
 	private:
@@ -152,10 +253,13 @@ namespace CampaignEditor
 		MapEditor* me;
 		CharacterEditor* chare;
 		CampaignEditor* ce;
+		ItemContainerEditor* ice;
 
 		Fl_Group* ig;
 		Fl_Group* mg;
 		Fl_Group* cg;
+		Fl_Group* icg;
+
 
 		fs::path map_directory;
 		fs::path item_directory;
@@ -164,6 +268,9 @@ namespace CampaignEditor
 		fs::path campaign_dir;
 		// std::vector<Map::Map *> maps;
 		std::vector<Map::Map*>* maps;
+		std::vector<item::Item*>* items;
+
+		std::vector<itemcontainer::ItemContainer*>* itemcontainers;
 		// std::vector<Character::Character *> *characters;
 	};
 

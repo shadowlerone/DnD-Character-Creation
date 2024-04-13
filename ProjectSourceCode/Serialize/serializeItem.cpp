@@ -238,7 +238,7 @@ namespace {
 	* 
 	* \return String that represents the completed CSV output to write to a file
 	*/
-	std::string BuildContainerCSVOutput(const std::vector<ItemContainerRecord*>& _recordsToSave) {
+	std::string BuildContainerCSVOutput(std::vector<ItemContainerRecord*>& _recordsToSave) {
 		std::string outputResult;
 
 		std::ostringstream csvOutput;
@@ -318,14 +318,19 @@ namespace serializeItem {
 		itemOutputStream.close();
 	}
 	
-	void SaveItemContainers(const std::string& _fileURI, const std::vector<ItemContainer*>& _containersToSave) {
-		std::vector<ItemContainerRecord*> recordsToSave = BuildContainerRecords(_containersToSave);
-
+	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>& recordsToSave, const std::string& _fileURI)
+	{
 		std::string csvOutput = BuildContainerCSVOutput(recordsToSave);
 
 		std::ofstream itemOutputStream(_fileURI);
 		itemOutputStream << csvOutput;
 
 		itemOutputStream.close();
+	}
+
+	void SaveItemContainers(const std::string& _fileURI, const std::vector<ItemContainer*>& _containersToSave) {
+		std::vector<ItemContainerRecord*> recordsToSave = BuildContainerRecords(_containersToSave);
+
+		SaveItemContainersRecord(recordsToSave, _fileURI);
 	}
 }

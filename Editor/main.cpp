@@ -12,7 +12,8 @@ int main()
 {
 	MainMenu* m = new MainMenu();
 	m->show();
-
+	std::cout << "Attempting to load default campaign" << std::endl;
+	m->open((fs::current_path() / "Campaign").string());
 	Fl::run();
 }
 

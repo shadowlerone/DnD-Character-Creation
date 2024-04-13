@@ -66,8 +66,9 @@ namespace CampaignEditor
 		void populate_browser();
 		MapButton *get_cell(int x, int y) { return mbs[y][x]; }
 		void create();
+		bool open(std::string);
 		bool open();
-		void save();
+		bool save();
 		void save_as();
 		void load_data();
 		void update_data();
