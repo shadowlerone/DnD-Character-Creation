@@ -10,7 +10,7 @@ MapCellButton::MapCellButton(int x, int y, int w, int h, int _x, int _y, Interac
 	}
 	else {
 		ct = c;
-
+		copy_label(ct->serialize().c_str());
 	}
 	// std::cout << _x << "," << _y << std::endl;
 }

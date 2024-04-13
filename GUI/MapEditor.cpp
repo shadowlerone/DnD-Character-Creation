@@ -67,23 +67,28 @@ int MapCellButton::handle(int e)
 		current_l = (current_l + 1) % 4;
 		switch (current_l) {
 		case 0:
-			m->setEmpty(x,y);
+			m->setEmpty(y,x);
 			break;
 		case 2:
-			m->setCharacter(x, y, new Character::Character("Evil Slime", Character::Character_Class::Fighter, false, new AggressorStrategy()));
+			m->setCharacter(y, x, new Character::Character("Evil Slime", Character::Character_Class::Fighter, false, new AggressorStrategy()));
 			break;
 		case 1:
-			m->setWall(x, y);
+			m->setWall(y, x);
 			break;
 		case 3:
-			m->setItem(x, y, (*items)[0]);
+			m->setItem(y, x, (*items)[0]);
 			break;
 		}
 
 		ct = m->getGrid()[y][x];
+		std::cout << ct->serialize() << std::endl;
 		//copy_label(Cell_Labels[current_l].c_str());
-
-		copy_label(std::to_string(current_l).c_str());
+		if (current_l == 0) {
+			copy_label(" ");
+		}
+		else {
+			copy_label(std::to_string(current_l).c_str());
+		}
 		this->value(current_l != 0);
 		return 1;
 	}
@@ -113,7 +118,7 @@ void MapEditor::redraw_map()
 		mcbs.push_back(std::vector<MapCellButton*>());
 		for (int i = 0; i < _grid_x; i++)
 		{
-			MapCellButton* m = new MapCellButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
+			MapCellButton* m = new MapCellButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j, current_map->getGrid()[j][i]);
 			m->bind(current_map);
 			//m->copy_label(cttos(current_map->getGrid()[j][i]).c_str());//TODO. error here.
 			mcbs[j].push_back(m);

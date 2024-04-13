@@ -4,6 +4,11 @@
 #include <iostream>
 
 using namespace GameView;
+MapCellButton::MapCellButton(int x, int y, int w, int h, int _x, int _y) :Fl_Button(x, y, w, h) {
+	ct = nullptr;
+	this->x = _x;
+	this->y = _y;
+}
 
 void MapGamer::drawGame() {
 

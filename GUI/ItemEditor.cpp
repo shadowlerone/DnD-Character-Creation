@@ -101,7 +101,6 @@ namespace CampaignEditor
 	{
 		browser->clear();
 		std::string label;
-		for (Item* i : items)
 		for (Item *i : *items)
 		{
 			label = std::to_string(i->getID()) + ": " + i->GetItemName();
@@ -110,8 +109,6 @@ namespace CampaignEditor
 	}
 	void ItemEditor::create()
 	{
-		Item* i = new Item();
-		items.push_back(i);
 		Item *i = new Item();
 		items->push_back(i);
 		populate_browser();
