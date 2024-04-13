@@ -1,4 +1,6 @@
 #pragma once
+#include "Globals.h"
+
 #include <iostream>
 #include <vector>
 #include <FL/Fl.H>
@@ -17,11 +19,13 @@
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Float_Input.H>
 
-#include "../ProjectSourceCode/Item/item.h"
-#include "../ProjectSourceCode/Character/Character.h"
-#include "../ProjectSourceCode/Serialize/serializeItem.h"
+#include "Item/item.h"
+#include "Map/Map.h"
+#include "Character/Character.h"
+#include "Serialize/serializeItem.h"
 
 #include "BaseEditor.h"
+
 
 namespace CampaignEditor
 {
@@ -74,6 +78,6 @@ namespace CampaignEditor
 		std::string currentItemType;
 		std::string currentEnchantmentType;
 		std::string currentWeight;
-		std::vector<Item *> items;
+		//std::vector<Item *> items;
 	};
 }

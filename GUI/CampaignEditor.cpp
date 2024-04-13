@@ -46,7 +46,7 @@ namespace CampaignEditor
 		std::string label;
 		for (Map::Map *i : *maps)
 		{
-			label = std::to_string(i->GetMapID());
+			label = std::to_string(i->getID());
 			browser->add(label.c_str(), i);
 		}
 	}
@@ -57,19 +57,26 @@ namespace CampaignEditor
 		map_grid->clear();
 		map_grid->begin();
 		mbs.clear();
-		for (int j = 0; j < _grid_y; j++)
+		for (int j = 0; j < currentCampaign->numCols; j++)
 		{
 			// Fl_Pack * r = new Fl_Pack(0,0,50*_grid_x, 50);
 			// r->type(Fl_Pack::HORIZONTAL);
 			mbs.push_back(std::vector<MapButton *>());
-			for (int i = 0; i < _grid_x; i++)
+			for (int i = 0; i < currentCampaign->numRows; i++)
 			{
 				MapButton *m = new MapButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
 				m->callback(button_cb, (void * )this);
 				try {
-					int id = campaign->GetMap(i, j)->GetMapID();
-					m->copy_label(std::to_string(id).c_str());		
+					int id = currentCampaign->mapIDs[i][j];
+					if (id > 0) {
+						m->copy_label(std::to_string(id).c_str());
+					}
+					else {
+						m->copy_label(" ");
+					}
+
 				} catch (std::exception &e) {
+					std::cerr << e.what() << std::endl;
 					m->copy_label("");
 				}
 				// m->copy_label(std::to_string(id).c_str());
@@ -102,7 +109,7 @@ namespace CampaignEditor
 		}
 		for (Map::Map *i : *maps)
 		{
-			label = std::to_string(i->GetMapID());
+			label = std::to_string(i->getID());
 			map_list->add(label.c_str());
 		}
 	}
@@ -120,7 +127,7 @@ namespace CampaignEditor
 		bool found = false;
 		Map::Map *m = NULL;
 		for (Map::Map *_m : *maps){
-			if (_m->GetMapID() == std::stoi(map_list->value())){
+			if (_m->getID() == std::stoi(map_list->value())){
 				found = true;
 				m = _m;
 				break;
@@ -130,7 +137,7 @@ namespace CampaignEditor
 			// TODO:  Map not found error
 			return;
 		}
-		campaign->AddMapToCampaign(_c_x+1, _c_y+1, *m);
+		currentCampaign->mapIDs[_c_y][_c_x] = m->getID();
 		std::cout<<"campaign modified" <<std::endl;
 
 		// redraw_map();
@@ -142,7 +149,7 @@ namespace CampaignEditor
 		} else {
 			try
 			{
-				SaveCampaigns(this->filepath, *campaign);
+				SaveCampaignRecord(this->filepath, *currentCampaign);
 			}
 			catch (const std::exception &e)
 			{
@@ -186,21 +193,15 @@ namespace CampaignEditor
 			CampaignMap cp;
 			cp.mapID = 0;
 			cp.coorX = cp.coorY = 0;
-			maps = new std::vector<Map::Map*>();
-			campaign = new Campaign(
-				cr->campaignID,
-				cr->numRows,
-				cr->numCols,
-				cr->mapIDs,
-				cp,
-				*maps
-			);
+			maps->clear();
+			*currentCampaign = *cr;
 			redraw_map();
 			return true;
 		}
 		catch (const std::exception& e) {
 			return false;
 		}
+		redraw_map();
 	}
 	bool CampaignEditor::open() {
 		if (BaseEditor::File_Chooser("Open", Fl_Native_File_Chooser::BROWSE_DIRECTORY))

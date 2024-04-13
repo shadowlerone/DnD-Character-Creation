@@ -173,6 +173,8 @@ namespace campaign {
     */
     void SaveCampaigns(const std::string&, Campaign);
 
+    void SaveCampaignRecord(std::string fp, CampaignRecord c);
+
     /*!
     * \fn LoadCampaigns 
     * \brief Function to load instances of created campaigns from a CSV file.

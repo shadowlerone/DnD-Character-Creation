@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Globals.h"
 #include <FL/Fl.H>
 #include <FL/Fl_Pack.H>
 #include <FL/Fl_Button.H>
@@ -12,8 +12,8 @@
 #include <FL/Fl_Return_Button.H>
 #include <vector>
 #include "BaseEditor.h"
-#include "../ProjectSourceCode/Map/Map.h"
-#include "../ProjectSourceCode/Interactable/Interactable.h"
+#include "Map/Map.h"
+#include "Interactable/Interactable.h"
 
 namespace CampaignEditor
 {
@@ -22,7 +22,7 @@ namespace CampaignEditor
 	{
 	public:
 		MapCellButton(int x, int y, int w, int h, int _x, int _y, Interactable::Interactable *c=nullptr);
-
+		void bind(Map::Map* _m) { m = _m; }
 		//void cell_type(Map::Cell_Type ct) { this->ct = ct; };
 		void cell_type(Interactable::Interactable* ct) { this->ct = ct; };
 
@@ -39,6 +39,7 @@ namespace CampaignEditor
 
 		int x, y;
 		int current_l = 0;
+		Map::Map* m;
 	};
 	class MapEditor : public BaseEditor
 	{
@@ -69,7 +70,6 @@ namespace CampaignEditor
 
 	private:
 		Fl_Scroll *map_grid;
-		std::vector<Map::Map *> *maps;
 		Map::Map *current_map;
 		int _grid_x, _grid_y;
 		std::vector<std::vector<MapCellButton *>> mcbs;

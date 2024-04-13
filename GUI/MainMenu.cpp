@@ -46,8 +46,6 @@ MainMenu::MainMenu() : Fl_Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Campaign Editor")
 	tabs->end();
 	this->end();
 	this->resizable(tabs);
-	maps = new std::vector<Map::Map*>;
-	itemcontainers = new std::vector<ItemContainer*>;
 }
 
 void MainMenu::start() {

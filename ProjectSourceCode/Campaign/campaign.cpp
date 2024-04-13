@@ -30,7 +30,7 @@ namespace {
     Map::Map* FindMapByID(const int& _mapID, const std::vector<Map::Map*>& _mapVector) {
         auto foundMap = std::find_if(_mapVector.begin(),
                                         _mapVector.end(),
-                                        [_mapID](Map::Map* map){return map->GetMapID() == _mapID;});
+                                        [_mapID](Map::Map* map){return map->getID() == _mapID;});
         if (foundMap == _mapVector.end()) {
             throw std::exception("Failed to find the map w/ID: " + _mapID);
         }
@@ -62,7 +62,7 @@ namespace {
         std::vector<Map::Map*> mapsInCampaign = _campaign.GetMapsInCampaign();
         for (int i = 0; i < (int)mapsInCampaign.size(); ++i)
         {
-            includedMapIDs.push_back(mapsInCampaign.at(i)->GetMapID());
+            includedMapIDs.push_back(mapsInCampaign.at(i)->getID());
         }
         
         result.mapsInCampaign = includedMapIDs;
@@ -266,10 +266,10 @@ namespace campaign {
     }
 
     void Campaign::AddMapToCampaign(const int& _row, const int& _col, Map::Map& _mapToAdd) {
-        if (mapsInCampaign.size() >= mapIDs.size() * mapIDs[0].size()) {
-            throw std::exception("Too many maps!");
-        }
-        else if ((_row < 1 || _row > (int)mapIDs.size()) || (_col < 1 || _col > mapIDs[_row - 1].size())) {
+       // if (mapsInCampaign.size() >= mapIDs.size() * mapIDs[0].size()) {
+            //throw std::exception("Too many maps!");
+        //}
+        if ((_row < 1 || _row > (int)mapIDs.size()) || (_col < 1 || _col > mapIDs[_row - 1].size())) {
             std::ostringstream message;
             message << "Invalid coordiantes: " << _row << "," << _col;
             throw std::invalid_argument(message.str());
@@ -280,16 +280,20 @@ namespace campaign {
         }
         else {
             int mapIDAtCell = mapIDs[_row - 1][_col -1];
-            auto mapAtCell = std::find_if(mapsInCampaign.begin(), mapsInCampaign.end(), [mapIDAtCell](Map::Map* map){return map->GetMapID() == mapIDAtCell;});
-            if (mapAtCell == mapsInCampaign.end()) {
-                throw std::exception("Failed to find the map to replace through update");
+           // auto mapAtCell = std::find_if(mapsInCampaign.begin(), mapsInCampaign.end(), [mapIDAtCell](Map::Map* map){return map->getID() == mapIDAtCell;});
+           // if (mapAtCell == mapsInCampaign.end()) {
+             //   throw std::exception("Failed to find the map to replace through update");
+            //}
+            for (int i = 0; i < mapsInCampaign.size(); i++) {
+                if (mapsInCampaign[i]->getID() == mapIDAtCell) {
+                    mapsInCampaign.erase(mapsInCampaign.begin() +i);
+                    break;
+                }
             }
-
-            mapsInCampaign.erase(mapAtCell);
             mapsInCampaign.push_back(&_mapToAdd);
         }
         
-        mapIDs[_row - 1][_col - 1] = _mapToAdd.GetMapID();
+        mapIDs[_row - 1][_col - 1] = _mapToAdd.getID();
     }
 
     Map::Map* Campaign::GetMap(const int& _coordX, const int& _coordY) {
@@ -302,13 +306,21 @@ namespace campaign {
         int foundMapID = mapIDs[_coordX - 1][_coordY - 1];
         Map::Map* result = FindMapByID(foundMapID, mapsInCampaign);
 
-        currentMap.mapID = result->GetMapID();
+        currentMap.mapID = result->getID();
         currentMap.coorX = _coordX;
         currentMap.coorY = _coordY;
 
         return result;
     }
+    void SaveCampaignRecord(std::string fp, CampaignRecord c)
+    {
+        std::ofstream campaignFile(fp);
+        std::string csvOutput = BuildCampaignCSVContent(c);
 
+        campaignFile << csvOutput;
+
+        campaignFile.close();
+    }
     void SaveCampaigns(const std::string& _folderDir, Campaign _campaignToSave) {
         std::ostringstream fileNamePattern;
         fileNamePattern << "Campaign" << _campaignToSave.getID() << ".csv";

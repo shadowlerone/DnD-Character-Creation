@@ -1,4 +1,4 @@
-#include "../ProjectSourceCode/Observer/Observer.h"
+#include "Observer/Observer.h"
 #include <FL/Fl_Window.H>
 
 using namespace observer;

@@ -318,9 +318,9 @@ namespace serializeItem {
 		itemOutputStream.close();
 	}
 	
-	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>& recordsToSave, const std::string& _fileURI)
+	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>* recordsToSave, const std::string& _fileURI)
 	{
-		std::string csvOutput = BuildContainerCSVOutput(recordsToSave);
+		std::string csvOutput = BuildContainerCSVOutput(*recordsToSave);
 
 		std::ofstream itemOutputStream(_fileURI);
 		itemOutputStream << csvOutput;
@@ -331,6 +331,6 @@ namespace serializeItem {
 	void SaveItemContainers(const std::string& _fileURI, const std::vector<ItemContainer*>& _containersToSave) {
 		std::vector<ItemContainerRecord*> recordsToSave = BuildContainerRecords(_containersToSave);
 
-		SaveItemContainersRecord(recordsToSave, _fileURI);
+		SaveItemContainersRecord(&recordsToSave, _fileURI);
 	}
 }

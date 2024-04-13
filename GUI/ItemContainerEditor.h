@@ -1,11 +1,13 @@
 #pragma once
+#include "Globals.h"
+
 #include "BaseEditor.h"
 #include "Item/itemcontainer.h"
+#include "Map/Map.h"
 #include "Item/item.h"
 #include "Serialize/serializeItem.h"
 
 #include <FL/Fl_Input_Choice.H>
-
 namespace CampaignEditor
 {
 	std::vector<itemcontainer::ItemContainer*>* rtoc(std::vector<serializeItem::ItemContainerRecord*>& v);
@@ -16,10 +18,11 @@ namespace CampaignEditor
 		ItemContainerEditor(int x, int y, int w, int h);
 		void load_data();
 		void create();
-		void save() const { std::cout << "Saving Containers" << std::endl;  serializeItem::SaveItemContainersRecord(*itemcontainers, filepath); };
+		void save() const { std::cout << "Saving Containers" << std::endl;  serializeItem::SaveItemContainersRecord(itemcontainers, filepath); };
 		void open(const std::string s) {
 			filepath = s;
-			*itemcontainers = serializeItem::LoadItemContainerRecords(s);
+			std::vector<serializeItem::ItemContainerRecord*> i = serializeItem::LoadItemContainerRecords(s);
+			*itemcontainers = i;
 			//itemcontainers = rtoc(icr);
 		}
 		void open() { open(filepath.c_str()); }
@@ -58,8 +61,8 @@ namespace CampaignEditor
 		Fl_Hold_Browser* contents;
 		Fl_Input_Choice* item_list;
 		serializeItem::ItemContainerRecord* currentItemContainer;
-		std::vector<serializeItem::ItemContainerRecord *> *itemcontainers;
-		std::vector<item::Item *> *items;
+		//std::vector<serializeItem::ItemContainerRecord *> *itemcontainers;
+		//std::vector<item::Item *> *items;
 	};
 	static void static_add(Fl_Widget* w, void* f) {
 		((ItemContainerEditor*)f)->add_item();

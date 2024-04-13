@@ -1,6 +1,6 @@
-#include "../ProjectSourceCode/Interactable/Interactable.h"
-#include "../ProjectSourceCode/Interactable/Wall.h"
-#include "../ProjectSourceCode/Item/item.h"
+#include "Interactable/Interactable.h"
+#include "Interactable/Wall.h"
+#include "Item/item.h"
 #include "MapEditor.h"
 #include <Builder/MapBuilder.h>
 #include <FL/Fl_Button.H>
@@ -15,6 +15,11 @@
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Window.H>
+
+
+extern std::vector<Map::Map*>* maps;
+extern std::vector<item::Item*>* items;
+extern std::vector<serializeItem::ItemContainerRecord*>* itemcontainers;
 
 using namespace CampaignEditor;
 
@@ -60,9 +65,25 @@ int MapCellButton::handle(int e)
 	if (e == FL_RELEASE)
 	{
 		current_l = (current_l + 1) % 4;
+		switch (current_l) {
+		case 0:
+			m->setEmpty(x,y);
+			break;
+		case 2:
+			m->setCharacter(x, y, new Character::Character("Evil Slime", Character::Character_Class::Fighter, false, new AggressorStrategy()));
+			break;
+		case 1:
+			m->setWall(x, y);
+			break;
+		case 3:
+			m->setItem(x, y, (*items)[0]);
+			break;
+		}
+
+		ct = m->getGrid()[y][x];
 		//copy_label(Cell_Labels[current_l].c_str());
 
-		copy_label(ct->serialize().c_str());
+		copy_label(std::to_string(current_l).c_str());
 		this->value(current_l != 0);
 		return 1;
 	}
@@ -93,6 +114,7 @@ void MapEditor::redraw_map()
 		for (int i = 0; i < _grid_x; i++)
 		{
 			MapCellButton* m = new MapCellButton(30 + 30 * i, 30 + 30 * j, 30, 30, i, j);
+			m->bind(current_map);
 			//m->copy_label(cttos(current_map->getGrid()[j][i]).c_str());//TODO. error here.
 			mcbs[j].push_back(m);
 		}
@@ -205,7 +227,7 @@ void MapEditor::populate_browser()
 	std::string label;
 	for (Map::Map* i : *maps)
 	{
-		label = std::to_string(i->GetMapID());
+		label = std::to_string(i->getID());
 		browser->add(label.c_str(), i);
 	}
 }

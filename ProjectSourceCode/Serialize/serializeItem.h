@@ -82,7 +82,7 @@ namespace serializeItem {
 	*/
 	void SaveItems(const std::string&, const std::vector<Item*>&);
 	
-	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>& recordsToSave, const std::string& _fileURI);
+	void SaveItemContainersRecord(std::vector<serializeItem::ItemContainerRecord*>* recordsToSave, const std::string& _fileURI);
 
 	/*!
 	* \fn SaveItemContainers

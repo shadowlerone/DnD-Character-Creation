@@ -82,7 +82,7 @@ namespace Map {
 		/*!
 		* \brief Getters
 		*/
-		int GetMapID() { return mapID; };
+		//int GetMapID() { return mapID; };
 		const int getRows() { return rows; };
 		const int getCols() { return cols; };
 		const int* getEnd_Cell() { return endCell; };
@@ -149,7 +149,7 @@ namespace Map {
 		* \var mapID
 		* \brief Integer representing the unique ID for the instance of the map
 		*/
-		int mapID;
+		//int mapID;
 		/*!
 		* \var rows
 		* \brief rows/height/x

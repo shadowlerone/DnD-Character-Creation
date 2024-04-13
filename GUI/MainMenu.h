@@ -1,4 +1,5 @@
 #pragma once
+#include "Globals.h"
 #include "Builder/MapBuilder.h"
 #include "CampaignEditor.h"
 #include "CharacterEditor.h"
@@ -63,7 +64,7 @@ namespace CampaignEditor
 			for (int index = 0; index < maps->size(); index++)
 			{
 				Map::Map* _m = (*maps)[index];
-				fs::path fp = map_directory / ("Map" + std::to_string(_m->GetMapID()) + ".csv");
+				fs::path fp = map_directory / ("Map" + std::to_string(_m->getID()) + ".csv");
 				std::string s = fp.string();
 				MapBuilder::MapBuilder::SaveMap(_m, s);
 				// MapSerializer::save_map(fp, _m);
@@ -110,11 +111,13 @@ namespace CampaignEditor
 					{
 						if (p.path().extension() == ext)
 						{
+							std::cout << "Loading map: " << p.path() << std::endl;
 							std::string s = p.path().string();
 							Map::Map* m = new Map::Map(MapBuilder::MapBuilder::LoadMap(s));
 							maps->push_back(m);
 						}
 					}
+					me->populate_browser();
 				}
 				else
 				{
@@ -137,10 +140,10 @@ namespace CampaignEditor
 					fs::create_directory(item_container_directory);
 				}
 
-				ce->maps = this->maps;
-				me->set_maps(ce->maps);
-				items = &ie->items;
-				ice->set_items(items);
+				//ce->maps = maps;
+				//me->set_maps(ce->maps);
+				//items = &ie->items;
+				//ice->set_items(items);
 				ice->update_dropdown();
 			}
 
@@ -178,6 +181,7 @@ namespace CampaignEditor
 					{
 						if (p.path().extension() == ext)
 						{
+							std::cout << "Loading map: " << p.path() << std::endl;
 							std::string s = p.path().string();
 							Map::Map* m = new Map::Map(MapBuilder::MapBuilder::LoadMap(s));
 							maps->push_back(m);
@@ -190,13 +194,8 @@ namespace CampaignEditor
 
 					fs::create_directory(map_directory);
 				}
-
-				ce->maps = this->maps;
-				me->set_maps(ce->maps);
-				items = &ie->items;
-				ice->set_items(items);
 				ice->update_dropdown();
-
+				me->populate_browser();
 			}
 		}
 		void save_as()
@@ -267,10 +266,6 @@ namespace CampaignEditor
 		fs::path character_directory;
 		fs::path campaign_dir;
 		// std::vector<Map::Map *> maps;
-		std::vector<Map::Map*>* maps;
-		std::vector<item::Item*>* items;
-
-		std::vector<itemcontainer::ItemContainer*>* itemcontainers;
 		// std::vector<Character::Character *> *characters;
 	};
 

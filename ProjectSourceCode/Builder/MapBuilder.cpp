@@ -80,8 +80,8 @@ Map::Map MapBuilder::MapBuilder::LoadMap(std::string& filename) {
 					mapload.setCols(col);
 					mapload.setRows(row);
 					mapload.setGrid();
-					mapload.setStartCell(std::stoi(split[2]), std::stoi(split[3]));
-					mapload.setEndCell(std::stoi(split[4]), std::stoi(split[5]));
+					//mapload.setStartCell(std::stoi(split[2]), std::stoi(split[3]));
+					//mapload.setEndCell(std::stoi(split[4]), std::stoi(split[5]));
 				}
 
 				else {

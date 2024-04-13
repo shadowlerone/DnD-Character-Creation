@@ -5,6 +5,12 @@ MapCellButton::MapCellButton(int x, int y, int w, int h, int _x, int _y, Interac
 {
 	this->x = _x;
 	this->y = _y;
-	ct = c;
+	if (c == nullptr) {
+		ct = new EmptyCell();
+	}
+	else {
+		ct = c;
+
+	}
 	// std::cout << _x << "," << _y << std::endl;
 }
